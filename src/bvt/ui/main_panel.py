@@ -10,15 +10,54 @@ class BVT_PT_MainPanel(bpy.types.Panel):
 
     def draw(self, context):
         layout = self.layout
+        settings = context.scene.bvt_project
 
         layout.label(
             text="Blender Visual Toolkit",
             icon="TOOL_SETTINGS",
         )
 
+        project_box = layout.box()
+
+        project_box.label(
+            text="Project",
+            icon="FILE_BLEND",
+        )
+
+        project_box.prop(
+            settings,
+            "project_name",
+        )
+
+        project_box.prop(
+            settings,
+            "output_directory",
+        )
+
+        project_box.prop(
+            settings,
+            "seed",
+        )
+
+        project_box.operator(
+            "bvt.initialize_project",
+            icon="CHECKMARK",
+        )
+
+        if settings.initialized:
+            project_box.separator()
+
+            project_box.label(
+                text="Project initialized",
+                icon="CHECKMARK",
+            )
+
+            project_box.label(
+                text=f"ID: {settings.project_id[:8]}",
+            )
+
         layout.separator()
 
-        layout.label(text="Project")
         layout.label(text="Scene")
         layout.label(text="Assets")
         layout.label(text="Placement")
