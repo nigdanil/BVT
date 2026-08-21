@@ -1,0 +1,22 @@
+schema_version = "1.0.0"
+
+id = "blender_visual_toolkit"
+version = "0.1.0"
+name = "Blender Visual Toolkit"
+tagline = "Synthetic dataset generation toolkit for Blender"
+maintainer = "Danil"
+
+type = "add-on"
+
+blender_version_min = "4.2.0"
+
+license = [
+  "SPDX:GPL-3.0-or-later",
+]
+
+[build]
+paths_exclude_pattern = [
+  "__pycache__/",
+  "/*.zip",
+  "/.git/",
+]
