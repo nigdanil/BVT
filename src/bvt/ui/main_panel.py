@@ -73,3 +73,9 @@ class BVT_PT_MainPanel(bpy.types.Panel):
             text="Generate Preview",
             icon="RENDER_STILL",
         )
+
+        layout.operator(
+            "bvt.generate_dataset",
+            text="Generate Dataset",
+            icon="FILE_TICK",
+        )

@@ -1,6 +1,7 @@
 import bpy
 
 from ..project.service import initialize_project
+from ..render.service import generate_minimal_dataset
 
 
 class BVT_OT_InitializeProject(bpy.types.Operator):
@@ -55,6 +56,36 @@ class BVT_OT_GeneratePreview(bpy.types.Operator):
             settings.project_id,
             "seed=",
             settings.seed,
+        )
+
+        return {"FINISHED"}
+
+
+class BVT_OT_GenerateDataset(bpy.types.Operator):
+    bl_idname = "bvt.generate_dataset"
+    bl_label = "Generate Dataset"
+    bl_description = "Generate the first BVT dataset"
+
+    def execute(self, context):
+        try:
+            result = generate_minimal_dataset(
+                context.scene,
+            )
+        except ValueError as exc:
+            self.report(
+                {"ERROR"},
+                str(exc),
+            )
+            return {"CANCELLED"}
+
+        self.report(
+            {"INFO"},
+            "BVT dataset generated successfully",
+        )
+
+        print(
+            "[BVT] Dataset generated:",
+            result["dataset_directory"],
         )
 
         return {"FINISHED"}
