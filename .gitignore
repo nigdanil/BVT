@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# Blender temporary files
+*.blend1
+*.blend2
+*.blend@
+
+# IDE
+.vscode/
+.idea/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Build artifacts
+releases/*.zip
