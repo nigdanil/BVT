@@ -212,6 +212,7 @@ project.frame_count = 3
 project.artifact_engine_enabled = True
 
 project.artifact_over_exposure_enabled = False
+project.artifact_reflection_enabled = False
 project.artifact_noise_enabled = False
 project.artifact_jpeg_enabled = False
 
@@ -272,6 +273,7 @@ for index, frame in enumerate(
 
     assert artifact_ids == [
         "over_exposure",
+        "reflection",
         "motion_blur",
         "noise",
         "jpeg_compression",
@@ -286,6 +288,20 @@ for index, frame in enumerate(
         artifacts[
             "over_exposure"
         ]["enabled"]
+        is False
+    )
+
+    assert (
+        artifacts[
+            "reflection"
+        ]["enabled"]
+        is False
+    )
+
+    assert (
+        artifacts[
+            "reflection"
+        ]["applied"]
         is False
     )
 

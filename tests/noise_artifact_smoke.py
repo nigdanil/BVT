@@ -237,6 +237,7 @@ project.frame_count = 3
 project.artifact_engine_enabled = True
 
 project.artifact_over_exposure_enabled = False
+project.artifact_reflection_enabled = False
 project.artifact_motion_blur_enabled = False
 project.artifact_jpeg_enabled = False
 
@@ -286,7 +287,24 @@ for frame in manifest["frames"]:
         "motion_blur",
         "noise",
         "over_exposure",
+        "reflection",
     }
+
+    reflection = (
+        artifacts[
+            "reflection"
+        ]
+    )
+
+    assert (
+        reflection["enabled"]
+        is False
+    )
+
+    assert (
+        reflection["applied"]
+        is False
+    )
 
     motion_blur = (
         artifacts[

@@ -164,6 +164,7 @@ project.artifact_over_exposure_enabled = True
 project.artifact_over_exposure_probability = 0.50
 project.artifact_over_exposure_intensity = 0.50
 
+project.artifact_reflection_enabled = False
 project.artifact_motion_blur_enabled = False
 project.artifact_noise_enabled = False
 project.artifact_jpeg_enabled = False
@@ -249,7 +250,7 @@ for frame in frames:
         len(
             engine_result["artifacts"]
         )
-        == 4
+        == 5
     )
 
     artifacts_by_id = {
@@ -265,7 +266,34 @@ for frame in frames:
         "motion_blur",
         "noise",
         "over_exposure",
+        "reflection",
     }
+
+    reflection_artifact = (
+        artifacts_by_id[
+            "reflection"
+        ]
+    )
+
+    assert (
+        reflection_artifact["enabled"]
+        is False
+    )
+
+    assert (
+        reflection_artifact["applied"]
+        is False
+    )
+
+    assert (
+        reflection_artifact["stage"]
+        == "pre_render"
+    )
+
+    assert (
+        reflection_artifact["parameters"]
+        == {}
+    )
 
     motion_blur_artifact = (
         artifacts_by_id[

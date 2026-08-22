@@ -240,6 +240,49 @@ class BVT_ProjectSettings(bpy.types.PropertyGroup):
         subtype="FACTOR",
     )
 
+    artifact_reflection_enabled: BoolProperty(
+        name="Reflection",
+        description=(
+            "Enable reflections on BVT glass materials"
+        ),
+        default=False,
+    )
+
+    artifact_reflection_probability: FloatProperty(
+        name="Probability",
+        description=(
+            "Probability of applying reflection "
+            "to each generated frame"
+        ),
+        default=0.50,
+        min=0.0,
+        max=1.0,
+        subtype="FACTOR",
+    )
+
+    artifact_reflection_intensity: FloatProperty(
+        name="Intensity",
+        description=(
+            "Strength of the glass reflection artifact"
+        ),
+        default=0.50,
+        min=0.0,
+        max=1.0,
+        subtype="FACTOR",
+    )
+
+    artifact_reflection_min_roughness: FloatProperty(
+        name="Min Roughness",
+        description=(
+            "Target glass roughness at full "
+            "reflection intensity"
+        ),
+        default=0.02,
+        min=0.0,
+        max=1.0,
+        subtype="FACTOR",
+    )
+
     artifact_motion_blur_enabled: BoolProperty(
         name="Motion Blur",
         description=(

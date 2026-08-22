@@ -6,6 +6,7 @@ from .motion_blur import (
     MotionBlurArtifactProvider,
 )
 from .noise import NoiseArtifactProvider
+from .reflection import ReflectionArtifactProvider
 
 
 __all__ = (
@@ -13,4 +14,5 @@ __all__ = (
     "MotionBlurArtifactProvider",
     "NoiseArtifactProvider",
     "JPEGCompressionArtifactProvider",
+    "ReflectionArtifactProvider",
 )

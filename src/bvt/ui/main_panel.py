@@ -131,6 +131,65 @@ class BVT_PT_MainPanel(bpy.types.Panel):
                 )
 
         # ---------------------------------------------------------
+        # Material Targeting
+        # ---------------------------------------------------------
+
+        material_box = layout.box()
+
+        material_box.label(
+            text="Material Targeting",
+            icon="MATERIAL",
+        )
+
+        if active_object is None:
+            material_box.label(
+                text="No active object",
+                icon="INFO",
+            )
+
+        elif active_object.type != "MESH":
+            material_box.label(
+                text="Select a mesh object",
+                icon="INFO",
+            )
+
+        elif not active_object.material_slots:
+            material_box.label(
+                text="Object has no materials",
+                icon="INFO",
+            )
+
+        else:
+            for index, slot in enumerate(
+                active_object.material_slots
+            ):
+                material = slot.material
+
+                if material is None:
+                    material_box.label(
+                        text=(
+                            f"Slot {index}: Empty"
+                        ),
+                        icon="INFO",
+                    )
+
+                    continue
+
+                row = material_box.row(
+                    align=True
+                )
+
+                row.label(
+                    text=material.name,
+                )
+
+                row.prop(
+                    material.bvt_material,
+                    "role",
+                    text="",
+                )
+
+        # ---------------------------------------------------------
         # Future modules
         # ---------------------------------------------------------
 
@@ -295,6 +354,33 @@ class BVT_PT_MainPanel(bpy.types.Panel):
                 artifacts_box.prop(
                     project,
                     "artifact_over_exposure_intensity",
+                )
+
+            artifacts_box.separator()
+
+            artifacts_box.label(
+                text="Reflection",
+            )
+
+            artifacts_box.prop(
+                project,
+                "artifact_reflection_enabled",
+            )
+
+            if project.artifact_reflection_enabled:
+                artifacts_box.prop(
+                    project,
+                    "artifact_reflection_probability",
+                )
+
+                artifacts_box.prop(
+                    project,
+                    "artifact_reflection_intensity",
+                )
+
+                artifacts_box.prop(
+                    project,
+                    "artifact_reflection_min_roughness",
                 )
 
             artifacts_box.separator()

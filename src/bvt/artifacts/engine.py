@@ -15,6 +15,9 @@ from .providers.motion_blur import (
 from .providers.noise import (
     NoiseArtifactProvider,
 )
+from .providers.reflection import (
+    ReflectionArtifactProvider,
+)
 
 
 ARTIFACT_ENGINE_VERSION = (
@@ -24,6 +27,7 @@ ARTIFACT_ENGINE_VERSION = (
 
 _PROVIDERS = (
     OverExposureArtifactProvider(),
+    ReflectionArtifactProvider(),
     MotionBlurArtifactProvider(),
     NoiseArtifactProvider(),
     JPEGCompressionArtifactProvider(),
@@ -56,6 +60,27 @@ def build_artifact_configs(
                 project_settings
                 .artifact_over_exposure_intensity
             ),
+        ),
+        ArtifactConfig(
+            artifact_id="reflection",
+            enabled=(
+                project_settings
+                .artifact_reflection_enabled
+            ),
+            probability=(
+                project_settings
+                .artifact_reflection_probability
+            ),
+            intensity=(
+                project_settings
+                .artifact_reflection_intensity
+            ),
+            options={
+                "min_roughness": (
+                    project_settings
+                    .artifact_reflection_min_roughness
+                ),
+            },
         ),
         ArtifactConfig(
             artifact_id="motion_blur",
