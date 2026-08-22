@@ -237,6 +237,7 @@ project.frame_count = 3
 project.artifact_engine_enabled = True
 
 project.artifact_over_exposure_enabled = False
+project.artifact_motion_blur_enabled = False
 project.artifact_jpeg_enabled = False
 
 project.artifact_noise_enabled = True
@@ -282,9 +283,26 @@ for frame in manifest["frames"]:
         artifacts
     ) == {
         "jpeg_compression",
+        "motion_blur",
         "noise",
         "over_exposure",
     }
+
+    motion_blur = (
+        artifacts[
+            "motion_blur"
+        ]
+    )
+
+    assert (
+        motion_blur["enabled"]
+        is False
+    )
+
+    assert (
+        motion_blur["applied"]
+        is False
+    )
 
     jpeg = (
         artifacts[

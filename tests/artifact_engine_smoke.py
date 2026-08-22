@@ -164,6 +164,7 @@ project.artifact_over_exposure_enabled = True
 project.artifact_over_exposure_probability = 0.50
 project.artifact_over_exposure_intensity = 0.50
 
+project.artifact_motion_blur_enabled = False
 project.artifact_noise_enabled = False
 project.artifact_jpeg_enabled = False
 
@@ -248,7 +249,7 @@ for frame in frames:
         len(
             engine_result["artifacts"]
         )
-        == 3
+        == 4
     )
 
     artifacts_by_id = {
@@ -261,9 +262,43 @@ for frame in frames:
         artifacts_by_id
     ) == {
         "jpeg_compression",
+        "motion_blur",
         "noise",
         "over_exposure",
     }
+
+    motion_blur_artifact = (
+        artifacts_by_id[
+            "motion_blur"
+        ]
+    )
+
+    assert (
+        motion_blur_artifact["enabled"]
+        is False
+    )
+
+    assert (
+        motion_blur_artifact["applied"]
+        is False
+    )
+
+    assert (
+        motion_blur_artifact["stage"]
+        == "post_render"
+    )
+
+    assert (
+        motion_blur_artifact[
+            "execution_order"
+        ]
+        == 50
+    )
+
+    assert (
+        motion_blur_artifact["parameters"]
+        == {}
+    )
 
     jpeg_artifact = (
         artifacts_by_id[

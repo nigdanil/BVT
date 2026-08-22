@@ -211,6 +211,7 @@ clean_bbox = tuple(
 project.artifact_engine_enabled = True
 
 project.artifact_over_exposure_enabled = False
+project.artifact_motion_blur_enabled = False
 project.artifact_noise_enabled = False
 
 project.artifact_jpeg_enabled = True
@@ -262,6 +263,7 @@ artifact_ids = [
 
 assert artifact_ids == [
     "over_exposure",
+    "motion_blur",
     "noise",
     "jpeg_compression",
 ]
@@ -278,10 +280,23 @@ assert set(
     artifacts
 ) == {
     "jpeg_compression",
+    "motion_blur",
     "noise",
     "over_exposure",
 }
 
+
+assert (
+    artifacts["motion_blur"]["enabled"]
+    is False
+)
+
+assert (
+    artifacts["motion_blur"][
+        "execution_order"
+    ]
+    == 50
+)
 
 assert (
     artifacts["noise"]["enabled"]

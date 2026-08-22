@@ -240,6 +240,59 @@ class BVT_ProjectSettings(bpy.types.PropertyGroup):
         subtype="FACTOR",
     )
 
+    artifact_motion_blur_enabled: BoolProperty(
+        name="Motion Blur",
+        description=(
+            "Enable deterministic camera motion blur"
+        ),
+        default=False,
+    )
+
+    artifact_motion_blur_probability: FloatProperty(
+        name="Probability",
+        description=(
+            "Probability of applying motion blur "
+            "to each generated frame"
+        ),
+        default=0.50,
+        min=0.0,
+        max=1.0,
+        subtype="FACTOR",
+    )
+
+    artifact_motion_blur_intensity: FloatProperty(
+        name="Intensity",
+        description=(
+            "Strength of camera motion blur"
+        ),
+        default=0.50,
+        min=0.0,
+        max=1.0,
+        subtype="FACTOR",
+    )
+
+    artifact_motion_blur_direction_range_degrees: FloatProperty(
+        name="Direction Range",
+        description=(
+            "Maximum seeded motion direction "
+            "in degrees"
+        ),
+        default=180.0,
+        min=0.0,
+        max=180.0,
+    )
+
+    artifact_motion_blur_max_length_pixels: IntProperty(
+        name="Max Length",
+        description=(
+            "Maximum motion blur length "
+            "at full intensity in pixels"
+        ),
+        default=16,
+        min=1,
+        max=64,
+    )
+
     artifact_noise_enabled: BoolProperty(
         name="Noise",
         description=(

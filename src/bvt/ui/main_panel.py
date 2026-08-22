@@ -300,6 +300,38 @@ class BVT_PT_MainPanel(bpy.types.Panel):
             artifacts_box.separator()
 
             artifacts_box.label(
+                text="Motion Blur",
+            )
+
+            artifacts_box.prop(
+                project,
+                "artifact_motion_blur_enabled",
+            )
+
+            if project.artifact_motion_blur_enabled:
+                artifacts_box.prop(
+                    project,
+                    "artifact_motion_blur_probability",
+                )
+
+                artifacts_box.prop(
+                    project,
+                    "artifact_motion_blur_intensity",
+                )
+
+                artifacts_box.prop(
+                    project,
+                    "artifact_motion_blur_direction_range_degrees",
+                )
+
+                artifacts_box.prop(
+                    project,
+                    "artifact_motion_blur_max_length_pixels",
+                )
+
+            artifacts_box.separator()
+
+            artifacts_box.label(
                 text="Noise",
             )
 

@@ -9,6 +9,9 @@ from .providers.exposure import (
 from .providers.jpeg_compression import (
     JPEGCompressionArtifactProvider,
 )
+from .providers.motion_blur import (
+    MotionBlurArtifactProvider,
+)
 from .providers.noise import (
     NoiseArtifactProvider,
 )
@@ -21,6 +24,7 @@ ARTIFACT_ENGINE_VERSION = (
 
 _PROVIDERS = (
     OverExposureArtifactProvider(),
+    MotionBlurArtifactProvider(),
     NoiseArtifactProvider(),
     JPEGCompressionArtifactProvider(),
 )
@@ -52,6 +56,31 @@ def build_artifact_configs(
                 project_settings
                 .artifact_over_exposure_intensity
             ),
+        ),
+        ArtifactConfig(
+            artifact_id="motion_blur",
+            enabled=(
+                project_settings
+                .artifact_motion_blur_enabled
+            ),
+            probability=(
+                project_settings
+                .artifact_motion_blur_probability
+            ),
+            intensity=(
+                project_settings
+                .artifact_motion_blur_intensity
+            ),
+            options={
+                "direction_range_degrees": (
+                    project_settings
+                    .artifact_motion_blur_direction_range_degrees
+                ),
+                "max_length_pixels": (
+                    project_settings
+                    .artifact_motion_blur_max_length_pixels
+                ),
+            },
         ),
         ArtifactConfig(
             artifact_id="noise",
