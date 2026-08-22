@@ -20,3 +20,6 @@ releases/*.zip
 
 # Local test artifacts
 .tmp/
+
+# Generated BVT datasets
+**/bvt_output/

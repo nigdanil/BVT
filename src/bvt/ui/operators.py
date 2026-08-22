@@ -1,5 +1,6 @@
 import bpy
 
+from ..annotation.service import register_object
 from ..project.service import initialize_project
 from ..render.service import generate_minimal_dataset
 
@@ -11,20 +12,60 @@ class BVT_OT_InitializeProject(bpy.types.Operator):
 
     def execute(self, context):
         try:
-            settings = initialize_project(context.scene)
+            settings = initialize_project(
+                context.scene,
+            )
         except ValueError as exc:
-            self.report({"ERROR"}, str(exc))
+            self.report(
+                {"ERROR"},
+                str(exc),
+            )
             return {"CANCELLED"}
 
         self.report(
             {"INFO"},
-            f"BVT project initialized: {settings.project_name}",
+            (
+                "BVT project initialized: "
+                f"{settings.project_name}"
+            ),
+        )
+
+        return {"FINISHED"}
+
+
+class BVT_OT_RegisterSelectedObject(
+    bpy.types.Operator
+):
+    bl_idname = "bvt.register_selected_object"
+    bl_label = "Register Selected Object"
+    bl_description = (
+        "Register the active mesh object "
+        "for BVT annotations"
+    )
+
+    def execute(self, context):
+        try:
+            settings = register_object(
+                context.active_object,
+            )
+        except ValueError as exc:
+            self.report(
+                {"ERROR"},
+                str(exc),
+            )
+            return {"CANCELLED"}
+
+        self.report(
+            {"INFO"},
+            (
+                "BVT object registered: "
+                f"{context.active_object.name}"
+            ),
         )
 
         print(
-            "[BVT] Project initialized:",
-            settings.project_id,
-            settings.project_name,
+            "[BVT] Object registered:",
+            settings.instance_id,
         )
 
         return {"FINISHED"}
@@ -33,10 +74,14 @@ class BVT_OT_InitializeProject(bpy.types.Operator):
 class BVT_OT_GeneratePreview(bpy.types.Operator):
     bl_idname = "bvt.generate_preview"
     bl_label = "Generate Preview"
-    bl_description = "Run a minimal Blender Visual Toolkit preview"
+    bl_description = (
+        "Run a minimal Blender Visual Toolkit preview"
+    )
 
     def execute(self, context):
-        settings = context.scene.bvt_project
+        settings = (
+            context.scene.bvt_project
+        )
 
         if not settings.initialized:
             self.report(
@@ -50,21 +95,15 @@ class BVT_OT_GeneratePreview(bpy.types.Operator):
             "Blender Visual Toolkit is running",
         )
 
-        print(
-            "[BVT] Generate Preview",
-            "project_id=",
-            settings.project_id,
-            "seed=",
-            settings.seed,
-        )
-
         return {"FINISHED"}
 
 
 class BVT_OT_GenerateDataset(bpy.types.Operator):
     bl_idname = "bvt.generate_dataset"
     bl_label = "Generate Dataset"
-    bl_description = "Generate the first BVT dataset"
+    bl_description = (
+        "Generate the first BVT dataset"
+    )
 
     def execute(self, context):
         try:

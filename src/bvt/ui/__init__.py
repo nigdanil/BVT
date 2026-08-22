@@ -4,10 +4,12 @@ from .main_panel import BVT_PT_MainPanel
 from .operators import BVT_OT_GenerateDataset
 from .operators import BVT_OT_GeneratePreview
 from .operators import BVT_OT_InitializeProject
+from .operators import BVT_OT_RegisterSelectedObject
 
 
 _CLASSES = (
     BVT_OT_InitializeProject,
+    BVT_OT_RegisterSelectedObject,
     BVT_OT_GeneratePreview,
     BVT_OT_GenerateDataset,
     BVT_PT_MainPanel,
