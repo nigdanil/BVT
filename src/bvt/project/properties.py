@@ -1,5 +1,6 @@
 import bpy
 from bpy.props import BoolProperty
+from bpy.props import FloatProperty
 from bpy.props import IntProperty
 from bpy.props import PointerProperty
 from bpy.props import StringProperty
@@ -39,6 +40,42 @@ class BVT_ProjectSettings(bpy.types.PropertyGroup):
         default=DEFAULT_FRAME_COUNT,
         min=1,
         max=MAX_FRAME_COUNT,
+    )
+
+    placement_randomization_enabled: BoolProperty(
+        name="Random Placement",
+        description=(
+            "Randomize registered object positions "
+            "for every generated frame"
+        ),
+        default=False,
+    )
+
+    placement_offset_x: FloatProperty(
+        name="X Range",
+        description="Maximum random X offset",
+        default=0.03,
+        min=0.0,
+        max=1000.0,
+        unit="LENGTH",
+    )
+
+    placement_offset_y: FloatProperty(
+        name="Y Range",
+        description="Maximum random Y offset",
+        default=0.03,
+        min=0.0,
+        max=1000.0,
+        unit="LENGTH",
+    )
+
+    placement_offset_z: FloatProperty(
+        name="Z Range",
+        description="Maximum random Z offset",
+        default=0.0,
+        min=0.0,
+        max=1000.0,
+        unit="LENGTH",
     )
 
     initialized: BoolProperty(

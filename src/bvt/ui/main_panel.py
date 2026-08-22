@@ -138,7 +138,33 @@ class BVT_PT_MainPanel(bpy.types.Panel):
 
         layout.label(text="Scene")
         layout.label(text="Assets")
-        layout.label(text="Placement")
+        placement_box = layout.box()
+
+        placement_box.label(
+            text="Placement",
+            icon="ORIENTATION_LOCAL",
+        )
+
+        placement_box.prop(
+            project,
+            "placement_randomization_enabled",
+        )
+
+        if project.placement_randomization_enabled:
+            placement_box.prop(
+                project,
+                "placement_offset_x",
+            )
+
+            placement_box.prop(
+                project,
+                "placement_offset_y",
+            )
+
+            placement_box.prop(
+                project,
+                "placement_offset_z",
+            )
         layout.label(text="Camera")
         layout.label(text="Lighting")
         layout.label(text="Artifacts")

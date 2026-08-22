@@ -8,6 +8,9 @@ from ..core.constants import DEFAULT_RENDER_RESOLUTION
 from ..core.seeding import derive_frame_seed
 from ..export.manifest import build_dataset_manifest
 from ..export.manifest import write_manifest
+from ..placement.randomizer import apply_random_placement
+from ..placement.randomizer import capture_placement_baseline
+from ..placement.randomizer import restore_placement
 from ..validation.dataset import validate_dataset
 from ..validation.dataset import write_validation_report
 
@@ -117,6 +120,12 @@ def generate_dataset(scene):
 
     dataset_classes = None
 
+    placement_baseline = (
+        capture_placement_baseline(
+            scene,
+        )
+    )
+
     try:
         scene.render.resolution_x = resolution
         scene.render.resolution_y = resolution
@@ -143,6 +152,15 @@ def generate_dataset(scene):
             # Future randomizers will use frame_seed.
             scene.frame_set(
                 frame_index,
+            )
+
+            placement_result = (
+                apply_random_placement(
+                    scene=scene,
+                    project_settings=settings,
+                    frame_seed=frame_seed,
+                    baseline=placement_baseline,
+                )
             )
 
             image_path = (
@@ -198,6 +216,11 @@ def generate_dataset(scene):
                             "annotations"
                         ]
                     ),
+                    "randomization": {
+                        "placement": (
+                            placement_result
+                        ),
+                    },
                 }
             )
 
@@ -261,6 +284,11 @@ def generate_dataset(scene):
             )
 
     finally:
+        restore_placement(
+            scene,
+            placement_baseline,
+        )
+
         scene.frame_set(
             original_frame,
         )
