@@ -319,6 +319,38 @@ class BVT_PT_MainPanel(bpy.types.Panel):
                     "artifact_noise_intensity",
                 )
 
+            artifacts_box.separator()
+
+            artifacts_box.label(
+                text="JPEG Compression",
+            )
+
+            artifacts_box.prop(
+                project,
+                "artifact_jpeg_enabled",
+            )
+
+            if project.artifact_jpeg_enabled:
+                artifacts_box.prop(
+                    project,
+                    "artifact_jpeg_probability",
+                )
+
+                artifacts_box.prop(
+                    project,
+                    "artifact_jpeg_intensity",
+                )
+
+                artifacts_box.prop(
+                    project,
+                    "artifact_jpeg_quality",
+                )
+
+                artifacts_box.prop(
+                    project,
+                    "artifact_jpeg_chroma_loss",
+                )
+
         layout.label(text="Export")
 
         # ---------------------------------------------------------

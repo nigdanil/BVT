@@ -237,6 +237,7 @@ project.frame_count = 3
 project.artifact_engine_enabled = True
 
 project.artifact_over_exposure_enabled = False
+project.artifact_jpeg_enabled = False
 
 project.artifact_noise_enabled = True
 project.artifact_noise_probability = 1.0
@@ -280,9 +281,26 @@ for frame in manifest["frames"]:
     assert set(
         artifacts
     ) == {
+        "jpeg_compression",
         "noise",
         "over_exposure",
     }
+
+    jpeg = (
+        artifacts[
+            "jpeg_compression"
+        ]
+    )
+
+    assert (
+        jpeg["enabled"]
+        is False
+    )
+
+    assert (
+        jpeg["applied"]
+        is False
+    )
 
     exposure = (
         artifacts[

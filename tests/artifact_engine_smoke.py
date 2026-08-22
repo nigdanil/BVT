@@ -165,6 +165,7 @@ project.artifact_over_exposure_probability = 0.50
 project.artifact_over_exposure_intensity = 0.50
 
 project.artifact_noise_enabled = False
+project.artifact_jpeg_enabled = False
 
 
 initialize_project(
@@ -247,7 +248,7 @@ for frame in frames:
         len(
             engine_result["artifacts"]
         )
-        == 2
+        == 3
     )
 
     artifacts_by_id = {
@@ -259,9 +260,31 @@ for frame in frames:
     assert set(
         artifacts_by_id
     ) == {
+        "jpeg_compression",
         "noise",
         "over_exposure",
     }
+
+    jpeg_artifact = (
+        artifacts_by_id[
+            "jpeg_compression"
+        ]
+    )
+
+    assert (
+        jpeg_artifact["enabled"]
+        is False
+    )
+
+    assert (
+        jpeg_artifact["applied"]
+        is False
+    )
+
+    assert (
+        jpeg_artifact["stage"]
+        == "post_render"
+    )
 
     noise_artifact = (
         artifacts_by_id["noise"]

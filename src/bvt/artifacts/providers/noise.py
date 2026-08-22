@@ -17,6 +17,7 @@ class NoiseArtifactProvider(
     artifact_id = "noise"
     category = "sensor"
     stage = "post_render"
+    execution_order = 100
 
     description = (
         "Simulates deterministic RGB sensor noise"

@@ -6,6 +6,9 @@ from .base import ArtifactContext
 from .providers.exposure import (
     OverExposureArtifactProvider,
 )
+from .providers.jpeg_compression import (
+    JPEGCompressionArtifactProvider,
+)
 from .providers.noise import (
     NoiseArtifactProvider,
 )
@@ -19,6 +22,7 @@ ARTIFACT_ENGINE_VERSION = (
 _PROVIDERS = (
     OverExposureArtifactProvider(),
     NoiseArtifactProvider(),
+    JPEGCompressionArtifactProvider(),
 )
 
 
@@ -63,6 +67,31 @@ def build_artifact_configs(
                 project_settings
                 .artifact_noise_intensity
             ),
+        ),
+        ArtifactConfig(
+            artifact_id="jpeg_compression",
+            enabled=(
+                project_settings
+                .artifact_jpeg_enabled
+            ),
+            probability=(
+                project_settings
+                .artifact_jpeg_probability
+            ),
+            intensity=(
+                project_settings
+                .artifact_jpeg_intensity
+            ),
+            options={
+                "quality": (
+                    project_settings
+                    .artifact_jpeg_quality
+                ),
+                "chroma_loss": (
+                    project_settings
+                    .artifact_jpeg_chroma_loss
+                ),
+            },
         ),
     )
 
@@ -125,6 +154,27 @@ def _provider_for(
     return provider
 
 
+def _artifact_execution_key(
+    config,
+):
+    provider = _provider_for(
+        config.artifact_id
+    )
+
+    stage_order = {
+        "pre_render": 0,
+        "post_render": 1,
+    }
+
+    return (
+        stage_order[
+            provider.stage
+        ],
+        provider.execution_order,
+        config.artifact_id,
+    )
+
+
 def _context_from_record(
     record,
     frame_seed,
@@ -141,6 +191,12 @@ def _context_from_record(
         ),
         intensity=(
             record["intensity"]
+        ),
+        options=dict(
+            record.get(
+                "options",
+                {},
+            )
         ),
     )
 
@@ -191,9 +247,7 @@ def apply_artifacts(
         build_artifact_configs(
             project_settings,
         ),
-        key=lambda item: (
-            item.artifact_id
-        ),
+        key=_artifact_execution_key,
     )
 
     for config in configs:

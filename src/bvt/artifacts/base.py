@@ -1,6 +1,7 @@
 from abc import ABC
 from abc import abstractmethod
 from dataclasses import dataclass
+from dataclasses import field
 
 
 @dataclass(frozen=True)
@@ -11,6 +12,9 @@ class ArtifactConfig:
     enabled: bool
     probability: float
     intensity: float
+    options: dict = field(
+        default_factory=dict
+    )
 
 
 @dataclass(frozen=True)
@@ -30,6 +34,7 @@ class ArtifactProvider(ABC):
     category = ""
     description = ""
     stage = "pre_render"
+    execution_order = 100
 
     def validate_config(
         self,
@@ -73,6 +78,18 @@ class ArtifactProvider(ABC):
             raise ValueError(
                 "Artifact stage must be "
                 "'pre_render' or 'post_render'"
+            )
+
+        if (
+            not isinstance(
+                self.execution_order,
+                int,
+            )
+            or self.execution_order < 0
+        ):
+            raise ValueError(
+                "Artifact execution order must "
+                "be a non-negative integer"
             )
 
     @abstractmethod
@@ -155,6 +172,9 @@ class ArtifactProvider(ABC):
             "category": self.category,
             "description": self.description,
             "stage": self.stage,
+            "execution_order": (
+                self.execution_order
+            ),
             "enabled": (
                 context.config.enabled
             ),
@@ -163,6 +183,9 @@ class ArtifactProvider(ABC):
             ),
             "intensity": (
                 context.config.intensity
+            ),
+            "options": dict(
+                context.config.options
             ),
             "seed": (
                 context.artifact_seed

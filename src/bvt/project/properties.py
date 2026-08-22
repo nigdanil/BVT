@@ -271,6 +271,59 @@ class BVT_ProjectSettings(bpy.types.PropertyGroup):
         subtype="FACTOR",
     )
 
+    artifact_jpeg_enabled: BoolProperty(
+        name="JPEG Compression",
+        description=(
+            "Enable JPEG compression artifacts"
+        ),
+        default=False,
+    )
+
+    artifact_jpeg_probability: FloatProperty(
+        name="Probability",
+        description=(
+            "Probability of applying JPEG "
+            "compression to each generated frame"
+        ),
+        default=0.50,
+        min=0.0,
+        max=1.0,
+        subtype="FACTOR",
+    )
+
+    artifact_jpeg_intensity: FloatProperty(
+        name="Intensity",
+        description=(
+            "Overall strength of JPEG degradation"
+        ),
+        default=0.50,
+        min=0.0,
+        max=1.0,
+        subtype="FACTOR",
+    )
+
+    artifact_jpeg_quality: IntProperty(
+        name="Quality",
+        description=(
+            "Target JPEG quality at full intensity"
+        ),
+        default=40,
+        min=1,
+        max=100,
+    )
+
+    artifact_jpeg_chroma_loss: FloatProperty(
+        name="Chroma Loss",
+        description=(
+            "Amount of chroma degradation "
+            "at full intensity"
+        ),
+        default=0.50,
+        min=0.0,
+        max=1.0,
+        subtype="FACTOR",
+    )
+
     initialized: BoolProperty(
         name="Initialized",
         default=False,
