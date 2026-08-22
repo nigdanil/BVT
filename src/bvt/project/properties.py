@@ -1,3 +1,5 @@
+import math
+
 import bpy
 from bpy.props import BoolProperty
 from bpy.props import FloatProperty
@@ -76,6 +78,69 @@ class BVT_ProjectSettings(bpy.types.PropertyGroup):
         min=0.0,
         max=1000.0,
         unit="LENGTH",
+    )
+
+    camera_randomization_enabled: BoolProperty(
+        name="Random Camera",
+        description=(
+            "Randomize the active camera transform "
+            "for every generated frame"
+        ),
+        default=False,
+    )
+
+    camera_position_offset_x: FloatProperty(
+        name="Position X Range",
+        description="Maximum camera X position offset",
+        default=0.10,
+        min=0.0,
+        max=1000.0,
+        unit="LENGTH",
+    )
+
+    camera_position_offset_y: FloatProperty(
+        name="Position Y Range",
+        description="Maximum camera Y position offset",
+        default=0.10,
+        min=0.0,
+        max=1000.0,
+        unit="LENGTH",
+    )
+
+    camera_position_offset_z: FloatProperty(
+        name="Position Z Range",
+        description="Maximum camera Z position offset",
+        default=0.05,
+        min=0.0,
+        max=1000.0,
+        unit="LENGTH",
+    )
+
+    camera_rotation_offset_x: FloatProperty(
+        name="Rotation X Range",
+        description="Maximum camera X rotation offset",
+        default=math.radians(2.0),
+        min=0.0,
+        max=math.radians(45.0),
+        unit="ROTATION",
+    )
+
+    camera_rotation_offset_y: FloatProperty(
+        name="Rotation Y Range",
+        description="Maximum camera Y rotation offset",
+        default=math.radians(2.0),
+        min=0.0,
+        max=math.radians(45.0),
+        unit="ROTATION",
+    )
+
+    camera_rotation_offset_z: FloatProperty(
+        name="Rotation Z Range",
+        description="Maximum camera Z rotation offset",
+        default=math.radians(2.0),
+        min=0.0,
+        max=math.radians(45.0),
+        unit="ROTATION",
     )
 
     initialized: BoolProperty(

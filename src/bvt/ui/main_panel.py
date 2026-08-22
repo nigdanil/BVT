@@ -165,7 +165,59 @@ class BVT_PT_MainPanel(bpy.types.Panel):
                 project,
                 "placement_offset_z",
             )
-        layout.label(text="Camera")
+        camera_box = layout.box()
+
+        camera_box.label(
+            text="Camera",
+            icon="CAMERA_DATA",
+        )
+
+        camera_box.prop(
+            project,
+            "camera_randomization_enabled",
+        )
+
+        if project.camera_randomization_enabled:
+            camera_box.label(
+                text="Position Range",
+            )
+
+            camera_box.prop(
+                project,
+                "camera_position_offset_x",
+            )
+
+            camera_box.prop(
+                project,
+                "camera_position_offset_y",
+            )
+
+            camera_box.prop(
+                project,
+                "camera_position_offset_z",
+            )
+
+            camera_box.separator()
+
+            camera_box.label(
+                text="Rotation Range",
+            )
+
+            camera_box.prop(
+                project,
+                "camera_rotation_offset_x",
+            )
+
+            camera_box.prop(
+                project,
+                "camera_rotation_offset_y",
+            )
+
+            camera_box.prop(
+                project,
+                "camera_rotation_offset_z",
+            )
+
         layout.label(text="Lighting")
         layout.label(text="Artifacts")
         layout.label(text="Export")

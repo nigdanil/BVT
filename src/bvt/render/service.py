@@ -4,6 +4,9 @@ from pathlib import Path
 import bpy
 
 from ..annotation.yolo import write_yolo_annotations
+from ..camera.randomizer import apply_random_camera
+from ..camera.randomizer import capture_camera_baseline
+from ..camera.randomizer import restore_camera
 from ..core.constants import DEFAULT_RENDER_RESOLUTION
 from ..core.seeding import derive_frame_seed
 from ..export.manifest import build_dataset_manifest
@@ -126,6 +129,12 @@ def generate_dataset(scene):
         )
     )
 
+    camera_baseline = (
+        capture_camera_baseline(
+            scene,
+        )
+    )
+
     try:
         scene.render.resolution_x = resolution
         scene.render.resolution_y = resolution
@@ -160,6 +169,15 @@ def generate_dataset(scene):
                     project_settings=settings,
                     frame_seed=frame_seed,
                     baseline=placement_baseline,
+                )
+            )
+
+            camera_result = (
+                apply_random_camera(
+                    scene=scene,
+                    project_settings=settings,
+                    frame_seed=frame_seed,
+                    baseline=camera_baseline,
                 )
             )
 
@@ -219,6 +237,9 @@ def generate_dataset(scene):
                     "randomization": {
                         "placement": (
                             placement_result
+                        ),
+                        "camera": (
+                            camera_result
                         ),
                     },
                 }
@@ -284,13 +305,18 @@ def generate_dataset(scene):
             )
 
     finally:
+        scene.frame_set(
+            original_frame,
+        )
+
         restore_placement(
             scene,
             placement_baseline,
         )
 
-        scene.frame_set(
-            original_frame,
+        restore_camera(
+            scene,
+            camera_baseline,
         )
 
         scene.render.filepath = (
