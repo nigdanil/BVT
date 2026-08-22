@@ -218,7 +218,50 @@ class BVT_PT_MainPanel(bpy.types.Panel):
                 "camera_rotation_offset_z",
             )
 
-        layout.label(text="Lighting")
+        lighting_box = layout.box()
+
+        lighting_box.label(
+            text="Lighting",
+            icon="LIGHT",
+        )
+
+        lighting_box.prop(
+            project,
+            "lighting_randomization_enabled",
+        )
+
+        if project.lighting_randomization_enabled:
+            lighting_box.prop(
+                project,
+                "lighting_energy_variation",
+            )
+
+            lighting_box.prop(
+                project,
+                "lighting_color_variation",
+            )
+
+            lighting_box.separator()
+
+            lighting_box.label(
+                text="Position Range",
+            )
+
+            lighting_box.prop(
+                project,
+                "lighting_position_offset_x",
+            )
+
+            lighting_box.prop(
+                project,
+                "lighting_position_offset_y",
+            )
+
+            lighting_box.prop(
+                project,
+                "lighting_position_offset_z",
+            )
+
         layout.label(text="Artifacts")
         layout.label(text="Export")
 

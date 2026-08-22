@@ -11,6 +11,9 @@ from ..core.constants import DEFAULT_RENDER_RESOLUTION
 from ..core.seeding import derive_frame_seed
 from ..export.manifest import build_dataset_manifest
 from ..export.manifest import write_manifest
+from ..lighting.randomizer import apply_random_lighting
+from ..lighting.randomizer import capture_lighting_baseline
+from ..lighting.randomizer import restore_lighting
 from ..placement.randomizer import apply_random_placement
 from ..placement.randomizer import capture_placement_baseline
 from ..placement.randomizer import restore_placement
@@ -135,6 +138,12 @@ def generate_dataset(scene):
         )
     )
 
+    lighting_baseline = (
+        capture_lighting_baseline(
+            scene,
+        )
+    )
+
     try:
         scene.render.resolution_x = resolution
         scene.render.resolution_y = resolution
@@ -178,6 +187,15 @@ def generate_dataset(scene):
                     project_settings=settings,
                     frame_seed=frame_seed,
                     baseline=camera_baseline,
+                )
+            )
+
+            lighting_result = (
+                apply_random_lighting(
+                    scene=scene,
+                    project_settings=settings,
+                    frame_seed=frame_seed,
+                    baseline=lighting_baseline,
                 )
             )
 
@@ -240,6 +258,9 @@ def generate_dataset(scene):
                         ),
                         "camera": (
                             camera_result
+                        ),
+                        "lighting": (
+                            lighting_result
                         ),
                     },
                 }
@@ -317,6 +338,11 @@ def generate_dataset(scene):
         restore_camera(
             scene,
             camera_baseline,
+        )
+
+        restore_lighting(
+            scene,
+            lighting_baseline,
         )
 
         scene.render.filepath = (

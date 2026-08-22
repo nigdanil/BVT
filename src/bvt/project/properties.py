@@ -143,6 +143,64 @@ class BVT_ProjectSettings(bpy.types.PropertyGroup):
         unit="ROTATION",
     )
 
+    lighting_randomization_enabled: BoolProperty(
+        name="Random Lighting",
+        description=(
+            "Randomize scene lights "
+            "for every generated frame"
+        ),
+        default=False,
+    )
+
+    lighting_energy_variation: FloatProperty(
+        name="Energy Variation",
+        description=(
+            "Maximum relative light energy variation"
+        ),
+        default=0.25,
+        min=0.0,
+        max=1.0,
+        subtype="FACTOR",
+    )
+
+    lighting_color_variation: FloatProperty(
+        name="Color Variation",
+        description=(
+            "Maximum per-channel light color variation"
+        ),
+        default=0.05,
+        min=0.0,
+        max=1.0,
+        subtype="FACTOR",
+    )
+
+    lighting_position_offset_x: FloatProperty(
+        name="Position X Range",
+        description="Maximum light X position offset",
+        default=0.25,
+        min=0.0,
+        max=1000.0,
+        unit="LENGTH",
+    )
+
+    lighting_position_offset_y: FloatProperty(
+        name="Position Y Range",
+        description="Maximum light Y position offset",
+        default=0.25,
+        min=0.0,
+        max=1000.0,
+        unit="LENGTH",
+    )
+
+    lighting_position_offset_z: FloatProperty(
+        name="Position Z Range",
+        description="Maximum light Z position offset",
+        default=0.25,
+        min=0.0,
+        max=1000.0,
+        unit="LENGTH",
+    )
+
     initialized: BoolProperty(
         name="Initialized",
         default=False,
