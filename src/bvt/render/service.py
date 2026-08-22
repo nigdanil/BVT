@@ -6,6 +6,8 @@ from ..annotation.yolo import write_yolo_annotations
 from ..core.constants import DEFAULT_RENDER_RESOLUTION
 from ..export.manifest import build_dataset_manifest
 from ..export.manifest import write_manifest
+from ..validation.dataset import validate_dataset
+from ..validation.dataset import write_validation_report
 
 
 def resolve_output_directory(settings):
@@ -176,6 +178,21 @@ def generate_minimal_dataset(scene):
             manifest,
         )
 
+        validation_report = validate_dataset(
+            dataset_directory,
+        )
+
+        validation_path = write_validation_report(
+            dataset_directory,
+            validation_report,
+        )
+
+        if validation_report["status"] != "PASS":
+            raise ValueError(
+                "Dataset validation failed: "
+                f"{len(validation_report['errors'])} error(s)"
+            )
+
     finally:
         scene.render.filepath = (
             original_filepath
@@ -210,4 +227,6 @@ def generate_minimal_dataset(scene):
             dataset_directory
             / "classes.txt"
         ),
+        "validation_path": validation_path,
+        "validation_report": validation_report,
     }
