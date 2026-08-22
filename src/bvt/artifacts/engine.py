@@ -6,6 +6,9 @@ from .base import ArtifactContext
 from .providers.exposure import (
     OverExposureArtifactProvider,
 )
+from .providers.noise import (
+    NoiseArtifactProvider,
+)
 
 
 ARTIFACT_ENGINE_VERSION = (
@@ -15,6 +18,7 @@ ARTIFACT_ENGINE_VERSION = (
 
 _PROVIDERS = (
     OverExposureArtifactProvider(),
+    NoiseArtifactProvider(),
 )
 
 
@@ -45,13 +49,28 @@ def build_artifact_configs(
                 .artifact_over_exposure_intensity
             ),
         ),
+        ArtifactConfig(
+            artifact_id="noise",
+            enabled=(
+                project_settings
+                .artifact_noise_enabled
+            ),
+            probability=(
+                project_settings
+                .artifact_noise_probability
+            ),
+            intensity=(
+                project_settings
+                .artifact_noise_intensity
+            ),
+        ),
     )
 
 
 def capture_artifact_baseline(
     scene,
 ):
-    """Capture reset state for every registered provider."""
+    """Capture reset state for every provider."""
 
     return {
         provider.artifact_id: (
@@ -67,7 +86,7 @@ def restore_artifacts(
     scene,
     baseline,
 ):
-    """Reset all registered artifact providers."""
+    """Reset all providers in reverse registration order."""
 
     for provider in reversed(
         _PROVIDERS
@@ -85,16 +104,70 @@ def restore_artifacts(
         )
 
 
+def _provider_for(
+    artifact_id,
+):
+    provider = (
+        _PROVIDER_BY_ID.get(
+            artifact_id
+        )
+    )
+
+    if provider is None:
+        raise ValueError(
+            (
+                "Artifact provider is not "
+                "registered: "
+                f"{artifact_id}"
+            )
+        )
+
+    return provider
+
+
+def _context_from_record(
+    record,
+    frame_seed,
+):
+    config = ArtifactConfig(
+        artifact_id=(
+            record["artifact"]
+        ),
+        enabled=(
+            record["enabled"]
+        ),
+        probability=(
+            record["probability"]
+        ),
+        intensity=(
+            record["intensity"]
+        ),
+    )
+
+    return ArtifactContext(
+        config=config,
+        frame_seed=frame_seed,
+        artifact_seed=(
+            record["seed"]
+        ),
+        decision_roll=(
+            record["decision_roll"]
+        ),
+    )
+
+
 def apply_artifacts(
     scene,
     project_settings,
     frame_seed,
     baseline,
 ):
-    """Apply deterministic artifacts for one generated frame."""
+    """
+    Resolve decisions for every artifact and apply
+    pre-render providers.
+    """
 
-    # A previous frame may have left an artifact active.
-    # Every frame starts from the captured clean baseline.
+    # Every frame starts from the clean captured baseline.
     restore_artifacts(
         scene,
         baseline,
@@ -124,23 +197,12 @@ def apply_artifacts(
     )
 
     for config in configs:
-        provider = (
-            _PROVIDER_BY_ID.get(
-                config.artifact_id
-            )
+        provider = _provider_for(
+            config.artifact_id
         )
 
-        if provider is None:
-            raise ValueError(
-                (
-                    "Artifact provider is not "
-                    "registered: "
-                    f"{config.artifact_id}"
-                )
-            )
-
         provider.validate_config(
-            config,
+            config
         )
 
         artifact_seed = derive_subseed(
@@ -170,7 +232,11 @@ def apply_artifacts(
 
         metadata = {}
 
-        if applied:
+        if (
+            applied
+            and provider.stage
+            == "pre_render"
+        ):
             metadata = provider.apply(
                 scene,
                 context,
@@ -194,3 +260,64 @@ def apply_artifacts(
         ),
         "artifacts": records,
     }
+
+
+def apply_post_render_artifacts(
+    scene,
+    image_path,
+    frame_seed,
+    artifact_result,
+    baseline,
+):
+    """Apply post-render providers to the rendered image."""
+
+    if not artifact_result["enabled"]:
+        return artifact_result
+
+    records = (
+        artifact_result[
+            "artifacts"
+        ]
+    )
+
+    for index, record in enumerate(
+        records
+    ):
+        provider = _provider_for(
+            record["artifact"]
+        )
+
+        if (
+            provider.stage
+            != "post_render"
+        ):
+            continue
+
+        if not record["applied"]:
+            continue
+
+        context = _context_from_record(
+            record,
+            frame_seed,
+        )
+
+        metadata = (
+            provider.apply_post_render(
+                scene=scene,
+                image_path=image_path,
+                context=context,
+                baseline=baseline[
+                    provider.artifact_id
+                ],
+            )
+        )
+
+        records[index] = (
+            provider.manifest_export(
+                context=context,
+                applied=True,
+                metadata=metadata,
+            )
+        )
+
+    return artifact_result

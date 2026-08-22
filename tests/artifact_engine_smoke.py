@@ -164,6 +164,8 @@ project.artifact_over_exposure_enabled = True
 project.artifact_over_exposure_probability = 0.50
 project.artifact_over_exposure_intensity = 0.50
 
+project.artifact_noise_enabled = False
+
 
 initialize_project(
     scene,
@@ -245,13 +247,55 @@ for frame in frames:
         len(
             engine_result["artifacts"]
         )
-        == 1
+        == 2
+    )
+
+    artifacts_by_id = {
+        item["artifact"]: item
+        for item
+        in engine_result["artifacts"]
+    }
+
+    assert set(
+        artifacts_by_id
+    ) == {
+        "noise",
+        "over_exposure",
+    }
+
+    noise_artifact = (
+        artifacts_by_id["noise"]
+    )
+
+    assert (
+        noise_artifact["enabled"]
+        is False
+    )
+
+    assert (
+        noise_artifact["applied"]
+        is False
+    )
+
+    assert (
+        noise_artifact["stage"]
+        == "post_render"
+    )
+
+    assert (
+        noise_artifact["parameters"]
+        == {}
     )
 
     artifact = (
-        engine_result[
-            "artifacts"
-        ][0]
+        artifacts_by_id[
+            "over_exposure"
+        ]
+    )
+
+    assert (
+        artifact["stage"]
+        == "pre_render"
     )
 
     assert (
@@ -513,9 +557,15 @@ print(
 print(
     "artifact_seeds=",
     [
-        item[
-            "artifacts"
-        ][0]["seed"]
+        next(
+            artifact
+            for artifact
+            in item["artifacts"]
+            if (
+                artifact["artifact"]
+                == "over_exposure"
+            )
+        )["seed"]
         for item
         in artifact_records
     ],

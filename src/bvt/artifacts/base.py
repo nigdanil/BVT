@@ -29,6 +29,7 @@ class ArtifactProvider(ABC):
     artifact_id = ""
     category = ""
     description = ""
+    stage = "pre_render"
 
     def validate_config(
         self,
@@ -65,6 +66,15 @@ class ArtifactProvider(ABC):
                 "between 0 and 1"
             )
 
+        if self.stage not in {
+            "pre_render",
+            "post_render",
+        }:
+            raise ValueError(
+                "Artifact stage must be "
+                "'pre_render' or 'post_render'"
+            )
+
     @abstractmethod
     def capture(
         self,
@@ -81,9 +91,25 @@ class ArtifactProvider(ABC):
         context,
         baseline,
     ):
-        """Apply the artifact and return manifest metadata."""
+        """Apply a pre-render artifact."""
 
         raise NotImplementedError
+
+    def apply_post_render(
+        self,
+        scene,
+        image_path,
+        context,
+        baseline,
+    ):
+        """Apply a post-render artifact."""
+
+        raise RuntimeError(
+            (
+                f"Artifact '{self.artifact_id}' "
+                "does not implement post-render execution"
+            )
+        )
 
     @abstractmethod
     def reset(
@@ -91,7 +117,7 @@ class ArtifactProvider(ABC):
         scene,
         baseline,
     ):
-        """Restore the scene state captured before generation."""
+        """Restore state captured before generation."""
 
         raise NotImplementedError
 
@@ -101,11 +127,7 @@ class ArtifactProvider(ABC):
         context,
         baseline,
     ):
-        """
-        Apply the provider for preview.
-
-        The caller is responsible for resetting the provider.
-        """
+        """Apply a pre-render provider for preview."""
 
         return self.apply(
             scene,
@@ -132,6 +154,7 @@ class ArtifactProvider(ABC):
             "artifact": self.artifact_id,
             "category": self.category,
             "description": self.description,
+            "stage": self.stage,
             "enabled": (
                 context.config.enabled
             ),

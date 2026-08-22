@@ -5,6 +5,7 @@ import bpy
 
 from ..annotation.yolo import write_yolo_annotations
 from ..artifacts.engine import apply_artifacts
+from ..artifacts.engine import apply_post_render_artifacts
 from ..artifacts.engine import capture_artifact_baseline
 from ..artifacts.engine import restore_artifacts
 from ..camera.randomizer import apply_random_camera
@@ -229,6 +230,16 @@ def generate_dataset(scene):
             bpy.ops.render.render(
                 write_still=True,
                 scene=scene.name,
+            )
+
+            artifact_result = (
+                apply_post_render_artifacts(
+                    scene=scene,
+                    image_path=image_path,
+                    frame_seed=frame_seed,
+                    artifact_result=artifact_result,
+                    baseline=artifact_baseline,
+                )
             )
 
             yolo_result = (

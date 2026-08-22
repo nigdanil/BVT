@@ -240,6 +240,37 @@ class BVT_ProjectSettings(bpy.types.PropertyGroup):
         subtype="FACTOR",
     )
 
+    artifact_noise_enabled: BoolProperty(
+        name="Noise",
+        description=(
+            "Enable deterministic sensor noise"
+        ),
+        default=False,
+    )
+
+    artifact_noise_probability: FloatProperty(
+        name="Probability",
+        description=(
+            "Probability of applying noise "
+            "to each generated frame"
+        ),
+        default=0.50,
+        min=0.0,
+        max=1.0,
+        subtype="FACTOR",
+    )
+
+    artifact_noise_intensity: FloatProperty(
+        name="Intensity",
+        description=(
+            "Strength of sensor noise"
+        ),
+        default=0.50,
+        min=0.0,
+        max=1.0,
+        subtype="FACTOR",
+    )
+
     initialized: BoolProperty(
         name="Initialized",
         default=False,

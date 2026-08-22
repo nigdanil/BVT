@@ -297,6 +297,28 @@ class BVT_PT_MainPanel(bpy.types.Panel):
                     "artifact_over_exposure_intensity",
                 )
 
+            artifacts_box.separator()
+
+            artifacts_box.label(
+                text="Noise",
+            )
+
+            artifacts_box.prop(
+                project,
+                "artifact_noise_enabled",
+            )
+
+            if project.artifact_noise_enabled:
+                artifacts_box.prop(
+                    project,
+                    "artifact_noise_probability",
+                )
+
+                artifacts_box.prop(
+                    project,
+                    "artifact_noise_intensity",
+                )
+
         layout.label(text="Export")
 
         # ---------------------------------------------------------
