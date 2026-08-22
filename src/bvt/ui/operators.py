@@ -2,7 +2,7 @@ import bpy
 
 from ..annotation.service import register_object
 from ..project.service import initialize_project
-from ..render.service import generate_minimal_dataset
+from ..render.service import generate_dataset
 
 
 class BVT_OT_InitializeProject(bpy.types.Operator):
@@ -107,7 +107,7 @@ class BVT_OT_GenerateDataset(bpy.types.Operator):
 
     def execute(self, context):
         try:
-            result = generate_minimal_dataset(
+            result = generate_dataset(
                 context.scene,
             )
         except ValueError as exc:

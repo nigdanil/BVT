@@ -150,13 +150,29 @@ class BVT_PT_MainPanel(bpy.types.Panel):
 
         layout.separator()
 
-        layout.operator(
+        generation_box = layout.box()
+
+        generation_box.label(
+            text="Generation",
+            icon="RENDER_ANIMATION",
+        )
+
+        generation_box.prop(
+            project,
+            "frame_count",
+        )
+
+        generation_box.label(
+            text="Resolution: 512 x 512",
+        )
+
+        generation_box.operator(
             "bvt.generate_preview",
             text="Generate Preview",
             icon="RENDER_STILL",
         )
 
-        layout.operator(
+        generation_box.operator(
             "bvt.generate_dataset",
             text="Generate Dataset",
             icon="FILE_TICK",

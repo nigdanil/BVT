@@ -5,12 +5,13 @@ import bpy
 
 from ..core.constants import DATASET_MANIFEST_SCHEMA_VERSION
 from ..core.constants import TOOLKIT_VERSION
+from ..core.seeding import FRAME_SEED_STRATEGY
 
 
 def build_dataset_manifest(
     scene,
     settings,
-    image_relative_path,
+    frames,
     resolution_x,
     resolution_y,
 ):
@@ -27,7 +28,8 @@ def build_dataset_manifest(
         },
         "generation": {
             "seed": settings.seed,
-            "frame_count": 1,
+            "frame_count": len(frames),
+            "frame_seed_strategy": FRAME_SEED_STRATEGY,
         },
         "render": {
             "engine": scene.render.engine,
@@ -36,18 +38,14 @@ def build_dataset_manifest(
             "resolution_percentage": 100,
             "format": "PNG",
         },
-        "frames": [
-            {
-                "frame_id": "000001",
-                "scene": scene.name,
-                "camera": scene.camera.name,
-                "image": image_relative_path,
-            }
-        ],
+        "frames": frames,
     }
 
 
-def write_manifest(path, manifest):
+def write_manifest(
+    path,
+    manifest,
+):
     path = Path(path)
 
     path.parent.mkdir(

@@ -48,6 +48,7 @@ project = scene.bvt_project
 project.project_name = "Dataset Validation Smoke"
 project.output_directory = "//bvt_output/"
 project.seed = 12345
+project.frame_count = 1
 
 initialize_project(
     scene,

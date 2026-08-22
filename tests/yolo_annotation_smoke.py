@@ -54,6 +54,7 @@ project.output_directory = (
 )
 
 project.seed = 12345
+project.frame_count = 1
 
 initialize_project(
     scene,

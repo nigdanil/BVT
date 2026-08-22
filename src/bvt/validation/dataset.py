@@ -733,12 +733,12 @@ def validate_dataset(dataset_directory):
             )
 
             if previous_frame is not None:
-                errors.append(
+                warnings.append(
                     _issue(
-                        "error",
+                        "warning",
                         "duplicate_image",
                         (
-                            "Image is identical to frame "
+                            "Image file is byte-identical to frame "
                             f"{previous_frame}"
                         ),
                         path=image_path,

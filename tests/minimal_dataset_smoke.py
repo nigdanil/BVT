@@ -47,6 +47,7 @@ bpy.ops.wm.save_as_mainfile(
 settings.project_name = "Minimal Dataset Smoke"
 settings.output_directory = "//bvt_output/"
 settings.seed = 12345
+settings.frame_count = 1
 
 initialize_project(scene)
 

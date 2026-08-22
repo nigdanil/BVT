@@ -33,6 +33,7 @@ settings = scene.bvt_project
 settings.project_name = "Persistence Test"
 settings.output_directory = "//bvt_output/"
 settings.seed = 987654
+settings.frame_count = 7
 
 initialize_project(scene)
 
@@ -60,6 +61,7 @@ assert settings.initialized is True
 assert settings.project_name == "Persistence Test"
 assert settings.output_directory == "//bvt_output/"
 assert settings.seed == 987654
+assert settings.frame_count == 7
 assert settings.project_id == expected_project_id
 assert settings.schema_version == "bvt-project-1"
 

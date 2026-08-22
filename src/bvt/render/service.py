@@ -1,9 +1,11 @@
+import shutil
 from pathlib import Path
 
 import bpy
 
 from ..annotation.yolo import write_yolo_annotations
 from ..core.constants import DEFAULT_RENDER_RESOLUTION
+from ..core.seeding import derive_frame_seed
 from ..export.manifest import build_dataset_manifest
 from ..export.manifest import write_manifest
 from ..validation.dataset import validate_dataset
@@ -36,7 +38,7 @@ def resolve_output_directory(settings):
     )
 
 
-def generate_minimal_dataset(scene):
+def generate_dataset(scene):
     settings = scene.bvt_project
 
     if not settings.initialized:
@@ -49,15 +51,25 @@ def generate_minimal_dataset(scene):
             "The scene does not have an active camera"
         )
 
-    output_directory = (
-        resolve_output_directory(
-            settings,
+    if settings.frame_count < 1:
+        raise ValueError(
+            "Frame Count must be at least 1"
         )
+
+    output_directory = resolve_output_directory(
+        settings,
     )
 
     dataset_directory = (
         output_directory / "dataset"
     )
+
+    # Clean previous generated dataset so that decreasing
+    # Frame Count cannot leave orphan images or labels.
+    if dataset_directory.exists():
+        shutil.rmtree(
+            dataset_directory,
+        )
 
     images_directory = (
         dataset_directory / "images"
@@ -66,13 +78,6 @@ def generate_minimal_dataset(scene):
     images_directory.mkdir(
         parents=True,
         exist_ok=True,
-    )
-
-    frame_id = "000001"
-
-    image_path = (
-        images_directory
-        / f"{frame_id}.png"
     )
 
     manifest_path = (
@@ -100,48 +105,119 @@ def generate_minimal_dataset(scene):
         scene.render.image_settings.file_format
     )
 
-    resolution = (
-        DEFAULT_RENDER_RESOLUTION
+    original_frame = (
+        scene.frame_current
     )
 
+    resolution = DEFAULT_RENDER_RESOLUTION
+
+    frames = []
+    image_paths = []
+    label_paths = []
+
+    dataset_classes = None
+
     try:
-        scene.render.resolution_x = (
-            resolution
-        )
-
-        scene.render.resolution_y = (
-            resolution
-        )
-
+        scene.render.resolution_x = resolution
+        scene.render.resolution_y = resolution
         scene.render.resolution_percentage = 100
 
         scene.render.image_settings.file_format = (
             "PNG"
         )
 
-        scene.render.filepath = str(
-            image_path,
-        )
-
-        bpy.ops.render.render(
-            write_still=True,
-            scene=scene.name,
-        )
-
-        yolo_result = (
-            write_yolo_annotations(
-                scene=scene,
-                dataset_directory=dataset_directory,
-                frame_id=frame_id,
+        for frame_index in range(
+            1,
+            settings.frame_count + 1,
+        ):
+            frame_id = (
+                f"{frame_index:06d}"
             )
-        )
+
+            frame_seed = derive_frame_seed(
+                settings.seed,
+                frame_index,
+            )
+
+            # For now BVT maps generated frame N to Blender frame N.
+            # Future randomizers will use frame_seed.
+            scene.frame_set(
+                frame_index,
+            )
+
+            image_path = (
+                images_directory
+                / f"{frame_id}.png"
+            )
+
+            scene.render.filepath = str(
+                image_path,
+            )
+
+            bpy.ops.render.render(
+                write_still=True,
+                scene=scene.name,
+            )
+
+            yolo_result = (
+                write_yolo_annotations(
+                    scene=scene,
+                    dataset_directory=dataset_directory,
+                    frame_id=frame_id,
+                )
+            )
+
+            current_classes = dict(
+                yolo_result["classes"]
+            )
+
+            if dataset_classes is None:
+                dataset_classes = current_classes
+
+            elif dataset_classes != current_classes:
+                raise ValueError(
+                    "Dataset classes changed between frames"
+                )
+
+            frames.append(
+                {
+                    "frame_id": frame_id,
+                    "frame_index": frame_index,
+                    "blender_frame": scene.frame_current,
+                    "frame_seed": frame_seed,
+                    "scene": scene.name,
+                    "camera": scene.camera.name,
+                    "image": (
+                        f"images/{frame_id}.png"
+                    ),
+                    "label": (
+                        f"labels/{frame_id}.txt"
+                    ),
+                    "objects": (
+                        yolo_result[
+                            "annotations"
+                        ]
+                    ),
+                }
+            )
+
+            image_paths.append(
+                image_path,
+            )
+
+            label_paths.append(
+                yolo_result[
+                    "label_path"
+                ],
+            )
+
+        if dataset_classes is None:
+            dataset_classes = {}
 
         manifest = build_dataset_manifest(
             scene=scene,
             settings=settings,
-            image_relative_path=(
-                f"images/{frame_id}.png"
-            ),
+            frames=frames,
             resolution_x=resolution,
             resolution_y=resolution,
         )
@@ -156,22 +232,10 @@ def generate_minimal_dataset(scene):
                 }
                 for class_id, class_name
                 in sorted(
-                    yolo_result[
-                        "classes"
-                    ].items()
+                    dataset_classes.items()
                 )
             ],
         }
-
-        manifest["frames"][0][
-            "label"
-        ] = f"labels/{frame_id}.txt"
-
-        manifest["frames"][0][
-            "objects"
-        ] = yolo_result[
-            "annotations"
-        ]
 
         write_manifest(
             manifest_path,
@@ -187,13 +251,20 @@ def generate_minimal_dataset(scene):
             validation_report,
         )
 
-        if validation_report["status"] != "PASS":
+        if (
+            validation_report["status"]
+            != "PASS"
+        ):
             raise ValueError(
                 "Dataset validation failed: "
                 f"{len(validation_report['errors'])} error(s)"
             )
 
     finally:
+        scene.frame_set(
+            original_frame,
+        )
+
         scene.render.filepath = (
             original_filepath
         )
@@ -214,19 +285,33 @@ def generate_minimal_dataset(scene):
             original_file_format
         )
 
-    return {
+    result = {
         "dataset_directory": dataset_directory,
-        "image_path": image_path,
         "manifest_path": manifest_path,
-        "label_path": (
-            dataset_directory
-            / "labels"
-            / f"{frame_id}.txt"
-        ),
         "classes_path": (
             dataset_directory
             / "classes.txt"
         ),
         "validation_path": validation_path,
         "validation_report": validation_report,
+        "image_paths": image_paths,
+        "label_paths": label_paths,
     }
+
+    # Compatibility for existing single-frame callers.
+    if image_paths:
+        result["image_path"] = image_paths[0]
+
+    if label_paths:
+        result["label_path"] = label_paths[0]
+
+    return result
+
+
+def generate_minimal_dataset(scene):
+    """
+    Compatibility wrapper for the pre-batch API.
+    """
+    return generate_dataset(
+        scene,
+    )

@@ -4,10 +4,12 @@ from bpy.props import IntProperty
 from bpy.props import PointerProperty
 from bpy.props import StringProperty
 
+from ..core.constants import DEFAULT_FRAME_COUNT
 from ..core.constants import DEFAULT_OUTPUT_DIRECTORY
 from ..core.constants import DEFAULT_PROJECT_NAME
 from ..core.constants import DEFAULT_SEED
 from ..core.constants import PROJECT_SCHEMA_VERSION
+from ..core.constants import MAX_FRAME_COUNT
 
 
 class BVT_ProjectSettings(bpy.types.PropertyGroup):
@@ -29,6 +31,14 @@ class BVT_ProjectSettings(bpy.types.PropertyGroup):
         default=DEFAULT_SEED,
         min=0,
         max=2_147_483_647,
+    )
+
+    frame_count: IntProperty(
+        name="Frame Count",
+        description="Number of images to generate",
+        default=DEFAULT_FRAME_COUNT,
+        min=1,
+        max=MAX_FRAME_COUNT,
     )
 
     initialized: BoolProperty(
