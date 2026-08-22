@@ -4,6 +4,9 @@ from pathlib import Path
 import bpy
 
 from ..annotation.yolo import write_yolo_annotations
+from ..artifacts.engine import apply_artifacts
+from ..artifacts.engine import capture_artifact_baseline
+from ..artifacts.engine import restore_artifacts
 from ..camera.randomizer import apply_random_camera
 from ..camera.randomizer import capture_camera_baseline
 from ..camera.randomizer import restore_camera
@@ -144,6 +147,12 @@ def generate_dataset(scene):
         )
     )
 
+    artifact_baseline = (
+        capture_artifact_baseline(
+            scene,
+        )
+    )
+
     try:
         scene.render.resolution_x = resolution
         scene.render.resolution_y = resolution
@@ -196,6 +205,15 @@ def generate_dataset(scene):
                     project_settings=settings,
                     frame_seed=frame_seed,
                     baseline=lighting_baseline,
+                )
+            )
+
+            artifact_result = (
+                apply_artifacts(
+                    scene=scene,
+                    project_settings=settings,
+                    frame_seed=frame_seed,
+                    baseline=artifact_baseline,
                 )
             )
 
@@ -263,6 +281,9 @@ def generate_dataset(scene):
                             lighting_result
                         ),
                     },
+                    "artifacts": (
+                        artifact_result
+                    ),
                 }
             )
 
@@ -330,9 +351,14 @@ def generate_dataset(scene):
             original_frame,
         )
 
-        restore_placement(
+        restore_artifacts(
             scene,
-            placement_baseline,
+            artifact_baseline,
+        )
+
+        restore_lighting(
+            scene,
+            lighting_baseline,
         )
 
         restore_camera(
@@ -340,9 +366,9 @@ def generate_dataset(scene):
             camera_baseline,
         )
 
-        restore_lighting(
+        restore_placement(
             scene,
-            lighting_baseline,
+            placement_baseline,
         )
 
         scene.render.filepath = (

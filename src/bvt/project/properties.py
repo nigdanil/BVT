@@ -201,6 +201,45 @@ class BVT_ProjectSettings(bpy.types.PropertyGroup):
         unit="LENGTH",
     )
 
+    artifact_engine_enabled: BoolProperty(
+        name="Enable Artifact Engine",
+        description=(
+            "Enable deterministic artifact generation"
+        ),
+        default=False,
+    )
+
+    artifact_over_exposure_enabled: BoolProperty(
+        name="Over Exposure",
+        description=(
+            "Enable the over exposure artifact"
+        ),
+        default=False,
+    )
+
+    artifact_over_exposure_probability: FloatProperty(
+        name="Probability",
+        description=(
+            "Probability of applying over exposure "
+            "to each generated frame"
+        ),
+        default=0.50,
+        min=0.0,
+        max=1.0,
+        subtype="FACTOR",
+    )
+
+    artifact_over_exposure_intensity: FloatProperty(
+        name="Intensity",
+        description=(
+            "Severity of the over exposure artifact"
+        ),
+        default=0.50,
+        min=0.0,
+        max=1.0,
+        subtype="FACTOR",
+    )
+
     initialized: BoolProperty(
         name="Initialized",
         default=False,

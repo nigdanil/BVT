@@ -262,7 +262,41 @@ class BVT_PT_MainPanel(bpy.types.Panel):
                 "lighting_position_offset_z",
             )
 
-        layout.label(text="Artifacts")
+        artifacts_box = layout.box()
+
+        artifacts_box.label(
+            text="Artifacts",
+            icon="MODIFIER",
+        )
+
+        artifacts_box.prop(
+            project,
+            "artifact_engine_enabled",
+        )
+
+        if project.artifact_engine_enabled:
+            artifacts_box.separator()
+
+            artifacts_box.label(
+                text="Over Exposure",
+            )
+
+            artifacts_box.prop(
+                project,
+                "artifact_over_exposure_enabled",
+            )
+
+            if project.artifact_over_exposure_enabled:
+                artifacts_box.prop(
+                    project,
+                    "artifact_over_exposure_probability",
+                )
+
+                artifacts_box.prop(
+                    project,
+                    "artifact_over_exposure_intensity",
+                )
+
         layout.label(text="Export")
 
         # ---------------------------------------------------------
