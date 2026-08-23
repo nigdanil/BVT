@@ -238,6 +238,7 @@ project.artifact_engine_enabled = True
 
 project.artifact_over_exposure_enabled = False
 project.artifact_reflection_enabled = False
+project.artifact_fingerprints_enabled = False
 project.artifact_motion_blur_enabled = False
 project.artifact_jpeg_enabled = False
 
@@ -283,6 +284,7 @@ for frame in manifest["frames"]:
     assert set(
         artifacts
     ) == {
+        "fingerprints",
         "jpeg_compression",
         "motion_blur",
         "noise",
@@ -303,6 +305,22 @@ for frame in manifest["frames"]:
 
     assert (
         reflection["applied"]
+        is False
+    )
+
+    fingerprints = (
+        artifacts[
+            "fingerprints"
+        ]
+    )
+
+    assert (
+        fingerprints["enabled"]
+        is False
+    )
+
+    assert (
+        fingerprints["applied"]
         is False
     )
 

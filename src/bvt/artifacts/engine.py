@@ -18,6 +18,9 @@ from .providers.noise import (
 from .providers.reflection import (
     ReflectionArtifactProvider,
 )
+from .providers.fingerprints import (
+    FingerprintsArtifactProvider,
+)
 
 
 ARTIFACT_ENGINE_VERSION = (
@@ -28,6 +31,7 @@ ARTIFACT_ENGINE_VERSION = (
 _PROVIDERS = (
     OverExposureArtifactProvider(),
     ReflectionArtifactProvider(),
+    FingerprintsArtifactProvider(),
     MotionBlurArtifactProvider(),
     NoiseArtifactProvider(),
     JPEGCompressionArtifactProvider(),
@@ -79,6 +83,35 @@ def build_artifact_configs(
                 "min_roughness": (
                     project_settings
                     .artifact_reflection_min_roughness
+                ),
+            },
+        ),
+        ArtifactConfig(
+            artifact_id="fingerprints",
+            enabled=(
+                project_settings
+                .artifact_fingerprints_enabled
+            ),
+            probability=(
+                project_settings
+                .artifact_fingerprints_probability
+            ),
+            intensity=(
+                project_settings
+                .artifact_fingerprints_intensity
+            ),
+            options={
+                "print_count": (
+                    project_settings
+                    .artifact_fingerprints_count
+                ),
+                "transparency": (
+                    project_settings
+                    .artifact_fingerprints_transparency
+                ),
+                "size": (
+                    project_settings
+                    .artifact_fingerprints_size
                 ),
             },
         ),

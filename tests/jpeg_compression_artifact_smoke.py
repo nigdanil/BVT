@@ -212,6 +212,7 @@ project.artifact_engine_enabled = True
 
 project.artifact_over_exposure_enabled = False
 project.artifact_reflection_enabled = False
+project.artifact_fingerprints_enabled = False
 project.artifact_motion_blur_enabled = False
 project.artifact_noise_enabled = False
 
@@ -265,6 +266,7 @@ artifact_ids = [
 assert artifact_ids == [
     "over_exposure",
     "reflection",
+    "fingerprints",
     "motion_blur",
     "noise",
     "jpeg_compression",
@@ -281,6 +283,7 @@ artifacts = {
 assert set(
     artifacts
 ) == {
+    "fingerprints",
     "jpeg_compression",
     "motion_blur",
     "noise",
@@ -302,6 +305,28 @@ assert (
 assert (
     artifacts["reflection"]["stage"]
     == "pre_render"
+)
+
+assert (
+    artifacts["fingerprints"]["enabled"]
+    is False
+)
+
+assert (
+    artifacts["fingerprints"]["applied"]
+    is False
+)
+
+assert (
+    artifacts["fingerprints"]["stage"]
+    == "pre_render"
+)
+
+assert (
+    artifacts["fingerprints"][
+        "execution_order"
+    ]
+    == 110
 )
 
 assert (

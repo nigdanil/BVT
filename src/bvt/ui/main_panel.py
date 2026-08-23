@@ -386,6 +386,43 @@ class BVT_PT_MainPanel(bpy.types.Panel):
             artifacts_box.separator()
 
             artifacts_box.label(
+                text="Fingerprints",
+            )
+
+            artifacts_box.prop(
+                project,
+                "artifact_fingerprints_enabled",
+            )
+
+            if project.artifact_fingerprints_enabled:
+                artifacts_box.prop(
+                    project,
+                    "artifact_fingerprints_probability",
+                )
+
+                artifacts_box.prop(
+                    project,
+                    "artifact_fingerprints_intensity",
+                )
+
+                artifacts_box.prop(
+                    project,
+                    "artifact_fingerprints_count",
+                )
+
+                artifacts_box.prop(
+                    project,
+                    "artifact_fingerprints_transparency",
+                )
+
+                artifacts_box.prop(
+                    project,
+                    "artifact_fingerprints_size",
+                )
+
+            artifacts_box.separator()
+
+            artifacts_box.label(
                 text="Motion Blur",
             )
 

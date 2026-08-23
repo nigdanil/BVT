@@ -283,6 +283,71 @@ class BVT_ProjectSettings(bpy.types.PropertyGroup):
         subtype="FACTOR",
     )
 
+    artifact_fingerprints_enabled: BoolProperty(
+        name="Fingerprints",
+        description=(
+            "Enable deterministic fingerprints "
+            "on BVT glass materials"
+        ),
+        default=False,
+    )
+
+    artifact_fingerprints_probability: FloatProperty(
+        name="Probability",
+        description=(
+            "Probability of applying fingerprints "
+            "to each generated frame"
+        ),
+        default=0.50,
+        min=0.0,
+        max=1.0,
+        subtype="FACTOR",
+    )
+
+    artifact_fingerprints_intensity: FloatProperty(
+        name="Intensity",
+        description=(
+            "Strength of fingerprint residue"
+        ),
+        default=0.50,
+        min=0.0,
+        max=1.0,
+        subtype="FACTOR",
+    )
+
+    artifact_fingerprints_count: IntProperty(
+        name="Count",
+        description=(
+            "Number of fingerprint patterns "
+            "per glass material"
+        ),
+        default=3,
+        min=1,
+        max=20,
+    )
+
+    artifact_fingerprints_transparency: FloatProperty(
+        name="Transparency",
+        description=(
+            "Transparency of fingerprint residue"
+        ),
+        default=0.35,
+        min=0.0,
+        max=1.0,
+        subtype="FACTOR",
+    )
+
+    artifact_fingerprints_size: FloatProperty(
+        name="Size",
+        description=(
+            "Normalized fingerprint pattern size"
+        ),
+        default=0.30,
+        min=0.05,
+        max=0.80,
+        subtype="FACTOR",
+    )
+
     artifact_motion_blur_enabled: BoolProperty(
         name="Motion Blur",
         description=(

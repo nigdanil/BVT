@@ -165,6 +165,7 @@ project.artifact_over_exposure_probability = 0.50
 project.artifact_over_exposure_intensity = 0.50
 
 project.artifact_reflection_enabled = False
+project.artifact_fingerprints_enabled = False
 project.artifact_motion_blur_enabled = False
 project.artifact_noise_enabled = False
 project.artifact_jpeg_enabled = False
@@ -250,7 +251,7 @@ for frame in frames:
         len(
             engine_result["artifacts"]
         )
-        == 5
+        == 6
     )
 
     artifacts_by_id = {
@@ -262,6 +263,7 @@ for frame in frames:
     assert set(
         artifacts_by_id
     ) == {
+        "fingerprints",
         "jpeg_compression",
         "motion_blur",
         "noise",
@@ -292,6 +294,39 @@ for frame in frames:
 
     assert (
         reflection_artifact["parameters"]
+        == {}
+    )
+
+    fingerprints_artifact = (
+        artifacts_by_id[
+            "fingerprints"
+        ]
+    )
+
+    assert (
+        fingerprints_artifact["enabled"]
+        is False
+    )
+
+    assert (
+        fingerprints_artifact["applied"]
+        is False
+    )
+
+    assert (
+        fingerprints_artifact["stage"]
+        == "pre_render"
+    )
+
+    assert (
+        fingerprints_artifact[
+            "execution_order"
+        ]
+        == 110
+    )
+
+    assert (
+        fingerprints_artifact["parameters"]
         == {}
     )
 

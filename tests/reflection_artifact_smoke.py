@@ -271,6 +271,7 @@ project.artifact_reflection_min_roughness = (
     MIN_ROUGHNESS
 )
 
+project.artifact_fingerprints_enabled = False
 project.artifact_motion_blur_enabled = False
 project.artifact_noise_enabled = False
 project.artifact_jpeg_enabled = False
@@ -325,6 +326,7 @@ artifact_ids = [
 assert artifact_ids == [
     "over_exposure",
     "reflection",
+    "fingerprints",
     "motion_blur",
     "noise",
     "jpeg_compression",
@@ -340,6 +342,15 @@ artifacts = {
 reflection = artifacts[
     "reflection"
 ]
+
+fingerprints = artifacts[
+    "fingerprints"
+]
+
+assert fingerprints["enabled"] is False
+assert fingerprints["applied"] is False
+assert fingerprints["stage"] == "pre_render"
+assert fingerprints["execution_order"] == 110
 
 assert reflection["enabled"] is True
 assert reflection["applied"] is True
