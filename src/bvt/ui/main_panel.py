@@ -445,6 +445,28 @@ class BVT_PT_MainPanel(bpy.types.Panel):
             artifacts_box.separator()
 
             artifacts_box.label(
+                text="Frost",
+            )
+
+            artifacts_box.prop(
+                project,
+                "artifact_frost_enabled",
+            )
+
+            if project.artifact_frost_enabled:
+                artifacts_box.prop(
+                    project,
+                    "artifact_frost_probability",
+                )
+
+                artifacts_box.prop(
+                    project,
+                    "artifact_frost_intensity",
+                )
+
+            artifacts_box.separator()
+
+            artifacts_box.label(
                 text="Motion Blur",
             )
 

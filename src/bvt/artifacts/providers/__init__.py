@@ -9,6 +9,7 @@ from .noise import NoiseArtifactProvider
 from .reflection import ReflectionArtifactProvider
 from .fingerprints import FingerprintsArtifactProvider
 from .condensation import CondensationArtifactProvider
+from .frost import FrostArtifactProvider
 
 
 __all__ = (
@@ -19,4 +20,5 @@ __all__ = (
     "ReflectionArtifactProvider",
     "FingerprintsArtifactProvider",
     "CondensationArtifactProvider",
+    "FrostArtifactProvider",
 )

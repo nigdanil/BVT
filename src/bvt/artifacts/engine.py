@@ -24,6 +24,9 @@ from .providers.fingerprints import (
 from .providers.condensation import (
     CondensationArtifactProvider,
 )
+from .providers.frost import (
+    FrostArtifactProvider,
+)
 
 
 ARTIFACT_ENGINE_VERSION = (
@@ -36,6 +39,7 @@ _PROVIDERS = (
     ReflectionArtifactProvider(),
     FingerprintsArtifactProvider(),
     CondensationArtifactProvider(),
+    FrostArtifactProvider(),
     MotionBlurArtifactProvider(),
     NoiseArtifactProvider(),
     JPEGCompressionArtifactProvider(),
@@ -132,6 +136,21 @@ def build_artifact_configs(
             intensity=(
                 project_settings
                 .artifact_condensation_intensity
+            ),
+        ),
+        ArtifactConfig(
+            artifact_id="frost",
+            enabled=(
+                project_settings
+                .artifact_frost_enabled
+            ),
+            probability=(
+                project_settings
+                .artifact_frost_probability
+            ),
+            intensity=(
+                project_settings
+                .artifact_frost_intensity
             ),
         ),
         ArtifactConfig(

@@ -350,6 +350,7 @@ project.artifact_fingerprints_size = 0.30
 # Condensation is exercised directly in this lifecycle
 # test, so keep the Engine-owned instance disabled.
 project.artifact_condensation_enabled = False
+project.artifact_frost_enabled = False
 
 project.artifact_motion_blur_enabled = False
 project.artifact_noise_enabled = False
@@ -383,6 +384,7 @@ assert artifact_order == [
     "reflection",
     "fingerprints",
     "condensation",
+    "frost",
     "motion_blur",
     "noise",
     "jpeg_compression",

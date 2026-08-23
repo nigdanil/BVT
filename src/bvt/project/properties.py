@@ -380,6 +380,38 @@ class BVT_ProjectSettings(bpy.types.PropertyGroup):
         subtype="FACTOR",
     )
 
+    artifact_frost_enabled: BoolProperty(
+        name="Frost",
+        description=(
+            "Enable deterministic crystalline frost "
+            "on BVT glass materials"
+        ),
+        default=False,
+    )
+
+    artifact_frost_probability: FloatProperty(
+        name="Probability",
+        description=(
+            "Probability of applying frost "
+            "to each generated frame"
+        ),
+        default=0.50,
+        min=0.0,
+        max=1.0,
+        subtype="FACTOR",
+    )
+
+    artifact_frost_intensity: FloatProperty(
+        name="Intensity",
+        description=(
+            "Strength of crystalline frost"
+        ),
+        default=0.50,
+        min=0.0,
+        max=1.0,
+        subtype="FACTOR",
+    )
+
     artifact_motion_blur_enabled: BoolProperty(
         name="Motion Blur",
         description=(
