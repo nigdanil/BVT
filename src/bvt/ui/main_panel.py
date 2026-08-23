@@ -467,6 +467,28 @@ class BVT_PT_MainPanel(bpy.types.Panel):
             artifacts_box.separator()
 
             artifacts_box.label(
+                text="Dust",
+            )
+
+            artifacts_box.prop(
+                project,
+                "artifact_dust_enabled",
+            )
+
+            if project.artifact_dust_enabled:
+                artifacts_box.prop(
+                    project,
+                    "artifact_dust_probability",
+                )
+
+                artifacts_box.prop(
+                    project,
+                    "artifact_dust_intensity",
+                )
+
+            artifacts_box.separator()
+
+            artifacts_box.label(
                 text="Motion Blur",
             )
 

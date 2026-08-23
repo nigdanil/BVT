@@ -180,6 +180,7 @@ def configure_engine(
     project.artifact_condensation_intensity = 0.65
 
     project.artifact_frost_enabled = False
+    project.artifact_dust_enabled = False
 
     project.artifact_motion_blur_enabled = False
     project.artifact_noise_enabled = False
@@ -485,6 +486,7 @@ assert artifact_order == [
     "fingerprints",
     "condensation",
     "frost",
+    "dust",
     "motion_blur",
     "noise",
     "jpeg_compression",

@@ -11,17 +11,17 @@ TMP = ROOT / ".tmp"
 
 BLEND_PATH = (
     TMP
-    / "condensation-artifact.blend"
+    / "dust-artifact.blend"
 )
 
-FINGERPRINTS_ONLY_IMAGE = (
+BASELINE_IMAGE = (
     TMP
-    / "condensation-fingerprints-only.png"
+    / "dust-baseline.png"
 )
 
 FIRST_IMAGE = (
     TMP
-    / "condensation-first.png"
+    / "dust-first.png"
 )
 
 PIXEL_TOLERANCE = 1e-6
@@ -36,18 +36,30 @@ sys.path.insert(
 import bpy
 import bvt
 
-from bvt.annotation.service import register_object
-from bvt.artifacts.providers.condensation import (
-    CONDENSATION_DROPLET_COUNT,
-    CONDENSATION_MASK_RESOLUTION,
-    CONDENSATION_PATCH_COUNT,
-    CONDENSATION_ROUGHNESS_DELTA,
+from bvt.annotation.service import (
+    register_object,
 )
-from bvt.core.seeding import derive_subseed
-from bvt.materials import MATERIAL_ROLE_GLASS
-from bvt.materials import set_material_role
-from bvt.project.service import initialize_project
-from bvt.render.service import generate_dataset
+from bvt.artifacts.providers.dust import (
+    DUST_ROUGHNESS_DELTA,
+)
+from bvt.artifacts.providers.dust_mask import (
+    DUST_CLUSTER_COUNT,
+    DUST_MASK_RESOLUTION,
+    DUST_PARTICLE_COUNT,
+)
+from bvt.core.seeding import (
+    derive_subseed,
+)
+from bvt.materials import (
+    MATERIAL_ROLE_GLASS,
+    set_material_role,
+)
+from bvt.project.service import (
+    initialize_project,
+)
+from bvt.render.service import (
+    generate_dataset,
+)
 
 
 def load_pixels(
@@ -67,7 +79,6 @@ def load_pixels(
                 image.pixels[:]
             ),
         )
-
     finally:
         bpy.data.images.remove(
             image
@@ -132,9 +143,7 @@ def compare_images(
     return {
         "rmse": math.sqrt(
             squared_error
-            / len(
-                first_pixels
-            )
+            / len(first_pixels)
         ),
         "max_error": (
             max_error
@@ -193,6 +202,67 @@ def artifact_by_id(
     )
 
 
+def read_manifest(
+    result,
+):
+    return json.loads(
+        result[
+            "manifest_path"
+        ].read_text(
+            encoding="utf-8"
+        )
+    )
+
+
+def assert_clean(
+    material,
+    roughness_socket,
+    base_roughness,
+):
+    assert abs(
+        float(
+            roughness_socket.default_value
+        )
+        - base_roughness
+    ) <= 1e-6
+
+    assert (
+        roughness_socket.is_linked
+        is False
+    )
+
+    for prefix in (
+        "BVT Fingerprints",
+        "BVT Condensation",
+        "BVT Frost",
+        "BVT Dust",
+    ):
+        assert (
+            temporary_nodes(
+                material,
+                prefix,
+            )
+            == []
+        )
+
+    for prefix in (
+        "BVT_Fingerprints_",
+        "BVT_Condensation_",
+        "BVT_Frost_",
+        "BVT_Dust_",
+    ):
+        assert (
+            temporary_images(
+                prefix
+            )
+            == []
+        )
+
+
+# =========================================================
+# Clean temporary workspace.
+# =========================================================
+
 if TMP.exists():
     shutil.rmtree(
         TMP
@@ -203,6 +273,10 @@ TMP.mkdir(
     exist_ok=True,
 )
 
+
+# =========================================================
+# Scene / project.
+# =========================================================
 
 bvt.register()
 
@@ -219,7 +293,7 @@ bpy.ops.wm.save_as_mainfile(
 project = scene.bvt_project
 
 project.project_name = (
-    "Condensation Artifact Smoke"
+    "Dust Artifact Smoke"
 )
 
 project.output_directory = (
@@ -239,11 +313,16 @@ initialize_project(
 )
 
 
+# =========================================================
+# Annotated GLASS cube.
+# =========================================================
+
 cube = bpy.data.objects[
     "Cube"
 ]
 
 cube.bvt_object.class_id = 0
+
 cube.bvt_object.class_name = (
     "cube"
 )
@@ -255,7 +334,7 @@ register_object(
 
 glass_material = (
     bpy.data.materials.new(
-        "BVT_Condensation_Glass"
+        "BVT_Dust_Glass"
     )
 )
 
@@ -303,6 +382,10 @@ FINGERPRINT_SIZE = 0.45
 
 CONDENSATION_INTENSITY = 1.0
 
+FROST_INTENSITY = 1.0
+
+DUST_INTENSITY = 1.0
+
 
 roughness_socket.default_value = (
     BASE_ROUGHNESS
@@ -310,55 +393,91 @@ roughness_socket.default_value = (
 
 
 # =========================================================
-# Baseline:
-# Reflection + Fingerprints,
-# Condensation disabled.
+# Shared artifact configuration.
 # =========================================================
 
 project.artifact_engine_enabled = True
 
 project.artifact_over_exposure_enabled = False
 
+
 project.artifact_reflection_enabled = True
+
 project.artifact_reflection_probability = 1.0
+
 project.artifact_reflection_intensity = (
     REFLECTION_INTENSITY
 )
+
 project.artifact_reflection_min_roughness = (
     REFLECTION_MIN_ROUGHNESS
 )
 
+
 project.artifact_fingerprints_enabled = True
+
 project.artifact_fingerprints_probability = 1.0
+
 project.artifact_fingerprints_intensity = (
     FINGERPRINT_INTENSITY
 )
+
 project.artifact_fingerprints_count = (
     FINGERPRINT_COUNT
 )
+
 project.artifact_fingerprints_transparency = (
     FINGERPRINT_TRANSPARENCY
 )
+
 project.artifact_fingerprints_size = (
     FINGERPRINT_SIZE
 )
 
-project.artifact_condensation_enabled = False
-project.artifact_frost_enabled = False
-project.artifact_dust_enabled = False
+
+project.artifact_condensation_enabled = True
+
+project.artifact_condensation_probability = 1.0
+
+project.artifact_condensation_intensity = (
+    CONDENSATION_INTENSITY
+)
+
+
+project.artifact_frost_enabled = True
+
+project.artifact_frost_probability = 1.0
+
+project.artifact_frost_intensity = (
+    FROST_INTENSITY
+)
+
 
 project.artifact_motion_blur_enabled = False
 project.artifact_noise_enabled = False
 project.artifact_jpeg_enabled = False
 
 
-fingerprints_only = generate_dataset(
+# =========================================================
+# Baseline:
+# Reflection
+# -> Fingerprints
+# -> Condensation
+# -> Frost
+#
+# Dust disabled.
+# =========================================================
+
+project.artifact_dust_enabled = False
+
+
+baseline = generate_dataset(
     scene
 )
 
 
 assert (
-    fingerprints_only[
+    baseline[
         "validation_report"
     ][
         "status"
@@ -368,18 +487,16 @@ assert (
 
 
 shutil.copy2(
-    fingerprints_only[
+    baseline[
         "image_path"
     ],
-    FINGERPRINTS_ONLY_IMAGE,
+    BASELINE_IMAGE,
 )
 
 
-baseline_manifest = json.loads(
-    fingerprints_only[
-        "manifest_path"
-    ].read_text(
-        encoding="utf-8"
+baseline_manifest = (
+    read_manifest(
+        baseline
     )
 )
 
@@ -388,6 +505,7 @@ baseline_frame = (
         "frames"
     ][0]
 )
+
 
 baseline_bbox = tuple(
     baseline_frame[
@@ -398,80 +516,56 @@ baseline_bbox = tuple(
 )
 
 
-baseline_condensation = artifact_by_id(
+baseline_dust = artifact_by_id(
     baseline_frame,
-    "condensation",
+    "dust",
 )
 
+
 assert (
-    baseline_condensation[
+    baseline_dust[
         "enabled"
     ]
     is False
 )
 
 assert (
-    baseline_condensation[
+    baseline_dust[
         "applied"
     ]
     is False
 )
 
 assert (
-    baseline_condensation[
+    baseline_dust[
         "parameters"
     ]
     == {}
 )
 
 
-# Generation must leave the template clean.
-assert abs(
-    float(
-        roughness_socket.default_value
-    )
-    - BASE_ROUGHNESS
-) <= 1e-6
-
-assert (
-    temporary_nodes(
-        glass_material,
-        "BVT Fingerprints",
-    )
-    == []
-)
-
-assert (
-    temporary_nodes(
-        glass_material,
-        "BVT Condensation",
-    )
-    == []
-)
-
-assert (
-    temporary_images(
-        "BVT_Fingerprints_"
-    )
-    == []
-)
-
-assert (
-    temporary_images(
-        "BVT_Condensation_"
-    )
-    == []
+assert_clean(
+    glass_material,
+    roughness_socket,
+    BASE_ROUGHNESS,
 )
 
 
 # =========================================================
-# Reflection + Fingerprints + Condensation.
+# Full chain:
+# Reflection
+# -> Fingerprints
+# -> Condensation
+# -> Frost
+# -> Dust
 # =========================================================
 
-project.artifact_condensation_enabled = True
-project.artifact_condensation_probability = 1.0
-project.artifact_condensation_intensity = (
-    CONDENSATION_INTENSITY
+project.artifact_dust_enabled = True
+
+project.artifact_dust_probability = 1.0
+
+project.artifact_dust_intensity = (
+    DUST_INTENSITY
 )
 
 
@@ -490,45 +584,6 @@ assert (
 )
 
 
-# Reset must already have happened.
-assert abs(
-    float(
-        roughness_socket.default_value
-    )
-    - BASE_ROUGHNESS
-) <= 1e-6
-
-assert (
-    temporary_nodes(
-        glass_material,
-        "BVT Fingerprints",
-    )
-    == []
-)
-
-assert (
-    temporary_nodes(
-        glass_material,
-        "BVT Condensation",
-    )
-    == []
-)
-
-assert (
-    temporary_images(
-        "BVT_Fingerprints_"
-    )
-    == []
-)
-
-assert (
-    temporary_images(
-        "BVT_Condensation_"
-    )
-    == []
-)
-
-
 shutil.copy2(
     first[
         "image_path"
@@ -537,39 +592,36 @@ shutil.copy2(
 )
 
 
-manifest = json.loads(
-    first[
-        "manifest_path"
-    ].read_text(
-        encoding="utf-8"
-    )
-)
-
-frame = (
-    manifest[
-        "frames"
-    ][0]
+assert_clean(
+    glass_material,
+    roughness_socket,
+    BASE_ROUGHNESS,
 )
 
 
-artifact_list = (
-    frame[
-        "artifacts"
-    ][
-        "artifacts"
-    ]
+manifest = read_manifest(
+    first
 )
+
+frame = manifest[
+    "frames"
+][0]
+
 
 artifact_ids = [
     item[
         "artifact"
     ]
     for item
-    in artifact_list
+    in frame[
+        "artifacts"
+    ][
+        "artifacts"
+    ]
 ]
 
 
-assert artifact_ids == [
+EXPECTED_ORDER = [
     "over_exposure",
     "reflection",
     "fingerprints",
@@ -580,6 +632,12 @@ assert artifact_ids == [
     "noise",
     "jpeg_compression",
 ]
+
+
+assert (
+    artifact_ids
+    == EXPECTED_ORDER
+)
 
 
 reflection = artifact_by_id(
@@ -597,88 +655,97 @@ condensation = artifact_by_id(
     "condensation",
 )
 
-
-assert (
-    reflection[
-        "applied"
-    ]
-    is True
+frost = artifact_by_id(
+    frame,
+    "frost",
 )
 
-assert (
-    fingerprints[
-        "applied"
-    ]
-    is True
+dust = artifact_by_id(
+    frame,
+    "dust",
 )
 
+
+for artifact in (
+    reflection,
+    fingerprints,
+    condensation,
+    frost,
+    dust,
+):
+    assert (
+        artifact[
+            "applied"
+        ]
+        is True
+    )
+
+
 assert (
-    condensation[
+    dust[
         "enabled"
     ]
     is True
 )
 
 assert (
-    condensation[
-        "applied"
-    ]
-    is True
-)
-
-assert (
-    condensation[
-        "stage"
-    ]
-    == "pre_render"
-)
-
-assert (
-    condensation[
+    dust[
         "category"
     ]
     == "glass"
 )
 
 assert (
-    condensation[
-        "execution_order"
+    dust[
+        "stage"
     ]
-    == 120
+    == "pre_render"
 )
 
 assert (
-    condensation[
+    dust[
+        "execution_order"
+    ]
+    == 140
+)
+
+assert (
+    dust[
         "probability"
     ]
     == 1.0
 )
 
 assert (
-    condensation[
+    dust[
         "intensity"
     ]
-    == CONDENSATION_INTENSITY
+    == DUST_INTENSITY
 )
 
 assert (
-    condensation[
+    dust[
         "options"
     ]
     == {}
 )
 
 
+# =========================================================
+# Artifact seed.
+# =========================================================
+
 expected_seed = derive_subseed(
     frame[
         "frame_seed"
     ],
     "artifact",
-    "condensation",
+    "dust",
 )
 
+
 assert (
-    condensation[
+    dust[
         "seed"
     ]
     == expected_seed
@@ -686,20 +753,22 @@ assert (
 
 
 assert (
-    condensation[
+    dust[
         "affected_materials"
     ]
     == [
-        "BVT_Condensation_Glass"
+        "BVT_Dust_Glass"
     ]
 )
 
 
-parameters = (
-    condensation[
-        "parameters"
-    ]
-)
+# =========================================================
+# Dust parameters.
+# =========================================================
+
+parameters = dust[
+    "parameters"
+]
 
 
 assert (
@@ -713,60 +782,48 @@ assert (
     parameters[
         "mask_resolution"
     ]
-    == CONDENSATION_MASK_RESOLUTION
+    == DUST_MASK_RESOLUTION
 )
 
 assert abs(
     parameters[
         "roughness_delta"
     ]
-    - CONDENSATION_ROUGHNESS_DELTA
+    - DUST_ROUGHNESS_DELTA
 ) <= 1e-12
 
 assert abs(
     parameters[
         "effective_strength"
     ]
-    - CONDENSATION_INTENSITY
+    - DUST_INTENSITY
 ) <= 1e-12
 
 assert (
     parameters[
-        "patch_count"
+        "particle_count"
     ]
-    == CONDENSATION_PATCH_COUNT
+    == DUST_PARTICLE_COUNT
 )
 
 assert (
     parameters[
-        "droplet_count"
+        "cluster_count"
     ]
-    == CONDENSATION_DROPLET_COUNT
+    == DUST_CLUSTER_COUNT
 )
 
 assert (
-    parameters[
-        "mean_coverage"
-    ]
-    > 0.0
-)
-
-assert (
-    parameters[
+    0.0
+    < parameters[
         "mean_coverage"
     ]
     < 1.0
 )
 
 assert (
-    parameters[
-        "mean_mask_value"
-    ]
-    > 0.0
-)
-
-assert (
-    parameters[
+    0.0
+    < parameters[
         "mean_mask_value"
     ]
     < 1.0
@@ -796,15 +853,22 @@ assert (
     change[
         "material"
     ]
-    == "BVT_Condensation_Glass"
+    == "BVT_Dust_Glass"
 )
 
 
-expected_material_seed = derive_subseed(
-    expected_seed,
-    "artifact-condensation",
-    "BVT_Condensation_Glass",
+# =========================================================
+# Material / particle / cluster seeds.
+# =========================================================
+
+expected_material_seed = (
+    derive_subseed(
+        expected_seed,
+        "artifact-dust",
+        "BVT_Dust_Glass",
+    )
 )
+
 
 assert (
     change[
@@ -813,40 +877,70 @@ assert (
     == expected_material_seed
 )
 
+
 assert (
     change[
-        "coverage"
+        "particle_seed"
     ]
-    > 0.0
+    == derive_subseed(
+        expected_material_seed,
+        "dust-mask",
+        "particles",
+    )
+)
+
+
+assert (
+    change[
+        "cluster_seed"
+    ]
+    == derive_subseed(
+        expected_material_seed,
+        "dust-mask",
+        "clusters",
+    )
+)
+
+
+assert (
+    change[
+        "particle_count"
+    ]
+    == DUST_PARTICLE_COUNT
 )
 
 assert (
     change[
+        "cluster_count"
+    ]
+    == DUST_CLUSTER_COUNT
+)
+
+
+assert (
+    0.0
+    < change[
         "coverage"
     ]
     < 1.0
 )
 
 assert (
-    change[
-        "mean_mask_value"
-    ]
-    > 0.0
-)
-
-assert (
-    change[
+    0.0
+    < change[
         "mean_mask_value"
     ]
     < 1.0
 )
 
 
-node_changes = (
-    change[
-        "nodes"
-    ]
-)
+# =========================================================
+# Dust must wrap Frost.
+# =========================================================
+
+node_changes = change[
+    "nodes"
+]
 
 assert (
     len(
@@ -856,25 +950,23 @@ assert (
 )
 
 
-node_change = (
-    node_changes[
-        0
-    ]
-)
+node_change = node_changes[
+    0
+]
 
 
 assert (
     node_change[
         "input_mode"
     ]
-    == "fingerprints"
+    == "frost"
 )
 
 assert (
     node_change[
         "upstream_node"
     ].startswith(
-        "BVT Fingerprints Roughness Mix"
+        "BVT Frost Roughness Mix"
     )
 )
 
@@ -903,13 +995,18 @@ assert abs(
     - expected_reflection_roughness
 ) <= 1e-6
 
+
 assert abs(
     node_change[
         "roughness_delta"
     ]
-    - CONDENSATION_ROUGHNESS_DELTA
+    - DUST_ROUGHNESS_DELTA
 ) <= 1e-12
 
+
+# =========================================================
+# Annotation must not change.
+# =========================================================
 
 first_bbox = tuple(
     frame[
@@ -919,6 +1016,7 @@ first_bbox = tuple(
     ]
 )
 
+
 assert (
     first_bbox
     == baseline_bbox
@@ -926,26 +1024,24 @@ assert (
 
 
 # =========================================================
-# Real RGB delta.
+# Dust must create a real RGB difference.
 # =========================================================
 
-condensation_vs_fingerprints = (
-    compare_images(
-        FINGERPRINTS_ONLY_IMAGE,
-        FIRST_IMAGE,
-    )
+dust_vs_baseline = compare_images(
+    BASELINE_IMAGE,
+    FIRST_IMAGE,
 )
 
 
 assert (
-    condensation_vs_fingerprints[
+    dust_vs_baseline[
         "max_error"
     ]
     > PIXEL_TOLERANCE
 )
 
 assert (
-    condensation_vs_fingerprints[
+    dust_vs_baseline[
         "changed_components"
     ]
     > 0
@@ -953,7 +1049,8 @@ assert (
 
 
 # =========================================================
-# Same seed/config -> same manifest and same PNG.
+# Same seed / same config:
+# exact same Dust record and pixels.
 # =========================================================
 
 second = generate_dataset(
@@ -971,52 +1068,16 @@ assert (
 )
 
 
-assert abs(
-    float(
-        roughness_socket.default_value
-    )
-    - BASE_ROUGHNESS
-) <= 1e-6
-
-assert (
-    temporary_nodes(
-        glass_material,
-        "BVT Fingerprints",
-    )
-    == []
-)
-
-assert (
-    temporary_nodes(
-        glass_material,
-        "BVT Condensation",
-    )
-    == []
-)
-
-assert (
-    temporary_images(
-        "BVT_Fingerprints_"
-    )
-    == []
-)
-
-assert (
-    temporary_images(
-        "BVT_Condensation_"
-    )
-    == []
+assert_clean(
+    glass_material,
+    roughness_socket,
+    BASE_ROUGHNESS,
 )
 
 
-second_manifest = json.loads(
-    second[
-        "manifest_path"
-    ].read_text(
-        encoding="utf-8"
-    )
+second_manifest = read_manifest(
+    second
 )
-
 
 second_frame = (
     second_manifest[
@@ -1024,14 +1085,15 @@ second_frame = (
     ][0]
 )
 
+second_dust = artifact_by_id(
+    second_frame,
+    "dust",
+)
+
 
 assert (
-    second_frame[
-        "artifacts"
-    ]
-    == frame[
-        "artifacts"
-    ]
+    second_dust
+    == dust
 )
 
 
@@ -1050,6 +1112,13 @@ assert (
     <= PIXEL_TOLERANCE
 )
 
+assert (
+    repeat[
+        "changed_components"
+    ]
+    == 0
+)
+
 
 second_bbox = tuple(
     second_frame[
@@ -1062,12 +1131,85 @@ second_bbox = tuple(
 
 assert (
     second_bbox
-    == baseline_bbox
+    == first_bbox
 )
 
 
+# =========================================================
+# Final cleanup state.
+# =========================================================
+
+temporary_fingerprint_nodes = len(
+    temporary_nodes(
+        glass_material,
+        "BVT Fingerprints",
+    )
+)
+
+temporary_condensation_nodes = len(
+    temporary_nodes(
+        glass_material,
+        "BVT Condensation",
+    )
+)
+
+temporary_frost_nodes = len(
+    temporary_nodes(
+        glass_material,
+        "BVT Frost",
+    )
+)
+
+temporary_dust_nodes = len(
+    temporary_nodes(
+        glass_material,
+        "BVT Dust",
+    )
+)
+
+
+temporary_fingerprint_images = len(
+    temporary_images(
+        "BVT_Fingerprints_"
+    )
+)
+
+temporary_condensation_images = len(
+    temporary_images(
+        "BVT_Condensation_"
+    )
+)
+
+temporary_frost_images = len(
+    temporary_images(
+        "BVT_Frost_"
+    )
+)
+
+temporary_dust_images = len(
+    temporary_images(
+        "BVT_Dust_"
+    )
+)
+
+
+assert temporary_fingerprint_nodes == 0
+assert temporary_condensation_nodes == 0
+assert temporary_frost_nodes == 0
+assert temporary_dust_nodes == 0
+
+assert temporary_fingerprint_images == 0
+assert temporary_condensation_images == 0
+assert temporary_frost_images == 0
+assert temporary_dust_images == 0
+
+
+# =========================================================
+# Report.
+# =========================================================
+
 print(
-    "BVT_CONDENSATION_ARTIFACT_SMOKE=OK"
+    "BVT_DUST_ARTIFACT_SMOKE=OK"
 )
 
 print(
@@ -1076,13 +1218,31 @@ print(
 )
 
 print(
-    "condensation_seed=",
-    expected_seed,
+    "dust_seed=",
+    dust[
+        "seed"
+    ],
 )
 
 print(
     "material_seed=",
-    expected_material_seed,
+    change[
+        "material_seed"
+    ],
+)
+
+print(
+    "particle_seed=",
+    change[
+        "particle_seed"
+    ],
+)
+
+print(
+    "cluster_seed=",
+    change[
+        "cluster_seed"
+    ],
 )
 
 print(
@@ -1092,13 +1252,29 @@ print(
 
 print(
     "roughness_delta=",
-    CONDENSATION_ROUGHNESS_DELTA,
+    parameters[
+        "roughness_delta"
+    ],
 )
 
 print(
     "effective_strength=",
     parameters[
         "effective_strength"
+    ],
+)
+
+print(
+    "particle_count=",
+    parameters[
+        "particle_count"
+    ],
+)
+
+print(
+    "cluster_count=",
+    parameters[
+        "cluster_count"
     ],
 )
 
@@ -1117,22 +1293,29 @@ print(
 )
 
 print(
-    "condensation_vs_fingerprints_rmse=",
-    condensation_vs_fingerprints[
+    "input_mode=",
+    node_change[
+        "input_mode"
+    ],
+)
+
+print(
+    "dust_vs_baseline_rmse=",
+    dust_vs_baseline[
         "rmse"
     ],
 )
 
 print(
-    "condensation_vs_fingerprints_max_error=",
-    condensation_vs_fingerprints[
+    "dust_vs_baseline_max_error=",
+    dust_vs_baseline[
         "max_error"
     ],
 )
 
 print(
     "changed_components=",
-    condensation_vs_fingerprints[
+    dust_vs_baseline[
         "changed_components"
     ],
 )
@@ -1146,52 +1329,55 @@ print(
 
 print(
     "bbox_unchanged=",
-    (
-        second_bbox
-        == baseline_bbox
-    ),
+    first_bbox
+    == baseline_bbox,
 )
 
 print(
-    "material_restored=True"
+    "material_restored=",
+    (
+        not roughness_socket.is_linked
+        and abs(
+            float(
+                roughness_socket.default_value
+            )
+            - BASE_ROUGHNESS
+        )
+        <= 1e-6
+    ),
 )
 
 print(
     "temporary_fingerprint_nodes_after_reset=",
-    len(
-        temporary_nodes(
-            glass_material,
-            "BVT Fingerprints",
-        )
-    ),
+    temporary_fingerprint_nodes,
 )
 
 print(
     "temporary_condensation_nodes_after_reset=",
-    len(
-        temporary_nodes(
-            glass_material,
-            "BVT Condensation",
-        )
-    ),
+    temporary_condensation_nodes,
 )
 
 print(
-    "temporary_fingerprint_images_after_reset=",
-    len(
-        temporary_images(
-            "BVT_Fingerprints_"
-        )
-    ),
+    "temporary_frost_nodes_after_reset=",
+    temporary_frost_nodes,
 )
 
 print(
-    "temporary_condensation_images_after_reset=",
-    len(
-        temporary_images(
-            "BVT_Condensation_"
-        )
-    ),
+    "temporary_dust_nodes_after_reset=",
+    temporary_dust_nodes,
+)
+
+print(
+    "temporary_dust_images_after_reset=",
+    temporary_dust_images,
+)
+
+print(
+    "BVT_DUST_ARTIFACT_CLEANUP=OK"
+)
+
+print(
+    "BVT_DUST_RENDER=OK"
 )
 
 
@@ -1199,9 +1385,4 @@ bvt.unregister()
 
 shutil.rmtree(
     TMP
-)
-
-
-print(
-    "BVT_CONDENSATION_ARTIFACT_CLEANUP=OK"
 )

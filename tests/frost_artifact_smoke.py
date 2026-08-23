@@ -393,6 +393,7 @@ project.artifact_jpeg_enabled = False
 # =========================================================
 
 project.artifact_frost_enabled = False
+project.artifact_dust_enabled = False
 
 
 baseline = generate_dataset(
@@ -544,6 +545,7 @@ assert artifact_ids == [
     "fingerprints",
     "condensation",
     "frost",
+    "dust",
     "motion_blur",
     "noise",
     "jpeg_compression",

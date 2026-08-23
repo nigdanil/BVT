@@ -312,6 +312,7 @@ project.artifact_reflection_min_roughness = (
 project.artifact_fingerprints_enabled = False
 project.artifact_condensation_enabled = False
 project.artifact_frost_enabled = False
+project.artifact_dust_enabled = False
 
 project.artifact_motion_blur_enabled = False
 project.artifact_noise_enabled = False
@@ -482,6 +483,7 @@ assert artifact_ids == [
     "fingerprints",
     "condensation",
     "frost",
+    "dust",
     "motion_blur",
     "noise",
     "jpeg_compression",

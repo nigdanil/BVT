@@ -412,6 +412,38 @@ class BVT_ProjectSettings(bpy.types.PropertyGroup):
         subtype="FACTOR",
     )
 
+    artifact_dust_enabled: BoolProperty(
+        name="Dust",
+        description=(
+            "Enable deterministic granular dust "
+            "on BVT glass materials"
+        ),
+        default=False,
+    )
+
+    artifact_dust_probability: FloatProperty(
+        name="Probability",
+        description=(
+            "Probability of applying dust "
+            "to each generated frame"
+        ),
+        default=0.50,
+        min=0.0,
+        max=1.0,
+        subtype="FACTOR",
+    )
+
+    artifact_dust_intensity: FloatProperty(
+        name="Intensity",
+        description=(
+            "Strength of granular dust"
+        ),
+        default=0.50,
+        min=0.0,
+        max=1.0,
+        subtype="FACTOR",
+    )
+
     artifact_motion_blur_enabled: BoolProperty(
         name="Motion Blur",
         description=(

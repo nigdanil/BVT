@@ -27,6 +27,9 @@ from .providers.condensation import (
 from .providers.frost import (
     FrostArtifactProvider,
 )
+from .providers.dust import (
+    DustArtifactProvider,
+)
 
 
 ARTIFACT_ENGINE_VERSION = (
@@ -40,6 +43,7 @@ _PROVIDERS = (
     FingerprintsArtifactProvider(),
     CondensationArtifactProvider(),
     FrostArtifactProvider(),
+    DustArtifactProvider(),
     MotionBlurArtifactProvider(),
     NoiseArtifactProvider(),
     JPEGCompressionArtifactProvider(),
@@ -151,6 +155,21 @@ def build_artifact_configs(
             intensity=(
                 project_settings
                 .artifact_frost_intensity
+            ),
+        ),
+        ArtifactConfig(
+            artifact_id="dust",
+            enabled=(
+                project_settings
+                .artifact_dust_enabled
+            ),
+            probability=(
+                project_settings
+                .artifact_dust_probability
+            ),
+            intensity=(
+                project_settings
+                .artifact_dust_intensity
             ),
         ),
         ArtifactConfig(

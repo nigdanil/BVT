@@ -10,6 +10,7 @@ from .reflection import ReflectionArtifactProvider
 from .fingerprints import FingerprintsArtifactProvider
 from .condensation import CondensationArtifactProvider
 from .frost import FrostArtifactProvider
+from .dust import DustArtifactProvider
 
 
 __all__ = (
@@ -21,4 +22,5 @@ __all__ = (
     "FingerprintsArtifactProvider",
     "CondensationArtifactProvider",
     "FrostArtifactProvider",
+    "DustArtifactProvider",
 )

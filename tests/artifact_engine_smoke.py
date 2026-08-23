@@ -168,6 +168,7 @@ project.artifact_reflection_enabled = False
 project.artifact_fingerprints_enabled = False
 project.artifact_condensation_enabled = False
 project.artifact_frost_enabled = False
+project.artifact_dust_enabled = False
 project.artifact_motion_blur_enabled = False
 project.artifact_noise_enabled = False
 project.artifact_jpeg_enabled = False
@@ -253,7 +254,7 @@ for frame in frames:
         len(
             engine_result["artifacts"]
         )
-        == 8
+        == 9
     )
 
     artifacts_by_id = {
@@ -274,6 +275,7 @@ for frame in frames:
         "fingerprints",
         "condensation",
         "frost",
+        "dust",
         "motion_blur",
         "noise",
         "jpeg_compression",
@@ -285,6 +287,7 @@ for frame in frames:
         "condensation",
         "fingerprints",
         "frost",
+        "dust",
         "jpeg_compression",
         "motion_blur",
         "noise",
@@ -424,6 +427,44 @@ for frame in frames:
 
     assert (
         frost_artifact["parameters"]
+        == {}
+    )
+
+    dust_artifact = (
+        artifacts_by_id[
+            "dust"
+        ]
+    )
+
+    assert (
+        dust_artifact["enabled"]
+        is False
+    )
+
+    assert (
+        dust_artifact["applied"]
+        is False
+    )
+
+    assert (
+        dust_artifact["category"]
+        == "glass"
+    )
+
+    assert (
+        dust_artifact["stage"]
+        == "pre_render"
+    )
+
+    assert (
+        dust_artifact[
+            "execution_order"
+        ]
+        == 140
+    )
+
+    assert (
+        dust_artifact["parameters"]
         == {}
     )
 

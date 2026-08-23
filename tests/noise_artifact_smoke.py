@@ -241,6 +241,7 @@ project.artifact_reflection_enabled = False
 project.artifact_fingerprints_enabled = False
 project.artifact_condensation_enabled = False
 project.artifact_frost_enabled = False
+project.artifact_dust_enabled = False
 project.artifact_motion_blur_enabled = False
 project.artifact_jpeg_enabled = False
 
@@ -289,6 +290,7 @@ for frame in manifest["frames"]:
         "fingerprints",
         "condensation",
         "frost",
+        "dust",
         "jpeg_compression",
         "motion_blur",
         "noise",
