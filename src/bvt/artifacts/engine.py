@@ -21,6 +21,9 @@ from .providers.reflection import (
 from .providers.fingerprints import (
     FingerprintsArtifactProvider,
 )
+from .providers.condensation import (
+    CondensationArtifactProvider,
+)
 
 
 ARTIFACT_ENGINE_VERSION = (
@@ -32,6 +35,7 @@ _PROVIDERS = (
     OverExposureArtifactProvider(),
     ReflectionArtifactProvider(),
     FingerprintsArtifactProvider(),
+    CondensationArtifactProvider(),
     MotionBlurArtifactProvider(),
     NoiseArtifactProvider(),
     JPEGCompressionArtifactProvider(),
@@ -114,6 +118,21 @@ def build_artifact_configs(
                     .artifact_fingerprints_size
                 ),
             },
+        ),
+        ArtifactConfig(
+            artifact_id="condensation",
+            enabled=(
+                project_settings
+                .artifact_condensation_enabled
+            ),
+            probability=(
+                project_settings
+                .artifact_condensation_probability
+            ),
+            intensity=(
+                project_settings
+                .artifact_condensation_intensity
+            ),
         ),
         ArtifactConfig(
             artifact_id="motion_blur",

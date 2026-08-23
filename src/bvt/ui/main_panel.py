@@ -423,6 +423,28 @@ class BVT_PT_MainPanel(bpy.types.Panel):
             artifacts_box.separator()
 
             artifacts_box.label(
+                text="Condensation",
+            )
+
+            artifacts_box.prop(
+                project,
+                "artifact_condensation_enabled",
+            )
+
+            if project.artifact_condensation_enabled:
+                artifacts_box.prop(
+                    project,
+                    "artifact_condensation_probability",
+                )
+
+                artifacts_box.prop(
+                    project,
+                    "artifact_condensation_intensity",
+                )
+
+            artifacts_box.separator()
+
+            artifacts_box.label(
                 text="Motion Blur",
             )
 

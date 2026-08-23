@@ -166,6 +166,7 @@ project.artifact_over_exposure_intensity = 0.50
 
 project.artifact_reflection_enabled = False
 project.artifact_fingerprints_enabled = False
+project.artifact_condensation_enabled = False
 project.artifact_motion_blur_enabled = False
 project.artifact_noise_enabled = False
 project.artifact_jpeg_enabled = False
@@ -251,7 +252,7 @@ for frame in frames:
         len(
             engine_result["artifacts"]
         )
-        == 6
+        == 7
     )
 
     artifacts_by_id = {
@@ -260,9 +261,26 @@ for frame in frames:
         in engine_result["artifacts"]
     }
 
+    artifact_order = [
+        item["artifact"]
+        for item
+        in engine_result["artifacts"]
+    ]
+
+    assert artifact_order == [
+        "over_exposure",
+        "reflection",
+        "fingerprints",
+        "condensation",
+        "motion_blur",
+        "noise",
+        "jpeg_compression",
+    ]
+
     assert set(
         artifacts_by_id
     ) == {
+        "condensation",
         "fingerprints",
         "jpeg_compression",
         "motion_blur",
@@ -327,6 +345,44 @@ for frame in frames:
 
     assert (
         fingerprints_artifact["parameters"]
+        == {}
+    )
+
+    condensation_artifact = (
+        artifacts_by_id[
+            "condensation"
+        ]
+    )
+
+    assert (
+        condensation_artifact["enabled"]
+        is False
+    )
+
+    assert (
+        condensation_artifact["applied"]
+        is False
+    )
+
+    assert (
+        condensation_artifact["category"]
+        == "glass"
+    )
+
+    assert (
+        condensation_artifact["stage"]
+        == "pre_render"
+    )
+
+    assert (
+        condensation_artifact[
+            "execution_order"
+        ]
+        == 120
+    )
+
+    assert (
+        condensation_artifact["parameters"]
         == {}
     )
 

@@ -11,17 +11,17 @@ TMP = ROOT / ".tmp"
 
 BLEND_PATH = (
     TMP
-    / "fingerprints-artifact.blend"
+    / "condensation-artifact.blend"
 )
 
-REFLECTION_ONLY_IMAGE = (
+FINGERPRINTS_ONLY_IMAGE = (
     TMP
-    / "fingerprints-reflection-only.png"
+    / "condensation-fingerprints-only.png"
 )
 
 FIRST_IMAGE = (
     TMP
-    / "fingerprints-first.png"
+    / "condensation-first.png"
 )
 
 PIXEL_TOLERANCE = 1e-6
@@ -37,6 +37,12 @@ import bpy
 import bvt
 
 from bvt.annotation.service import register_object
+from bvt.artifacts.providers.condensation import (
+    CONDENSATION_DROPLET_COUNT,
+    CONDENSATION_MASK_RESOLUTION,
+    CONDENSATION_PATCH_COUNT,
+    CONDENSATION_ROUGHNESS_DELTA,
+)
 from bvt.core.seeding import derive_subseed
 from bvt.materials import MATERIAL_ROLE_GLASS
 from bvt.materials import set_material_role
@@ -54,8 +60,12 @@ def load_pixels(
 
     try:
         return (
-            tuple(image.size),
-            list(image.pixels[:]),
+            tuple(
+                image.size
+            ),
+            list(
+                image.pixels[:]
+            ),
         )
 
     finally:
@@ -122,7 +132,9 @@ def compare_images(
     return {
         "rmse": math.sqrt(
             squared_error
-            / len(first_pixels)
+            / len(
+                first_pixels
+            )
         ),
         "max_error": (
             max_error
@@ -135,24 +147,27 @@ def compare_images(
 
 def temporary_nodes(
     material,
+    prefix,
 ):
     return [
         node
         for node
         in material.node_tree.nodes
         if node.name.startswith(
-            "BVT Fingerprints"
+            prefix
         )
     ]
 
 
-def temporary_images():
+def temporary_images(
+    prefix,
+):
     return [
         image
         for image
         in bpy.data.images
         if image.name.startswith(
-            "BVT_Fingerprints_"
+            prefix
         )
     ]
 
@@ -170,7 +185,9 @@ def artifact_by_id(
             "artifacts"
         ]
         if (
-            item["artifact"]
+            item[
+                "artifact"
+            ]
             == artifact_id
         )
     )
@@ -202,7 +219,7 @@ bpy.ops.wm.save_as_mainfile(
 project = scene.bvt_project
 
 project.project_name = (
-    "Fingerprints Artifact Smoke"
+    "Condensation Artifact Smoke"
 )
 
 project.output_directory = (
@@ -238,7 +255,7 @@ register_object(
 
 glass_material = (
     bpy.data.materials.new(
-        "BVT_Fingerprints_Glass"
+        "BVT_Condensation_Glass"
     )
 )
 
@@ -284,6 +301,8 @@ FINGERPRINT_COUNT = 4
 FINGERPRINT_TRANSPARENCY = 0.0
 FINGERPRINT_SIZE = 0.45
 
+CONDENSATION_INTENSITY = 1.0
+
 
 roughness_socket.default_value = (
     BASE_ROUGHNESS
@@ -292,8 +311,8 @@ roughness_socket.default_value = (
 
 # =========================================================
 # Baseline:
-# Reflection enabled, Fingerprints disabled.
-# This isolates the visual delta caused only by fingerprints.
+# Reflection + Fingerprints,
+# Condensation disabled.
 # =========================================================
 
 project.artifact_engine_enabled = True
@@ -308,86 +327,6 @@ project.artifact_reflection_intensity = (
 project.artifact_reflection_min_roughness = (
     REFLECTION_MIN_ROUGHNESS
 )
-
-project.artifact_fingerprints_enabled = False
-project.artifact_condensation_enabled = False
-
-project.artifact_motion_blur_enabled = False
-project.artifact_noise_enabled = False
-project.artifact_jpeg_enabled = False
-
-
-reflection_only = generate_dataset(
-    scene
-)
-
-assert (
-    reflection_only[
-        "validation_report"
-    ][
-        "status"
-    ]
-    == "PASS"
-)
-
-
-shutil.copy2(
-    reflection_only[
-        "image_path"
-    ],
-    REFLECTION_ONLY_IMAGE,
-)
-
-
-reflection_only_manifest = (
-    json.loads(
-        reflection_only[
-            "manifest_path"
-        ].read_text(
-            encoding="utf-8"
-        )
-    )
-)
-
-reflection_only_frame = (
-    reflection_only_manifest[
-        "frames"
-    ][0]
-)
-
-reflection_only_bbox = tuple(
-    reflection_only_frame[
-        "objects"
-    ][0][
-        "bbox_yolo"
-    ]
-)
-
-
-# Material template must already be clean.
-assert abs(
-    float(
-        roughness_socket.default_value
-    )
-    - BASE_ROUGHNESS
-) <= 1e-7
-
-assert (
-    temporary_nodes(
-        glass_material
-    )
-    == []
-)
-
-assert (
-    temporary_images()
-    == []
-)
-
-
-# =========================================================
-# Reflection + Fingerprints
-# =========================================================
 
 project.artifact_fingerprints_enabled = True
 project.artifact_fingerprints_probability = 1.0
@@ -404,10 +343,140 @@ project.artifact_fingerprints_size = (
     FINGERPRINT_SIZE
 )
 
+project.artifact_condensation_enabled = False
+
+project.artifact_motion_blur_enabled = False
+project.artifact_noise_enabled = False
+project.artifact_jpeg_enabled = False
+
+
+fingerprints_only = generate_dataset(
+    scene
+)
+
+
+assert (
+    fingerprints_only[
+        "validation_report"
+    ][
+        "status"
+    ]
+    == "PASS"
+)
+
+
+shutil.copy2(
+    fingerprints_only[
+        "image_path"
+    ],
+    FINGERPRINTS_ONLY_IMAGE,
+)
+
+
+baseline_manifest = json.loads(
+    fingerprints_only[
+        "manifest_path"
+    ].read_text(
+        encoding="utf-8"
+    )
+)
+
+baseline_frame = (
+    baseline_manifest[
+        "frames"
+    ][0]
+)
+
+baseline_bbox = tuple(
+    baseline_frame[
+        "objects"
+    ][0][
+        "bbox_yolo"
+    ]
+)
+
+
+baseline_condensation = artifact_by_id(
+    baseline_frame,
+    "condensation",
+)
+
+assert (
+    baseline_condensation[
+        "enabled"
+    ]
+    is False
+)
+
+assert (
+    baseline_condensation[
+        "applied"
+    ]
+    is False
+)
+
+assert (
+    baseline_condensation[
+        "parameters"
+    ]
+    == {}
+)
+
+
+# Generation must leave the template clean.
+assert abs(
+    float(
+        roughness_socket.default_value
+    )
+    - BASE_ROUGHNESS
+) <= 1e-6
+
+assert (
+    temporary_nodes(
+        glass_material,
+        "BVT Fingerprints",
+    )
+    == []
+)
+
+assert (
+    temporary_nodes(
+        glass_material,
+        "BVT Condensation",
+    )
+    == []
+)
+
+assert (
+    temporary_images(
+        "BVT_Fingerprints_"
+    )
+    == []
+)
+
+assert (
+    temporary_images(
+        "BVT_Condensation_"
+    )
+    == []
+)
+
+
+# =========================================================
+# Reflection + Fingerprints + Condensation.
+# =========================================================
+
+project.artifact_condensation_enabled = True
+project.artifact_condensation_probability = 1.0
+project.artifact_condensation_intensity = (
+    CONDENSATION_INTENSITY
+)
+
 
 first = generate_dataset(
     scene
 )
+
 
 assert (
     first[
@@ -425,17 +494,35 @@ assert abs(
         roughness_socket.default_value
     )
     - BASE_ROUGHNESS
-) <= 1e-7
+) <= 1e-6
 
 assert (
     temporary_nodes(
-        glass_material
+        glass_material,
+        "BVT Fingerprints",
     )
     == []
 )
 
 assert (
-    temporary_images()
+    temporary_nodes(
+        glass_material,
+        "BVT Condensation",
+    )
+    == []
+)
+
+assert (
+    temporary_images(
+        "BVT_Fingerprints_"
+    )
+    == []
+)
+
+assert (
+    temporary_images(
+        "BVT_Condensation_"
+    )
     == []
 )
 
@@ -456,9 +543,11 @@ manifest = json.loads(
     )
 )
 
-frame = manifest[
-    "frames"
-][0]
+frame = (
+    manifest[
+        "frames"
+    ][0]
+)
 
 
 artifact_list = (
@@ -470,10 +559,13 @@ artifact_list = (
 )
 
 artifact_ids = [
-    item["artifact"]
+    item[
+        "artifact"
+    ]
     for item
     in artifact_list
 ]
+
 
 assert artifact_ids == [
     "over_exposure",
@@ -496,95 +588,115 @@ fingerprints = artifact_by_id(
     "fingerprints",
 )
 
+condensation = artifact_by_id(
+    frame,
+    "condensation",
+)
+
 
 assert (
-    reflection["applied"]
+    reflection[
+        "applied"
+    ]
     is True
-)
-
-assert (
-    fingerprints["enabled"]
-    is True
-)
-
-assert (
-    fingerprints["applied"]
-    is True
-)
-
-assert (
-    fingerprints["stage"]
-    == "pre_render"
-)
-
-assert (
-    fingerprints["category"]
-    == "glass"
 )
 
 assert (
     fingerprints[
+        "applied"
+    ]
+    is True
+)
+
+assert (
+    condensation[
+        "enabled"
+    ]
+    is True
+)
+
+assert (
+    condensation[
+        "applied"
+    ]
+    is True
+)
+
+assert (
+    condensation[
+        "stage"
+    ]
+    == "pre_render"
+)
+
+assert (
+    condensation[
+        "category"
+    ]
+    == "glass"
+)
+
+assert (
+    condensation[
         "execution_order"
     ]
-    == 110
+    == 120
+)
+
+assert (
+    condensation[
+        "probability"
+    ]
+    == 1.0
+)
+
+assert (
+    condensation[
+        "intensity"
+    ]
+    == CONDENSATION_INTENSITY
+)
+
+assert (
+    condensation[
+        "options"
+    ]
+    == {}
 )
 
 
 expected_seed = derive_subseed(
-    frame["frame_seed"],
+    frame[
+        "frame_seed"
+    ],
     "artifact",
-    "fingerprints",
+    "condensation",
 )
 
 assert (
-    fingerprints["seed"]
+    condensation[
+        "seed"
+    ]
     == expected_seed
 )
 
 
 assert (
-    fingerprints[
+    condensation[
         "affected_materials"
     ]
     == [
-        "BVT_Fingerprints_Glass"
+        "BVT_Condensation_Glass"
     ]
 )
-
-
-assert (
-    fingerprints[
-        "options"
-    ][
-        "print_count"
-    ]
-    == FINGERPRINT_COUNT
-)
-
-assert abs(
-    fingerprints[
-        "options"
-    ][
-        "transparency"
-    ]
-    - FINGERPRINT_TRANSPARENCY
-) <= 1e-7
-
-assert abs(
-    fingerprints[
-        "options"
-    ][
-        "size"
-    ]
-    - FINGERPRINT_SIZE
-) <= 1e-7
 
 
 parameters = (
-    fingerprints[
+    condensation[
         "parameters"
     ]
 )
+
 
 assert (
     parameters[
@@ -595,16 +707,37 @@ assert (
 
 assert (
     parameters[
-        "print_count"
+        "mask_resolution"
     ]
-    == FINGERPRINT_COUNT
+    == CONDENSATION_MASK_RESOLUTION
+)
+
+assert abs(
+    parameters[
+        "roughness_delta"
+    ]
+    - CONDENSATION_ROUGHNESS_DELTA
+) <= 1e-12
+
+assert abs(
+    parameters[
+        "effective_strength"
+    ]
+    - CONDENSATION_INTENSITY
+) <= 1e-12
+
+assert (
+    parameters[
+        "patch_count"
+    ]
+    == CONDENSATION_PATCH_COUNT
 )
 
 assert (
     parameters[
-        "mask_resolution"
+        "droplet_count"
     ]
-    == 256
+    == CONDENSATION_DROPLET_COUNT
 )
 
 assert (
@@ -621,21 +754,19 @@ assert (
     < 1.0
 )
 
-
-expected_strength = (
-    FINGERPRINT_INTENSITY
-    * (
-        1.0
-        - FINGERPRINT_TRANSPARENCY
-    )
+assert (
+    parameters[
+        "mean_mask_value"
+    ]
+    > 0.0
 )
 
-assert abs(
+assert (
     parameters[
-        "effective_strength"
+        "mean_mask_value"
     ]
-    - expected_strength
-) <= 1e-7
+    < 1.0
+)
 
 
 material_changes = (
@@ -651,44 +782,104 @@ assert (
     == 1
 )
 
-change = (
-    material_changes[0]
+
+change = material_changes[
+    0
+]
+
+
+assert (
+    change[
+        "material"
+    ]
+    == "BVT_Condensation_Glass"
+)
+
+
+expected_material_seed = derive_subseed(
+    expected_seed,
+    "artifact-condensation",
+    "BVT_Condensation_Glass",
 )
 
 assert (
-    change["material"]
-    == "BVT_Fingerprints_Glass"
+    change[
+        "material_seed"
+    ]
+    == expected_material_seed
 )
 
 assert (
-    change["coverage"]
+    change[
+        "coverage"
+    ]
     > 0.0
 )
 
 assert (
-    len(
-        change[
-            "fingerprints"
-        ]
-    )
-    == FINGERPRINT_COUNT
+    change[
+        "coverage"
+    ]
+    < 1.0
+)
+
+assert (
+    change[
+        "mean_mask_value"
+    ]
+    > 0.0
+)
+
+assert (
+    change[
+        "mean_mask_value"
+    ]
+    < 1.0
+)
+
+
+node_changes = (
+    change[
+        "nodes"
+    ]
 )
 
 assert (
     len(
-        change[
-            "nodes"
-        ]
+        node_changes
     )
     == 1
 )
 
 
 node_change = (
-    change[
-        "nodes"
-    ][0]
+    node_changes[
+        0
+    ]
 )
+
+
+assert (
+    node_change[
+        "input_mode"
+    ]
+    == "fingerprints"
+)
+
+assert (
+    node_change[
+        "upstream_node"
+    ].startswith(
+        "BVT Fingerprints Roughness Mix"
+    )
+)
+
+assert abs(
+    node_change[
+        "base_roughness"
+    ]
+    - BASE_ROUGHNESS
+) <= 1e-6
 
 
 expected_reflection_roughness = (
@@ -700,6 +891,7 @@ expected_reflection_roughness = (
     * REFLECTION_INTENSITY
 )
 
+
 assert abs(
     node_change[
         "input_roughness"
@@ -707,21 +899,12 @@ assert abs(
     - expected_reflection_roughness
 ) <= 1e-6
 
-
-expected_target_roughness = min(
-    1.0,
-    (
-        expected_reflection_roughness
-        + 0.45
-    ),
-)
-
 assert abs(
     node_change[
-        "target_roughness"
+        "roughness_delta"
     ]
-    - expected_target_roughness
-) <= 1e-6
+    - CONDENSATION_ROUGHNESS_DELTA
+) <= 1e-12
 
 
 first_bbox = tuple(
@@ -734,27 +917,31 @@ first_bbox = tuple(
 
 assert (
     first_bbox
-    == reflection_only_bbox
+    == baseline_bbox
 )
 
 
-fingerprints_vs_reflection = (
+# =========================================================
+# Real RGB delta.
+# =========================================================
+
+condensation_vs_fingerprints = (
     compare_images(
-        REFLECTION_ONLY_IMAGE,
+        FINGERPRINTS_ONLY_IMAGE,
         FIRST_IMAGE,
     )
 )
 
 
 assert (
-    fingerprints_vs_reflection[
+    condensation_vs_fingerprints[
         "max_error"
     ]
     > PIXEL_TOLERANCE
 )
 
 assert (
-    fingerprints_vs_reflection[
+    condensation_vs_fingerprints[
         "changed_components"
     ]
     > 0
@@ -762,12 +949,13 @@ assert (
 
 
 # =========================================================
-# Same seed/config -> same manifest + same rendered pixels
+# Same seed/config -> same manifest and same PNG.
 # =========================================================
 
 second = generate_dataset(
     scene
 )
+
 
 assert (
     second[
@@ -784,17 +972,35 @@ assert abs(
         roughness_socket.default_value
     )
     - BASE_ROUGHNESS
-) <= 1e-7
+) <= 1e-6
 
 assert (
     temporary_nodes(
-        glass_material
+        glass_material,
+        "BVT Fingerprints",
     )
     == []
 )
 
 assert (
-    temporary_images()
+    temporary_nodes(
+        glass_material,
+        "BVT Condensation",
+    )
+    == []
+)
+
+assert (
+    temporary_images(
+        "BVT_Fingerprints_"
+    )
+    == []
+)
+
+assert (
+    temporary_images(
+        "BVT_Condensation_"
+    )
     == []
 )
 
@@ -808,10 +1014,15 @@ second_manifest = json.loads(
 )
 
 
-assert (
+second_frame = (
     second_manifest[
         "frames"
-    ][0][
+    ][0]
+)
+
+
+assert (
+    second_frame[
         "artifacts"
     ]
     == frame[
@@ -837,23 +1048,22 @@ assert (
 
 
 second_bbox = tuple(
-    second_manifest[
-        "frames"
-    ][0][
+    second_frame[
         "objects"
     ][0][
         "bbox_yolo"
     ]
 )
 
+
 assert (
     second_bbox
-    == reflection_only_bbox
+    == baseline_bbox
 )
 
 
 print(
-    "BVT_FINGERPRINTS_ARTIFACT_SMOKE=OK"
+    "BVT_CONDENSATION_ARTIFACT_SMOKE=OK"
 )
 
 print(
@@ -862,47 +1072,63 @@ print(
 )
 
 print(
-    "fingerprint_seed=",
+    "condensation_seed=",
     expected_seed,
 )
 
 print(
-    "reflection_input_roughness=",
+    "material_seed=",
+    expected_material_seed,
+)
+
+print(
+    "reflection_roughness=",
     expected_reflection_roughness,
 )
 
 print(
-    "fingerprint_target_roughness=",
-    expected_target_roughness,
+    "roughness_delta=",
+    CONDENSATION_ROUGHNESS_DELTA,
 )
 
 print(
     "effective_strength=",
-    expected_strength,
+    parameters[
+        "effective_strength"
+    ],
 )
 
 print(
     "coverage=",
-    change["coverage"],
+    change[
+        "coverage"
+    ],
 )
 
 print(
-    "fingerprints_vs_reflection_rmse=",
-    fingerprints_vs_reflection[
+    "mean_mask_value=",
+    change[
+        "mean_mask_value"
+    ],
+)
+
+print(
+    "condensation_vs_fingerprints_rmse=",
+    condensation_vs_fingerprints[
         "rmse"
     ],
 )
 
 print(
-    "fingerprints_vs_reflection_max_error=",
-    fingerprints_vs_reflection[
+    "condensation_vs_fingerprints_max_error=",
+    condensation_vs_fingerprints[
         "max_error"
     ],
 )
 
 print(
     "changed_components=",
-    fingerprints_vs_reflection[
+    condensation_vs_fingerprints[
         "changed_components"
     ],
 )
@@ -918,7 +1144,7 @@ print(
     "bbox_unchanged=",
     (
         second_bbox
-        == reflection_only_bbox
+        == baseline_bbox
     ),
 )
 
@@ -927,18 +1153,40 @@ print(
 )
 
 print(
-    "temporary_nodes_after_reset=",
+    "temporary_fingerprint_nodes_after_reset=",
     len(
         temporary_nodes(
-            glass_material
+            glass_material,
+            "BVT Fingerprints",
         )
     ),
 )
 
 print(
-    "temporary_images_after_reset=",
+    "temporary_condensation_nodes_after_reset=",
     len(
-        temporary_images()
+        temporary_nodes(
+            glass_material,
+            "BVT Condensation",
+        )
+    ),
+)
+
+print(
+    "temporary_fingerprint_images_after_reset=",
+    len(
+        temporary_images(
+            "BVT_Fingerprints_"
+        )
+    ),
+)
+
+print(
+    "temporary_condensation_images_after_reset=",
+    len(
+        temporary_images(
+            "BVT_Condensation_"
+        )
     ),
 )
 
@@ -951,5 +1199,5 @@ shutil.rmtree(
 
 
 print(
-    "BVT_FINGERPRINTS_ARTIFACT_CLEANUP=OK"
+    "BVT_CONDENSATION_ARTIFACT_CLEANUP=OK"
 )

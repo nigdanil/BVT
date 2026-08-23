@@ -44,6 +44,7 @@ EXPECTED_ORDER = [
     "over_exposure",
     "reflection",
     "fingerprints",
+    "condensation",
     "motion_blur",
     "noise",
     "jpeg_compression",
@@ -259,6 +260,8 @@ project.artifact_fingerprints_transparency = (
 project.artifact_fingerprints_size = (
     FINGERPRINT_SIZE
 )
+
+project.artifact_condensation_enabled = False
 
 project.artifact_motion_blur_enabled = False
 project.artifact_noise_enabled = False

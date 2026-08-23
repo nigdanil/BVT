@@ -214,6 +214,7 @@ project.artifact_engine_enabled = True
 project.artifact_over_exposure_enabled = False
 project.artifact_reflection_enabled = False
 project.artifact_fingerprints_enabled = False
+project.artifact_condensation_enabled = False
 project.artifact_noise_enabled = False
 project.artifact_jpeg_enabled = False
 
@@ -276,6 +277,7 @@ for index, frame in enumerate(
         "over_exposure",
         "reflection",
         "fingerprints",
+        "condensation",
         "motion_blur",
         "noise",
         "jpeg_compression",

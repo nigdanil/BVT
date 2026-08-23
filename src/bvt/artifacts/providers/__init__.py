@@ -8,6 +8,7 @@ from .motion_blur import (
 from .noise import NoiseArtifactProvider
 from .reflection import ReflectionArtifactProvider
 from .fingerprints import FingerprintsArtifactProvider
+from .condensation import CondensationArtifactProvider
 
 
 __all__ = (
@@ -17,4 +18,5 @@ __all__ = (
     "JPEGCompressionArtifactProvider",
     "ReflectionArtifactProvider",
     "FingerprintsArtifactProvider",
+    "CondensationArtifactProvider",
 )

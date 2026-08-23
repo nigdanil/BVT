@@ -348,6 +348,38 @@ class BVT_ProjectSettings(bpy.types.PropertyGroup):
         subtype="FACTOR",
     )
 
+    artifact_condensation_enabled: BoolProperty(
+        name="Condensation",
+        description=(
+            "Enable deterministic condensation "
+            "on BVT glass materials"
+        ),
+        default=False,
+    )
+
+    artifact_condensation_probability: FloatProperty(
+        name="Probability",
+        description=(
+            "Probability of applying condensation "
+            "to each generated frame"
+        ),
+        default=0.50,
+        min=0.0,
+        max=1.0,
+        subtype="FACTOR",
+    )
+
+    artifact_condensation_intensity: FloatProperty(
+        name="Intensity",
+        description=(
+            "Strength of condensation haze"
+        ),
+        default=0.50,
+        min=0.0,
+        max=1.0,
+        subtype="FACTOR",
+    )
+
     artifact_motion_blur_enabled: BoolProperty(
         name="Motion Blur",
         description=(
