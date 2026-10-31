@@ -1,0 +1,46 @@
+{
+  "schema_version": "bvt-cli-scenario-1",
+
+  "project": {
+    "project_name": "BVT CLI Smoke",
+    "output_directory": ".tmp/cli-dataset-output",
+    "project_id": "bvt-cli-smoke",
+    "seed": 12345,
+    "frame_count": 3
+  },
+
+  "settings": {
+    "placement_randomization_enabled": true,
+    "placement_offset_x": 0.02,
+    "placement_offset_y": 0.02,
+    "placement_offset_z": 0.0,
+
+    "camera_randomization_enabled": false,
+    "lighting_randomization_enabled": false,
+
+    "artifact_engine_enabled": false
+  },
+
+  "objects": [
+    {
+      "name": "Cube",
+      "class_id": 0,
+      "class_name": "cube",
+      "instance_id": "cli-cube-001",
+      "annotation_enabled": true
+    }
+  ],
+
+  "materials": [
+    {
+      "name": "BVT CLI Glass",
+      "create": true,
+      "use_nodes": true,
+      "role": "GLASS",
+      "roughness": 0.8,
+      "assign_to": [
+        "Cube"
+      ]
+    }
+  ]
+}
