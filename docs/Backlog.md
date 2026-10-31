@@ -66,8 +66,8 @@ Priority: P0
 
 Status: ◐ In Progress
 
-- [ ] Зафиксировать contract `scratches`.
-- [ ] Определить execution order и compatibility rules.
+- [x] Зафиксировать contract `scratches`.
+- [x] Определить execution order и compatibility rules.
 - [ ] Реализовать deterministic procedural scratches mask/provider.
 - [ ] Поддержать target role `GLASS`.
 - [ ] Реализовать safe baseline/apply/reset.
