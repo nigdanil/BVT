@@ -282,6 +282,7 @@ for index, frame in enumerate(
         "condensation",
         "frost",
         "dust",
+        "water_drops",
         "motion_blur",
         "noise",
         "jpeg_compression",

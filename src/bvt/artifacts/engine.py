@@ -30,6 +30,9 @@ from .providers.frost import (
 from .providers.dust import (
     DustArtifactProvider,
 )
+from .providers.water_drops import (
+    WaterDropsArtifactProvider,
+)
 
 
 ARTIFACT_ENGINE_VERSION = (
@@ -44,6 +47,7 @@ _PROVIDERS = (
     CondensationArtifactProvider(),
     FrostArtifactProvider(),
     DustArtifactProvider(),
+    WaterDropsArtifactProvider(),
     MotionBlurArtifactProvider(),
     NoiseArtifactProvider(),
     JPEGCompressionArtifactProvider(),
@@ -170,6 +174,21 @@ def build_artifact_configs(
             intensity=(
                 project_settings
                 .artifact_dust_intensity
+            ),
+        ),
+        ArtifactConfig(
+            artifact_id="water_drops",
+            enabled=(
+                project_settings
+                .artifact_water_drops_enabled
+            ),
+            probability=(
+                project_settings
+                .artifact_water_drops_probability
+            ),
+            intensity=(
+                project_settings
+                .artifact_water_drops_intensity
             ),
         ),
         ArtifactConfig(

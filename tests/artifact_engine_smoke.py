@@ -169,6 +169,7 @@ project.artifact_fingerprints_enabled = False
 project.artifact_condensation_enabled = False
 project.artifact_frost_enabled = False
 project.artifact_dust_enabled = False
+project.artifact_water_drops_enabled = False
 project.artifact_motion_blur_enabled = False
 project.artifact_noise_enabled = False
 project.artifact_jpeg_enabled = False
@@ -254,7 +255,7 @@ for frame in frames:
         len(
             engine_result["artifacts"]
         )
-        == 9
+        == 10
     )
 
     artifacts_by_id = {
@@ -276,6 +277,7 @@ for frame in frames:
         "condensation",
         "frost",
         "dust",
+        "water_drops",
         "motion_blur",
         "noise",
         "jpeg_compression",
@@ -288,6 +290,7 @@ for frame in frames:
         "fingerprints",
         "frost",
         "dust",
+        "water_drops",
         "jpeg_compression",
         "motion_blur",
         "noise",
@@ -465,6 +468,58 @@ for frame in frames:
 
     assert (
         dust_artifact["parameters"]
+        == {}
+    )
+
+    water_drops_artifact = (
+        artifacts_by_id[
+            "water_drops"
+        ]
+    )
+
+    assert (
+        water_drops_artifact["enabled"]
+        is False
+    )
+
+    assert (
+        water_drops_artifact["applied"]
+        is False
+    )
+
+    assert (
+        water_drops_artifact["category"]
+        == "glass"
+    )
+
+    assert (
+        water_drops_artifact["stage"]
+        == "pre_render"
+    )
+
+    assert (
+        water_drops_artifact[
+            "execution_order"
+        ]
+        == 150
+    )
+
+    assert (
+        water_drops_artifact[
+            "probability"
+        ]
+        == 0.50
+    )
+
+    assert (
+        water_drops_artifact[
+            "intensity"
+        ]
+        == 0.50
+    )
+
+    assert (
+        water_drops_artifact["parameters"]
         == {}
     )
 

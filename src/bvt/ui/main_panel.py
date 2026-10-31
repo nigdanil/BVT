@@ -489,6 +489,28 @@ class BVT_PT_MainPanel(bpy.types.Panel):
             artifacts_box.separator()
 
             artifacts_box.label(
+                text="Water Drops",
+            )
+
+            artifacts_box.prop(
+                project,
+                "artifact_water_drops_enabled",
+            )
+
+            if project.artifact_water_drops_enabled:
+                artifacts_box.prop(
+                    project,
+                    "artifact_water_drops_probability",
+                )
+
+                artifacts_box.prop(
+                    project,
+                    "artifact_water_drops_intensity",
+                )
+
+            artifacts_box.separator()
+
+            artifacts_box.label(
                 text="Motion Blur",
             )
 

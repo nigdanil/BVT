@@ -444,6 +444,38 @@ class BVT_ProjectSettings(bpy.types.PropertyGroup):
         subtype="FACTOR",
     )
 
+    artifact_water_drops_enabled: BoolProperty(
+        name="Water Drops",
+        description=(
+            "Enable deterministic water droplets "
+            "on BVT glass materials"
+        ),
+        default=False,
+    )
+
+    artifact_water_drops_probability: FloatProperty(
+        name="Probability",
+        description=(
+            "Probability of applying water drops "
+            "to each generated frame"
+        ),
+        default=0.50,
+        min=0.0,
+        max=1.0,
+        subtype="FACTOR",
+    )
+
+    artifact_water_drops_intensity: FloatProperty(
+        name="Intensity",
+        description=(
+            "Strength of discrete water droplets"
+        ),
+        default=0.50,
+        min=0.0,
+        max=1.0,
+        subtype="FACTOR",
+    )
+
     artifact_motion_blur_enabled: BoolProperty(
         name="Motion Blur",
         description=(

@@ -47,6 +47,7 @@ EXPECTED_ORDER = [
     "condensation",
     "frost",
     "dust",
+    "water_drops",
     "motion_blur",
     "noise",
     "jpeg_compression",
@@ -267,6 +268,7 @@ project.artifact_condensation_enabled = False
 project.artifact_frost_enabled = False
 project.artifact_dust_enabled = False
 
+project.artifact_water_drops_enabled = False
 project.artifact_motion_blur_enabled = False
 project.artifact_noise_enabled = False
 project.artifact_jpeg_enabled = False
