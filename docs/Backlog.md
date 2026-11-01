@@ -85,19 +85,19 @@ Status: ☑ Completed
 
 Priority: P0
 
-Status: ☐ Not Started
+Status: ☑ Completed
 
-- [ ] Зафиксировать список providers v1.
-- [ ] Зафиксировать stage/execution order.
-- [ ] Зафиксировать provider API/lifecycle.
-- [ ] Зафиксировать seed/subseed rules.
-- [ ] Зафиксировать compatibility matrix.
-- [ ] Зафиксировать artifact manifest schema.
-- [ ] Создать canonical acceptance config.
-- [ ] Обновить Artifact Engine documentation.
-- [ ] Актуализировать статусы Artifact Engine в Backlog.
-- [ ] Проверить install/package в чистом Blender profile.
-- [ ] Freeze новых artifact types до Retail Demo v0.1.
+- [x] Зафиксировать список providers v1.
+- [x] Зафиксировать stage/execution order.
+- [x] Зафиксировать provider API/lifecycle.
+- [x] Зафиксировать seed/subseed rules.
+- [x] Зафиксировать compatibility matrix.
+- [x] Зафиксировать artifact manifest schema.
+- [x] Создать canonical acceptance config.
+- [x] Обновить Artifact Engine documentation.
+- [x] Актуализировать статусы Artifact Engine в Backlog.
+- [x] Проверить install/package в чистом Blender profile.
+- [x] Freeze новых artifact types до Retail Demo v0.1.
 
 ## EP3 — Retail Scene & Synthetic SKU Foundation
 
@@ -420,6 +420,14 @@ P1
 ---
 
 # Artifact Engine
+
+## Lighting
+
+P0
+
+- ☑ Over Exposure
+
+---
 
 ## Camera
 

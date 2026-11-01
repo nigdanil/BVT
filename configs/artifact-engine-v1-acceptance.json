@@ -1,0 +1,94 @@
+{
+  "schema_version": "bvt-cli-scenario-1",
+
+  "project": {
+    "project_name": "BVT Artifact Engine v1 Acceptance",
+    "output_directory": ".tmp/artifact-engine-v1-acceptance",
+    "project_id": "bvt-artifact-engine-v1-acceptance",
+    "seed": 24681357,
+    "frame_count": 3
+  },
+
+  "settings": {
+    "placement_randomization_enabled": false,
+    "camera_randomization_enabled": false,
+    "lighting_randomization_enabled": false,
+
+    "artifact_engine_enabled": true,
+
+    "artifact_over_exposure_enabled": true,
+    "artifact_over_exposure_probability": 1.0,
+    "artifact_over_exposure_intensity": 0.40,
+
+    "artifact_reflection_enabled": true,
+    "artifact_reflection_probability": 1.0,
+    "artifact_reflection_intensity": 0.60,
+    "artifact_reflection_min_roughness": 0.05,
+
+    "artifact_fingerprints_enabled": true,
+    "artifact_fingerprints_probability": 1.0,
+    "artifact_fingerprints_intensity": 0.65,
+    "artifact_fingerprints_count": 4,
+    "artifact_fingerprints_transparency": 0.15,
+    "artifact_fingerprints_size": 0.40,
+
+    "artifact_condensation_enabled": true,
+    "artifact_condensation_probability": 1.0,
+    "artifact_condensation_intensity": 0.55,
+
+    "artifact_frost_enabled": true,
+    "artifact_frost_probability": 1.0,
+    "artifact_frost_intensity": 0.45,
+
+    "artifact_dust_enabled": true,
+    "artifact_dust_probability": 1.0,
+    "artifact_dust_intensity": 0.50,
+
+    "artifact_water_drops_enabled": true,
+    "artifact_water_drops_probability": 1.0,
+    "artifact_water_drops_intensity": 0.60,
+
+    "artifact_scratches_enabled": true,
+    "artifact_scratches_probability": 1.0,
+    "artifact_scratches_intensity": 0.70,
+
+    "artifact_motion_blur_enabled": true,
+    "artifact_motion_blur_probability": 1.0,
+    "artifact_motion_blur_intensity": 0.50,
+    "artifact_motion_blur_direction_range_degrees": 45.0,
+    "artifact_motion_blur_max_length_pixels": 8,
+
+    "artifact_noise_enabled": true,
+    "artifact_noise_probability": 1.0,
+    "artifact_noise_intensity": 0.15,
+
+    "artifact_jpeg_enabled": true,
+    "artifact_jpeg_probability": 1.0,
+    "artifact_jpeg_intensity": 0.35,
+    "artifact_jpeg_quality": 65,
+    "artifact_jpeg_chroma_loss": 0.25
+  },
+
+  "objects": [
+    {
+      "name": "Cube",
+      "class_id": 0,
+      "class_name": "cube",
+      "instance_id": "artifact-engine-v1-cube-001",
+      "annotation_enabled": true
+    }
+  ],
+
+  "materials": [
+    {
+      "name": "BVT Artifact Engine v1 Glass",
+      "create": true,
+      "use_nodes": true,
+      "role": "GLASS",
+      "roughness": 0.8,
+      "assign_to": [
+        "Cube"
+      ]
+    }
+  ]
+}
