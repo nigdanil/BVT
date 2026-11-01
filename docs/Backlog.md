@@ -103,20 +103,20 @@ Status: ☑ Completed
 
 Priority: P0
 
-Status: ☐ Not Started
+Status: ☑ Completed
 
-- [ ] Создать `examples/retail_demo/`.
-- [ ] Подготовить Beverage Fridge scene.
-- [ ] Подготовить 3–4 базовые упаковочные geometry templates.
-- [ ] Подготовить первые synthetic SKU/textures.
-- [ ] Зафиксировать SKU metadata contract.
-- [ ] Создать asset/SKU manifest.
-- [ ] Реализовать/довести asset registration.
-- [ ] Реализовать deterministic shelf placement.
-- [ ] Подготовить Glass door material role.
-- [ ] Подготовить clean/artifact presets.
-- [ ] Сгенерировать 100-frame acceptance dataset.
-- [ ] Проверить bbox/YOLO/manifest/validation.
+- [x] Создать `examples/retail_demo/`.
+- [x] Подготовить Beverage Fridge scene.
+- [x] Подготовить 3–4 базовые упаковочные geometry templates.
+- [x] Подготовить первые synthetic SKU/textures.
+- [x] Зафиксировать SKU metadata contract.
+- [x] Создать asset/SKU manifest.
+- [x] Реализовать/довести asset registration.
+- [x] Реализовать deterministic shelf placement.
+- [x] Подготовить Glass door material role.
+- [x] Подготовить clean/artifact presets.
+- [x] Сгенерировать 100-frame acceptance dataset.
+- [x] Проверить bbox/YOLO/manifest/validation.
 
 ## EP4 — Product & Scene Edge Cases
 

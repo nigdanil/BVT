@@ -1000,10 +1000,58 @@ def cmd_run_script(
         )
 
     result = run_process(
-        command
+        command,
+        capture=True,
     )
 
-    return result.returncode
+    output = (
+        result.stdout
+        or ""
+    )
+
+    has_traceback = (
+        "Traceback (most recent call last):"
+        in output
+    )
+
+    if output:
+        print(
+            output,
+            end=(
+                ""
+                if output.endswith("\\n")
+                else "\\n"
+            ),
+        )
+
+    print(
+        "PROCESS_EXIT="
+        f"{result.returncode}"
+    )
+
+    print(
+        "TRACEBACK="
+        + (
+            "FOUND"
+            if has_traceback
+            else "NONE"
+        )
+    )
+
+    if (
+        result.returncode == 0
+        and not has_traceback
+    ):
+        print(
+            "BVT_RUN_SCRIPT=OK"
+        )
+        return 0
+
+    print(
+        "BVT_RUN_SCRIPT=FAIL"
+    )
+
+    return 1
 
 
 def build_parser():

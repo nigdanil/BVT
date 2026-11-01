@@ -1,0 +1,248 @@
+{
+  "schema_version": "bvt-sku-pack-1",
+  "pack_id": "retail_demo_sku_pack_v0_1",
+  "version": "0.1.0",
+  "sku_schema_version": "bvt-sku-1",
+  "skus": [
+    {
+      "schema_version": "bvt-sku-1",
+      "sku_id": "bev_can_red_330",
+      "class_id": 0,
+      "class_name": "bev_can_red_330",
+      "display_name": "Synthetic Red Can 330",
+      "package_type": "can",
+      "geometry_template": "can",
+      "dimensions": {
+        "width_m": 0.066,
+        "depth_m": 0.066,
+        "height_m": 0.115
+      },
+      "visual": {
+        "base_color": [
+          0.8,
+          0.1,
+          0.1,
+          1.0
+        ],
+        "texture": "examples/retail_demo/textures/bev_can_red_330.png"
+      },
+      "annotation": {
+        "enabled": true
+      },
+      "provenance": {
+        "type": "synthetic",
+        "attribution_required": false
+      }
+    },
+    {
+      "schema_version": "bvt-sku-1",
+      "sku_id": "bev_can_blue_330",
+      "class_id": 1,
+      "class_name": "bev_can_blue_330",
+      "display_name": "Synthetic Blue Can 330",
+      "package_type": "can",
+      "geometry_template": "can",
+      "dimensions": {
+        "width_m": 0.066,
+        "depth_m": 0.066,
+        "height_m": 0.115
+      },
+      "visual": {
+        "base_color": [
+          0.08,
+          0.22,
+          0.8,
+          1.0
+        ],
+        "texture": "examples/retail_demo/textures/bev_can_blue_330.png"
+      },
+      "annotation": {
+        "enabled": true
+      },
+      "provenance": {
+        "type": "synthetic",
+        "attribution_required": false
+      }
+    },
+    {
+      "schema_version": "bvt-sku-1",
+      "sku_id": "bev_bottle_green_500",
+      "class_id": 2,
+      "class_name": "bev_bottle_green_500",
+      "display_name": "Synthetic Green Bottle 500",
+      "package_type": "bottle",
+      "geometry_template": "bottle",
+      "dimensions": {
+        "width_m": 0.068,
+        "depth_m": 0.068,
+        "height_m": 0.225
+      },
+      "visual": {
+        "base_color": [
+          0.08,
+          0.55,
+          0.2,
+          1.0
+        ],
+        "texture": "examples/retail_demo/textures/bev_bottle_green_500.png"
+      },
+      "annotation": {
+        "enabled": true
+      },
+      "provenance": {
+        "type": "synthetic",
+        "attribution_required": false
+      }
+    },
+    {
+      "schema_version": "bvt-sku-1",
+      "sku_id": "bev_bottle_amber_500",
+      "class_id": 3,
+      "class_name": "bev_bottle_amber_500",
+      "display_name": "Synthetic Amber Bottle 500",
+      "package_type": "bottle",
+      "geometry_template": "bottle",
+      "dimensions": {
+        "width_m": 0.068,
+        "depth_m": 0.068,
+        "height_m": 0.225
+      },
+      "visual": {
+        "base_color": [
+          0.55,
+          0.25,
+          0.05,
+          1.0
+        ],
+        "texture": "examples/retail_demo/textures/bev_bottle_amber_500.png"
+      },
+      "annotation": {
+        "enabled": true
+      },
+      "provenance": {
+        "type": "synthetic",
+        "attribution_required": false
+      }
+    },
+    {
+      "schema_version": "bvt-sku-1",
+      "sku_id": "bev_carton_orange_1000",
+      "class_id": 4,
+      "class_name": "bev_carton_orange_1000",
+      "display_name": "Synthetic Orange Carton 1000",
+      "package_type": "carton",
+      "geometry_template": "carton",
+      "dimensions": {
+        "width_m": 0.075,
+        "depth_m": 0.075,
+        "height_m": 0.235
+      },
+      "visual": {
+        "base_color": [
+          0.95,
+          0.38,
+          0.05,
+          1.0
+        ],
+        "texture": "examples/retail_demo/textures/bev_carton_orange_1000.png"
+      },
+      "annotation": {
+        "enabled": true
+      },
+      "provenance": {
+        "type": "synthetic",
+        "attribution_required": false
+      }
+    },
+    {
+      "schema_version": "bvt-sku-1",
+      "sku_id": "bev_carton_white_1000",
+      "class_id": 5,
+      "class_name": "bev_carton_white_1000",
+      "display_name": "Synthetic White Carton 1000",
+      "package_type": "carton",
+      "geometry_template": "carton",
+      "dimensions": {
+        "width_m": 0.075,
+        "depth_m": 0.075,
+        "height_m": 0.235
+      },
+      "visual": {
+        "base_color": [
+          0.88,
+          0.88,
+          0.84,
+          1.0
+        ],
+        "texture": "examples/retail_demo/textures/bev_carton_white_1000.png"
+      },
+      "annotation": {
+        "enabled": true
+      },
+      "provenance": {
+        "type": "synthetic",
+        "attribution_required": false
+      }
+    },
+    {
+      "schema_version": "bvt-sku-1",
+      "sku_id": "bev_box_purple_250",
+      "class_id": 6,
+      "class_name": "bev_box_purple_250",
+      "display_name": "Synthetic Purple Box 250",
+      "package_type": "box",
+      "geometry_template": "box",
+      "dimensions": {
+        "width_m": 0.09,
+        "depth_m": 0.055,
+        "height_m": 0.145
+      },
+      "visual": {
+        "base_color": [
+          0.45,
+          0.1,
+          0.65,
+          1.0
+        ],
+        "texture": "examples/retail_demo/textures/bev_box_purple_250.png"
+      },
+      "annotation": {
+        "enabled": true
+      },
+      "provenance": {
+        "type": "synthetic",
+        "attribution_required": false
+      }
+    },
+    {
+      "schema_version": "bvt-sku-1",
+      "sku_id": "bev_box_yellow_250",
+      "class_id": 7,
+      "class_name": "bev_box_yellow_250",
+      "display_name": "Synthetic Yellow Box 250",
+      "package_type": "box",
+      "geometry_template": "box",
+      "dimensions": {
+        "width_m": 0.09,
+        "depth_m": 0.055,
+        "height_m": 0.145
+      },
+      "visual": {
+        "base_color": [
+          0.9,
+          0.72,
+          0.08,
+          1.0
+        ],
+        "texture": "examples/retail_demo/textures/bev_box_yellow_250.png"
+      },
+      "annotation": {
+        "enabled": true
+      },
+      "provenance": {
+        "type": "synthetic",
+        "attribution_required": false
+      }
+    }
+  ]
+}

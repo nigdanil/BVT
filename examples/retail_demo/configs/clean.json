@@ -1,0 +1,19 @@
+{
+  "schema_version": "bvt-cli-scenario-1",
+
+  "project": {
+    "project_name": "BVT Retail Demo Clean",
+    "project_id": "bvt-retail-demo-clean",
+    "output_directory": ".tmp/retail-demo-clean",
+    "seed": 20261101,
+    "frame_count": 5
+  },
+
+  "settings": {
+    "placement_randomization_enabled": false,
+    "camera_randomization_enabled": false,
+    "lighting_randomization_enabled": false,
+
+    "artifact_engine_enabled": false
+  }
+}

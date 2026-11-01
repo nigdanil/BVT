@@ -1,0 +1,214 @@
+{
+  "schema_version": "bvt-retail-scene-1",
+  "scene_id": "beverage_fridge_v01",
+  "display_name": "BVT Beverage Fridge v0.1",
+
+  "sku_pack": {
+    "path": "examples/retail_demo/sku/sku-pack-v0.1.json",
+    "pack_id": "retail_demo_sku_pack_v0_1",
+    "version": "0.1.0"
+  },
+
+  "coordinate_system": {
+    "units": "meters",
+    "width_axis": "X",
+    "depth_axis": "Y",
+    "vertical_axis": "Z",
+    "front_direction": "-Y"
+  },
+
+  "geometry_templates": [
+    {
+      "template_id": "can",
+      "origin": "bottom-center",
+      "front_direction": "-Y"
+    },
+    {
+      "template_id": "bottle",
+      "origin": "bottom-center",
+      "front_direction": "-Y"
+    },
+    {
+      "template_id": "carton",
+      "origin": "bottom-center",
+      "front_direction": "-Y"
+    },
+    {
+      "template_id": "box",
+      "origin": "bottom-center",
+      "front_direction": "-Y"
+    }
+  ],
+
+  "materials": [
+    {
+      "material_id": "fridge_body",
+      "role": "GENERIC"
+    },
+    {
+      "material_id": "fridge_shelf",
+      "role": "GENERIC"
+    },
+    {
+      "material_id": "fridge_glass",
+      "role": "GLASS"
+    }
+  ],
+
+  "shelves": [
+    {
+      "shelf_id": "shelf_01",
+      "width_m": 0.78,
+      "depth_m": 0.42,
+      "surface_z_m": 0.28
+    },
+    {
+      "shelf_id": "shelf_02",
+      "width_m": 0.78,
+      "depth_m": 0.42,
+      "surface_z_m": 0.62
+    },
+    {
+      "shelf_id": "shelf_03",
+      "width_m": 0.78,
+      "depth_m": 0.42,
+      "surface_z_m": 0.96
+    }
+  ],
+
+  "slots": [
+    {"slot_id": "slot_001", "shelf_id": "shelf_01", "position": [-0.30, 0.00, 0.28]},
+    {"slot_id": "slot_002", "shelf_id": "shelf_01", "position": [-0.18, 0.00, 0.28]},
+    {"slot_id": "slot_003", "shelf_id": "shelf_01", "position": [-0.06, 0.00, 0.28]},
+    {"slot_id": "slot_004", "shelf_id": "shelf_01", "position": [0.06, 0.00, 0.28]},
+    {"slot_id": "slot_005", "shelf_id": "shelf_01", "position": [0.18, 0.00, 0.28]},
+    {"slot_id": "slot_006", "shelf_id": "shelf_01", "position": [0.30, 0.00, 0.28]},
+
+    {"slot_id": "slot_007", "shelf_id": "shelf_02", "position": [-0.30, 0.00, 0.62]},
+    {"slot_id": "slot_008", "shelf_id": "shelf_02", "position": [-0.18, 0.00, 0.62]},
+    {"slot_id": "slot_009", "shelf_id": "shelf_02", "position": [-0.06, 0.00, 0.62]},
+    {"slot_id": "slot_010", "shelf_id": "shelf_02", "position": [0.06, 0.00, 0.62]},
+    {"slot_id": "slot_011", "shelf_id": "shelf_02", "position": [0.18, 0.00, 0.62]},
+    {"slot_id": "slot_012", "shelf_id": "shelf_02", "position": [0.30, 0.00, 0.62]},
+
+    {"slot_id": "slot_013", "shelf_id": "shelf_03", "position": [-0.30, 0.00, 0.96]},
+    {"slot_id": "slot_014", "shelf_id": "shelf_03", "position": [-0.18, 0.00, 0.96]},
+    {"slot_id": "slot_015", "shelf_id": "shelf_03", "position": [-0.06, 0.00, 0.96]},
+    {"slot_id": "slot_016", "shelf_id": "shelf_03", "position": [0.06, 0.00, 0.96]},
+    {"slot_id": "slot_017", "shelf_id": "shelf_03", "position": [0.18, 0.00, 0.96]},
+    {"slot_id": "slot_018", "shelf_id": "shelf_03", "position": [0.30, 0.00, 0.96]}
+  ],
+
+  "product_instances": [
+    {
+      "instance_id": "retail:beverage_fridge_v01:shelf_01:slot_001:bev_can_red_330",
+      "shelf_id": "shelf_01",
+      "slot_id": "slot_001",
+      "sku_id": "bev_can_red_330"
+    },
+    {
+      "instance_id": "retail:beverage_fridge_v01:shelf_01:slot_002:bev_can_blue_330",
+      "shelf_id": "shelf_01",
+      "slot_id": "slot_002",
+      "sku_id": "bev_can_blue_330"
+    },
+    {
+      "instance_id": "retail:beverage_fridge_v01:shelf_01:slot_003:bev_can_red_330",
+      "shelf_id": "shelf_01",
+      "slot_id": "slot_003",
+      "sku_id": "bev_can_red_330"
+    },
+    {
+      "instance_id": "retail:beverage_fridge_v01:shelf_01:slot_004:bev_can_blue_330",
+      "shelf_id": "shelf_01",
+      "slot_id": "slot_004",
+      "sku_id": "bev_can_blue_330"
+    },
+    {
+      "instance_id": "retail:beverage_fridge_v01:shelf_01:slot_005:bev_can_red_330",
+      "shelf_id": "shelf_01",
+      "slot_id": "slot_005",
+      "sku_id": "bev_can_red_330"
+    },
+    {
+      "instance_id": "retail:beverage_fridge_v01:shelf_01:slot_006:bev_can_blue_330",
+      "shelf_id": "shelf_01",
+      "slot_id": "slot_006",
+      "sku_id": "bev_can_blue_330"
+    },
+
+    {
+      "instance_id": "retail:beverage_fridge_v01:shelf_02:slot_007:bev_bottle_green_500",
+      "shelf_id": "shelf_02",
+      "slot_id": "slot_007",
+      "sku_id": "bev_bottle_green_500"
+    },
+    {
+      "instance_id": "retail:beverage_fridge_v01:shelf_02:slot_008:bev_bottle_amber_500",
+      "shelf_id": "shelf_02",
+      "slot_id": "slot_008",
+      "sku_id": "bev_bottle_amber_500"
+    },
+    {
+      "instance_id": "retail:beverage_fridge_v01:shelf_02:slot_009:bev_bottle_green_500",
+      "shelf_id": "shelf_02",
+      "slot_id": "slot_009",
+      "sku_id": "bev_bottle_green_500"
+    },
+    {
+      "instance_id": "retail:beverage_fridge_v01:shelf_02:slot_010:bev_bottle_amber_500",
+      "shelf_id": "shelf_02",
+      "slot_id": "slot_010",
+      "sku_id": "bev_bottle_amber_500"
+    },
+    {
+      "instance_id": "retail:beverage_fridge_v01:shelf_02:slot_011:bev_carton_orange_1000",
+      "shelf_id": "shelf_02",
+      "slot_id": "slot_011",
+      "sku_id": "bev_carton_orange_1000"
+    },
+    {
+      "instance_id": "retail:beverage_fridge_v01:shelf_02:slot_012:bev_carton_white_1000",
+      "shelf_id": "shelf_02",
+      "slot_id": "slot_012",
+      "sku_id": "bev_carton_white_1000"
+    },
+
+    {
+      "instance_id": "retail:beverage_fridge_v01:shelf_03:slot_013:bev_carton_orange_1000",
+      "shelf_id": "shelf_03",
+      "slot_id": "slot_013",
+      "sku_id": "bev_carton_orange_1000"
+    },
+    {
+      "instance_id": "retail:beverage_fridge_v01:shelf_03:slot_014:bev_carton_white_1000",
+      "shelf_id": "shelf_03",
+      "slot_id": "slot_014",
+      "sku_id": "bev_carton_white_1000"
+    },
+    {
+      "instance_id": "retail:beverage_fridge_v01:shelf_03:slot_015:bev_box_purple_250",
+      "shelf_id": "shelf_03",
+      "slot_id": "slot_015",
+      "sku_id": "bev_box_purple_250"
+    },
+    {
+      "instance_id": "retail:beverage_fridge_v01:shelf_03:slot_016:bev_box_yellow_250",
+      "shelf_id": "shelf_03",
+      "slot_id": "slot_016",
+      "sku_id": "bev_box_yellow_250"
+    },
+    {
+      "instance_id": "retail:beverage_fridge_v01:shelf_03:slot_017:bev_box_purple_250",
+      "shelf_id": "shelf_03",
+      "slot_id": "slot_017",
+      "sku_id": "bev_box_purple_250"
+    },
+    {
+      "instance_id": "retail:beverage_fridge_v01:shelf_03:slot_018:bev_box_yellow_250",
+      "shelf_id": "shelf_03",
+      "slot_id": "slot_018",
+      "sku_id": "bev_box_yellow_250"
+    }
+  ]
+}

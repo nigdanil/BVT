@@ -1,0 +1,45 @@
+{
+  "schema_version": "bvt-retail-geometry-templates-1",
+  "version": "0.1.0",
+  "units": "meters",
+  "origin": "bottom-center",
+  "front_direction": "-Y",
+  "templates": [
+    {
+      "template_id": "can",
+      "object_name": "BVT_Template_Can",
+      "reference_dimensions": {
+        "width_m": 0.066,
+        "depth_m": 0.066,
+        "height_m": 0.115
+      }
+    },
+    {
+      "template_id": "bottle",
+      "object_name": "BVT_Template_Bottle",
+      "reference_dimensions": {
+        "width_m": 0.068,
+        "depth_m": 0.068,
+        "height_m": 0.225
+      }
+    },
+    {
+      "template_id": "carton",
+      "object_name": "BVT_Template_Carton",
+      "reference_dimensions": {
+        "width_m": 0.075,
+        "depth_m": 0.075,
+        "height_m": 0.235
+      }
+    },
+    {
+      "template_id": "box",
+      "object_name": "BVT_Template_Box",
+      "reference_dimensions": {
+        "width_m": 0.090,
+        "depth_m": 0.055,
+        "height_m": 0.145
+      }
+    }
+  ]
+}
