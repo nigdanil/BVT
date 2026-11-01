@@ -476,6 +476,38 @@ class BVT_ProjectSettings(bpy.types.PropertyGroup):
         subtype="FACTOR",
     )
 
+    artifact_scratches_enabled: BoolProperty(
+        name="Scratches",
+        description=(
+            "Enable deterministic surface scratches "
+            "on BVT glass materials"
+        ),
+        default=False,
+    )
+
+    artifact_scratches_probability: FloatProperty(
+        name="Probability",
+        description=(
+            "Probability of applying scratches "
+            "to each generated frame"
+        ),
+        default=0.50,
+        min=0.0,
+        max=1.0,
+        subtype="FACTOR",
+    )
+
+    artifact_scratches_intensity: FloatProperty(
+        name="Intensity",
+        description=(
+            "Strength of glass surface scratches"
+        ),
+        default=0.50,
+        min=0.0,
+        max=1.0,
+        subtype="FACTOR",
+    )
+
     artifact_motion_blur_enabled: BoolProperty(
         name="Motion Blur",
         description=(

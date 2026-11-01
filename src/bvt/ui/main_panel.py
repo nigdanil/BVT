@@ -511,6 +511,28 @@ class BVT_PT_MainPanel(bpy.types.Panel):
             artifacts_box.separator()
 
             artifacts_box.label(
+                text="Scratches",
+            )
+
+            artifacts_box.prop(
+                project,
+                "artifact_scratches_enabled",
+            )
+
+            if project.artifact_scratches_enabled:
+                artifacts_box.prop(
+                    project,
+                    "artifact_scratches_probability",
+                )
+
+                artifacts_box.prop(
+                    project,
+                    "artifact_scratches_intensity",
+                )
+
+            artifacts_box.separator()
+
+            artifacts_box.label(
                 text="Motion Blur",
             )
 

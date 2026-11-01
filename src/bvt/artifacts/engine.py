@@ -33,6 +33,9 @@ from .providers.dust import (
 from .providers.water_drops import (
     WaterDropsArtifactProvider,
 )
+from .providers.scratches import (
+    ScratchesArtifactProvider,
+)
 
 
 ARTIFACT_ENGINE_VERSION = (
@@ -48,6 +51,7 @@ _PROVIDERS = (
     FrostArtifactProvider(),
     DustArtifactProvider(),
     WaterDropsArtifactProvider(),
+    ScratchesArtifactProvider(),
     MotionBlurArtifactProvider(),
     NoiseArtifactProvider(),
     JPEGCompressionArtifactProvider(),
@@ -189,6 +193,21 @@ def build_artifact_configs(
             intensity=(
                 project_settings
                 .artifact_water_drops_intensity
+            ),
+        ),
+        ArtifactConfig(
+            artifact_id="scratches",
+            enabled=(
+                project_settings
+                .artifact_scratches_enabled
+            ),
+            probability=(
+                project_settings
+                .artifact_scratches_probability
+            ),
+            intensity=(
+                project_settings
+                .artifact_scratches_intensity
             ),
         ),
         ArtifactConfig(

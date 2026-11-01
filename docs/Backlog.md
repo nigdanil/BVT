@@ -68,17 +68,17 @@ Status: ◐ In Progress
 
 - [x] Зафиксировать contract `scratches`.
 - [x] Определить execution order и compatibility rules.
-- [ ] Реализовать deterministic procedural scratches mask/provider.
-- [ ] Поддержать target role `GLASS`.
-- [ ] Реализовать safe baseline/apply/reset.
-- [ ] Интегрировать в Artifact Engine.
-- [ ] Добавить Project Properties и UI.
-- [ ] Добавить manifest metadata.
-- [ ] Добавить lifecycle smoke.
-- [ ] Добавить real RGB smoke.
-- [ ] Добавить CLI E2E config.
-- [ ] Прогнать regression.
-- [ ] Прогнать package validation.
+- [x] Реализовать deterministic procedural scratches mask/provider.
+- [x] Поддержать target role `GLASS`.
+- [x] Реализовать safe baseline/apply/reset.
+- [x] Интегрировать в Artifact Engine.
+- [x] Добавить Project Properties и UI.
+- [x] Добавить manifest metadata.
+- [x] Добавить lifecycle smoke.
+- [x] Добавить real RGB smoke.
+- [x] Добавить CLI E2E config.
+- [x] Прогнать regression — 27/27 PASS.
+- [x] Прогнать package validation.
 - [ ] Merge в `develop`.
 
 ## EP2 — Artifact Engine v1 Freeze
@@ -451,7 +451,7 @@ P1
 - ☑ Frost
 - ☑ Dust
 - ☑ Water Drops
-- ☐ Scratches
+- ☑ Scratches
 
 ---
 

@@ -365,6 +365,7 @@ project.artifact_jpeg_enabled = False
 # ---------------------------------------------------------
 
 project.artifact_water_drops_enabled = False
+project.artifact_scratches_enabled = False
 
 baseline = generate_dataset(
     scene
@@ -501,6 +502,7 @@ EXPECTED_ORDER = [
     "frost",
     "dust",
     "water_drops",
+    "scratches",
     "motion_blur",
     "noise",
     "jpeg_compression",

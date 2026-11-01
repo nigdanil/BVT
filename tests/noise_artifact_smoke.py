@@ -243,6 +243,7 @@ project.artifact_condensation_enabled = False
 project.artifact_frost_enabled = False
 project.artifact_dust_enabled = False
 project.artifact_water_drops_enabled = False
+project.artifact_scratches_enabled = False
 project.artifact_motion_blur_enabled = False
 project.artifact_jpeg_enabled = False
 
@@ -293,6 +294,7 @@ for frame in manifest["frames"]:
         "frost",
         "dust",
         "water_drops",
+        "scratches",
         "jpeg_compression",
         "motion_blur",
         "noise",

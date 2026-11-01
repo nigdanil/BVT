@@ -217,6 +217,8 @@ project.artifact_fingerprints_enabled = False
 project.artifact_condensation_enabled = False
 project.artifact_frost_enabled = False
 project.artifact_dust_enabled = False
+project.artifact_water_drops_enabled = False
+project.artifact_scratches_enabled = False
 project.artifact_noise_enabled = False
 project.artifact_jpeg_enabled = False
 
@@ -283,6 +285,7 @@ for index, frame in enumerate(
         "frost",
         "dust",
         "water_drops",
+        "scratches",
         "motion_blur",
         "noise",
         "jpeg_compression",

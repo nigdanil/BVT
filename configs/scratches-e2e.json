@@ -1,0 +1,58 @@
+{
+  "schema_version": "bvt-cli-scenario-1",
+
+  "project": {
+    "project_name": "BVT Scratches E2E",
+    "output_directory": ".tmp/scratches-cli-e2e",
+    "project_id": "bvt-scratches-e2e",
+    "seed": 12345,
+    "frame_count": 10
+  },
+
+  "settings": {
+    "placement_randomization_enabled": false,
+    "camera_randomization_enabled": false,
+    "lighting_randomization_enabled": false,
+
+    "artifact_engine_enabled": true,
+
+    "artifact_over_exposure_enabled": false,
+    "artifact_reflection_enabled": false,
+    "artifact_fingerprints_enabled": false,
+    "artifact_condensation_enabled": false,
+    "artifact_frost_enabled": false,
+    "artifact_dust_enabled": false,
+    "artifact_water_drops_enabled": false,
+
+    "artifact_scratches_enabled": true,
+    "artifact_scratches_probability": 1.0,
+    "artifact_scratches_intensity": 1.0,
+
+    "artifact_motion_blur_enabled": false,
+    "artifact_noise_enabled": false,
+    "artifact_jpeg_enabled": false
+  },
+
+  "objects": [
+    {
+      "name": "Cube",
+      "class_id": 0,
+      "class_name": "cube",
+      "instance_id": "scratches-cube-001",
+      "annotation_enabled": true
+    }
+  ],
+
+  "materials": [
+    {
+      "name": "BVT Scratches CLI Glass",
+      "create": true,
+      "use_nodes": true,
+      "role": "GLASS",
+      "roughness": 0.8,
+      "assign_to": [
+        "Cube"
+      ]
+    }
+  ]
+}

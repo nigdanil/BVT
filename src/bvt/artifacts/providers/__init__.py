@@ -12,6 +12,7 @@ from .condensation import CondensationArtifactProvider
 from .frost import FrostArtifactProvider
 from .dust import DustArtifactProvider
 from .water_drops import WaterDropsArtifactProvider
+from .scratches import ScratchesArtifactProvider
 
 
 __all__ = (
@@ -25,4 +26,5 @@ __all__ = (
     "FrostArtifactProvider",
     "DustArtifactProvider",
     "WaterDropsArtifactProvider",
+    "ScratchesArtifactProvider",
 )

@@ -151,6 +151,7 @@ def configure_engine(
     project.artifact_dust_intensity = 0.70
 
     project.artifact_water_drops_enabled = False
+    project.artifact_scratches_enabled = False
     project.artifact_motion_blur_enabled = False
     project.artifact_noise_enabled = False
     project.artifact_jpeg_enabled = False
@@ -648,6 +649,7 @@ EXPECTED_EXISTING_ORDER = [
     "frost",
     "dust",
     "water_drops",
+    "scratches",
     "motion_blur",
     "noise",
     "jpeg_compression",
