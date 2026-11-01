@@ -64,7 +64,7 @@ P4 Nice to Have
 
 Priority: P0
 
-Status: ◐ In Progress
+Status: ☑ Completed
 
 - [x] Зафиксировать contract `scratches`.
 - [x] Определить execution order и compatibility rules.
@@ -79,7 +79,7 @@ Status: ◐ In Progress
 - [x] Добавить CLI E2E config.
 - [x] Прогнать regression — 27/27 PASS.
 - [x] Прогнать package validation.
-- [ ] Merge в `develop`.
+- [x] Merge в `develop`.
 
 ## EP2 — Artifact Engine v1 Freeze
 
