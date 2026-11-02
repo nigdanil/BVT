@@ -25,6 +25,7 @@ from bvt.render.service import generate_dataset
 
 
 SCENARIO_SCHEMA = "bvt-cli-scenario-1"
+CLI_ERROR_SCHEMA = "bvt-cli-error-1"
 
 INTERNAL_SETTINGS = {
     "initialized",
@@ -536,8 +537,33 @@ def main():
     )
 
     print(
+        "CONFIG="
+        f"{result['generation_config_path']}"
+    )
+
+    print(
         "VALIDATION="
         f"{result['validation_path']}"
+    )
+
+    print(
+        "STATISTICS="
+        f"{result['statistics_path']}"
+    )
+
+    print(
+        "HEALTH="
+        f"{result['health_path']}"
+    )
+
+    print(
+        "HASHES="
+        f"{result['hashes_path']}"
+    )
+
+    print(
+        "ARCHIVE="
+        f"{result['archive_path']}"
     )
 
     print(
@@ -568,5 +594,70 @@ def main():
     )
 
 
+def _emit_cli_error(
+    code,
+    message,
+):
+    message = " ".join(
+        str(
+            message
+        ).splitlines()
+    ).strip()
+
+    print(
+        "ERROR_SCHEMA="
+        + CLI_ERROR_SCHEMA
+    )
+
+    print(
+        "ERROR_CODE="
+        + str(
+            code
+        )
+    )
+
+    print(
+        "ERROR_MESSAGE="
+        + message
+    )
+
+    print(
+        "BVT_DATASET_CLI=FAIL"
+    )
+
+
+def run_cli():
+    try:
+        main()
+        return 0
+
+    except FileNotFoundError as exc:
+        _emit_cli_error(
+            "INPUT_NOT_FOUND",
+            exc,
+        )
+        return 1
+
+    except ValueError as exc:
+        _emit_cli_error(
+            "INVALID_INPUT",
+            exc,
+        )
+        return 1
+
+    except Exception as exc:
+        _emit_cli_error(
+            "GENERATION_FAILED",
+            (
+                type(exc).__name__
+                + ": "
+                + str(exc)
+            ),
+        )
+        return 1
+
+
 if __name__ == "__main__":
-    main()
+    raise SystemExit(
+        run_cli()
+    )

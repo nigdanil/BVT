@@ -636,8 +636,54 @@ class BVT_PT_MainPanel(bpy.types.Panel):
             "frame_count",
         )
 
+        generation_box.separator()
+
+        generation_box.label(
+            text="Dataset Split",
+        )
+
+        generation_box.prop(
+            project,
+            "dataset_split_train",
+            text="Train",
+        )
+
+        generation_box.prop(
+            project,
+            "dataset_split_validation",
+            text="Validation",
+        )
+
+        generation_box.prop(
+            project,
+            "dataset_split_test",
+            text="Test",
+        )
+
+        split_total = (
+            project.dataset_split_train
+            + project.dataset_split_validation
+            + project.dataset_split_test
+        )
+
+        if abs(
+            split_total - 1.0
+        ) > 1e-6:
+            generation_box.label(
+                text=(
+                    "Split ratios must sum to 1.0"
+                ),
+                icon="ERROR",
+            )
+
+        generation_box.separator()
+
         generation_box.label(
             text="Resolution: 512 x 512",
+        )
+
+        generation_box.label(
+            text="Output: dataset/ + dataset.zip",
         )
 
         generation_box.operator(

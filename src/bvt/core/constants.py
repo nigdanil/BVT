@@ -1,5 +1,13 @@
 PROJECT_SCHEMA_VERSION = "bvt-project-1"
-DATASET_MANIFEST_SCHEMA_VERSION = "bvt-dataset-manifest-1"
+
+DATASET_LAYOUT_VERSION = "bvt-dataset-layout-1"
+DATASET_MANIFEST_SCHEMA_VERSION = "bvt-dataset-manifest-2"
+GENERATION_CONFIG_SCHEMA_VERSION = "bvt-generation-config-1"
+DATASET_SPLIT_SCHEMA_VERSION = "bvt-dataset-split-1"
+DATASET_STATISTICS_SCHEMA_VERSION = "bvt-dataset-statistics-1"
+DATASET_HEALTH_SCHEMA_VERSION = "bvt-dataset-health-1"
+DATASET_HASHES_SCHEMA_VERSION = "bvt-dataset-hashes-1"
+DATASET_HASHES_SCHEMA_VERSION = "bvt-dataset-hashes-1"
 
 TOOLKIT_VERSION = "0.1.0"
 

@@ -141,21 +141,21 @@ Status: ☑ Completed
 
 Priority: P0
 
-Status: ☐ Not Started
+Status: ☑ Completed
 
-- [ ] Зафиксировать output dataset structure.
-- [ ] Version manifest schema.
-- [ ] Сохранять generation config.
-- [ ] Train/validation/test split.
-- [ ] Dataset statistics.
-- [ ] Dataset health report.
-- [ ] Class/bbox/file validation.
-- [ ] Dataset hashes.
-- [ ] ZIP export.
-- [ ] CLI error contract.
-- [ ] UI Generate workflow.
-- [ ] 100+ frame batch acceptance.
-- [ ] Reproducibility acceptance.
+- [x] Зафиксировать output dataset structure.
+- [x] Version manifest schema.
+- [x] Сохранять generation config.
+- [x] Train/validation/test split.
+- [x] Dataset statistics.
+- [x] Dataset health report.
+- [x] Class/bbox/file validation.
+- [x] Dataset hashes.
+- [x] ZIP export.
+- [x] CLI error contract.
+- [x] UI Generate workflow.
+- [x] 100+ frame batch acceptance.
+- [x] Reproducibility acceptance.
 
 ## EP6 — Retail Demo v0.1 / First Public Release
 

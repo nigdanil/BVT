@@ -16,6 +16,7 @@ TESTS_DIR = ROOT / "tests"
 RELEASES_DIR = ROOT / "releases"
 
 CLI_VERSION = "0.1.0"
+CLI_ERROR_SCHEMA = "bvt-cli-error-1"
 
 
 def _version_key(path):
@@ -245,6 +246,34 @@ def find_test(
         )
 
     return matches[0]
+
+
+def emit_cli_error(
+    code,
+    message,
+):
+    message = " ".join(
+        str(
+            message
+        ).splitlines()
+    ).strip()
+
+    print(
+        "ERROR_SCHEMA="
+        + CLI_ERROR_SCHEMA
+    )
+
+    print(
+        "ERROR_CODE="
+        + str(
+            code
+        )
+    )
+
+    print(
+        "ERROR_MESSAGE="
+        + message
+    )
 
 
 def smoke_markers(
@@ -790,9 +819,19 @@ def cmd_dataset(
     config = config.resolve()
 
     if not config.is_file():
-        raise RuntimeError(
-            f"Scenario config not found: {config}"
+        emit_cli_error(
+            "INPUT_NOT_FOUND",
+            (
+                "Scenario config not found: "
+                f"{config}"
+            ),
         )
+
+        print(
+            "BVT_DATASET=FAIL"
+        )
+
+        return 1
 
     runner = (
         ROOT
@@ -801,9 +840,19 @@ def cmd_dataset(
     )
 
     if not runner.is_file():
-        raise RuntimeError(
-            f"Dataset runner not found: {runner}"
+        emit_cli_error(
+            "INTERNAL_ERROR",
+            (
+                "Dataset runner not found: "
+                f"{runner}"
+            ),
         )
+
+        print(
+            "BVT_DATASET=FAIL"
+        )
+
+        return 1
 
     command = [
         blender,
@@ -870,9 +919,17 @@ def cmd_dataset(
     )
 
     interesting_prefixes = (
+        "ERROR_SCHEMA=",
+        "ERROR_CODE=",
+        "ERROR_MESSAGE=",
         "DATASET_DIRECTORY=",
         "MANIFEST=",
+        "CONFIG=",
         "VALIDATION=",
+        "STATISTICS=",
+        "HEALTH=",
+        "HASHES=",
+        "ARCHIVE=",
         "FRAMES=",
         "OBJECTS=",
         "MATERIALS=",
@@ -926,6 +983,46 @@ def cmd_dataset(
             "BVT_DATASET=OK"
         )
         return 0
+
+    if (
+        "ERROR_CODE="
+        not in output
+    ):
+        if has_traceback:
+            code = (
+                "BLENDER_TRACEBACK"
+            )
+
+            message = (
+                "Blender dataset runner "
+                "reported a traceback"
+            )
+
+        elif result.returncode != 0:
+            code = (
+                "PROCESS_FAILED"
+            )
+
+            message = (
+                "Blender dataset process "
+                "returned non-zero exit code "
+                f"{result.returncode}"
+            )
+
+        else:
+            code = (
+                "SUCCESS_MARKER_MISSING"
+            )
+
+            message = (
+                "Dataset process completed "
+                "without the success marker"
+            )
+
+        emit_cli_error(
+            code,
+            message,
+        )
 
     print(
         "BVT_DATASET=FAIL"

@@ -3,7 +3,9 @@ from pathlib import Path
 
 import bpy
 
+from ..core.constants import DATASET_LAYOUT_VERSION
 from ..core.constants import DATASET_MANIFEST_SCHEMA_VERSION
+from ..core.constants import GENERATION_CONFIG_SCHEMA_VERSION
 from ..core.constants import TOOLKIT_VERSION
 from ..core.seeding import FRAME_SEED_STRATEGY
 
@@ -14,6 +16,9 @@ def build_dataset_manifest(
     frames,
     resolution_x,
     resolution_y,
+    generation_config_file=(
+        "config/generation.json"
+    ),
 ):
     return {
         "schema_version": DATASET_MANIFEST_SCHEMA_VERSION,
@@ -26,10 +31,35 @@ def build_dataset_manifest(
             "project_id": settings.project_id,
             "project_name": settings.project_name,
         },
+        "layout": {
+            "version": DATASET_LAYOUT_VERSION,
+            "images_directory": "images",
+            "labels_directory": "labels",
+            "classes_file": "classes.txt",
+            "generation_config_file": (
+                generation_config_file
+            ),
+            "splits": {
+                "train": "splits/train.txt",
+                "validation": "splits/validation.txt",
+                "test": "splits/test.txt",
+            },
+            "statistics_file": "statistics.json",
+            "health_file": "health.json",
+            "validation_file": "validation.json",
+            "hashes_file": "hashes.json",
+            "hashes_file": "hashes.json",
+        },
         "generation": {
             "seed": settings.seed,
             "frame_count": len(frames),
             "frame_seed_strategy": FRAME_SEED_STRATEGY,
+            "config_file": (
+                generation_config_file
+            ),
+            "config_schema_version": (
+                GENERATION_CONFIG_SCHEMA_VERSION
+            ),
         },
         "render": {
             "engine": scene.render.engine,

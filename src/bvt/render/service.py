@@ -13,8 +13,17 @@ from ..camera.randomizer import capture_camera_baseline
 from ..camera.randomizer import restore_camera
 from ..core.constants import DEFAULT_RENDER_RESOLUTION
 from ..core.seeding import derive_frame_seed
+from ..export.archive import export_dataset_zip
+from ..export.config import build_generation_config
+from ..export.config import write_generation_config
+from ..export.hashes import build_dataset_hashes
+from ..export.hashes import write_dataset_hashes
 from ..export.manifest import build_dataset_manifest
 from ..export.manifest import write_manifest
+from ..export.splits import build_dataset_splits
+from ..export.splits import write_dataset_splits
+from ..export.statistics import build_dataset_statistics
+from ..export.statistics import write_dataset_statistics
 from ..lighting.randomizer import apply_random_lighting
 from ..lighting.randomizer import capture_lighting_baseline
 from ..lighting.randomizer import restore_lighting
@@ -26,6 +35,8 @@ from ..retail.edge_cases import capture_retail_edge_case_baseline
 from ..retail.edge_cases import restore_retail_edge_cases
 from ..validation.dataset import validate_dataset
 from ..validation.dataset import write_validation_report
+from ..validation.health import build_dataset_health_report
+from ..validation.health import write_dataset_health_report
 
 
 def resolve_output_directory(settings):
@@ -94,6 +105,20 @@ def generate_dataset(scene):
     images_directory.mkdir(
         parents=True,
         exist_ok=True,
+    )
+
+    config_directory = (
+        dataset_directory / "config"
+    )
+
+    config_directory.mkdir(
+        parents=True,
+        exist_ok=True,
+    )
+
+    generation_config_path = (
+        config_directory
+        / "generation.json"
     )
 
     manifest_path = (
@@ -170,6 +195,20 @@ def generate_dataset(scene):
 
         scene.render.image_settings.file_format = (
             "PNG"
+        )
+
+        generation_config = (
+            build_generation_config(
+                scene=scene,
+                settings=settings,
+                resolution_x=resolution,
+                resolution_y=resolution,
+            )
+        )
+
+        write_generation_config(
+            generation_config_path,
+            generation_config,
         )
 
         for frame_index in range(
@@ -364,6 +403,47 @@ def generate_dataset(scene):
             ],
         }
 
+        split_manifest = (
+            build_dataset_splits(
+                frames=frames,
+                base_seed=settings.seed,
+                train_ratio=(
+                    settings.dataset_split_train
+                ),
+                validation_ratio=(
+                    settings.dataset_split_validation
+                ),
+                test_ratio=(
+                    settings.dataset_split_test
+                ),
+            )
+        )
+
+        manifest["splits"] = (
+            split_manifest
+        )
+
+        split_paths = (
+            write_dataset_splits(
+                dataset_directory,
+                split_manifest,
+            )
+        )
+
+        statistics = (
+            build_dataset_statistics(
+                manifest
+            )
+        )
+
+        statistics_path = (
+            write_dataset_statistics(
+                dataset_directory
+                / "statistics.json",
+                statistics,
+            )
+        )
+
         write_manifest(
             manifest_path,
             manifest,
@@ -378,6 +458,21 @@ def generate_dataset(scene):
             validation_report,
         )
 
+        health_report = (
+            build_dataset_health_report(
+                statistics,
+                validation_report,
+            )
+        )
+
+        health_path = (
+            write_dataset_health_report(
+                dataset_directory
+                / "health.json",
+                health_report,
+            )
+        )
+
         if (
             validation_report["status"]
             != "PASS"
@@ -386,6 +481,28 @@ def generate_dataset(scene):
                 "Dataset validation failed: "
                 f"{len(validation_report['errors'])} error(s)"
             )
+
+        hashes = (
+            build_dataset_hashes(
+                dataset_directory
+            )
+        )
+
+        hashes_path = (
+            write_dataset_hashes(
+                dataset_directory
+                / "hashes.json",
+                hashes,
+            )
+        )
+
+        archive_path = (
+            export_dataset_zip(
+                dataset_directory,
+                output_directory
+                / "dataset.zip",
+            )
+        )
 
     finally:
         scene.frame_set(
@@ -440,12 +557,23 @@ def generate_dataset(scene):
     result = {
         "dataset_directory": dataset_directory,
         "manifest_path": manifest_path,
+        "generation_config_path": (
+            generation_config_path
+        ),
         "classes_path": (
             dataset_directory
             / "classes.txt"
         ),
         "validation_path": validation_path,
         "validation_report": validation_report,
+        "statistics_path": statistics_path,
+        "statistics": statistics,
+        "health_path": health_path,
+        "health_report": health_report,
+        "hashes_path": hashes_path,
+        "hashes": hashes,
+        "archive_path": archive_path,
+        "split_paths": split_paths,
         "image_paths": image_paths,
         "label_paths": label_paths,
     }

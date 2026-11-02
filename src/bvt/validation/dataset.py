@@ -5,6 +5,7 @@ import struct
 from pathlib import Path
 
 from ..core.constants import DATASET_MANIFEST_SCHEMA_VERSION
+from ..core.constants import GENERATION_CONFIG_SCHEMA_VERSION
 
 
 VALIDATION_SCHEMA_VERSION = "bvt-validation-report-1"
@@ -370,6 +371,200 @@ def validate_dataset(dataset_directory):
                 path=manifest_path,
             )
         )
+
+    generation_config_file = (
+        generation.get(
+            "config_file"
+        )
+    )
+
+    generation_config = None
+
+    if not generation_config_file:
+        errors.append(
+            _issue(
+                "error",
+                "generation_config_file_missing",
+                (
+                    "Generation config path "
+                    "is missing from manifest"
+                ),
+                path=manifest_path,
+            )
+        )
+
+    else:
+        try:
+            generation_config_path = (
+                _safe_dataset_path(
+                    dataset_directory,
+                    generation_config_file,
+                )
+            )
+
+        except ValueError as exc:
+            errors.append(
+                _issue(
+                    "error",
+                    "generation_config_path_invalid",
+                    str(exc),
+                    path=generation_config_file,
+                )
+            )
+            generation_config_path = None
+
+        if (
+            generation_config_path
+            is not None
+            and not generation_config_path.is_file()
+        ):
+            errors.append(
+                _issue(
+                    "error",
+                    "generation_config_not_found",
+                    (
+                        "Generation config "
+                        "does not exist"
+                    ),
+                    path=generation_config_path,
+                )
+            )
+
+        elif (
+            generation_config_path
+            is not None
+        ):
+            try:
+                generation_config = json.loads(
+                    generation_config_path.read_text(
+                        encoding="utf-8"
+                    )
+                )
+
+            except (
+                OSError,
+                UnicodeDecodeError,
+                json.JSONDecodeError,
+            ) as exc:
+                errors.append(
+                    _issue(
+                        "error",
+                        "generation_config_invalid_json",
+                        (
+                            "Cannot read generation "
+                            f"config: {exc}"
+                        ),
+                        path=generation_config_path,
+                    )
+                )
+
+    if generation_config is not None:
+        if (
+            generation_config.get(
+                "schema_version"
+            )
+            != GENERATION_CONFIG_SCHEMA_VERSION
+        ):
+            errors.append(
+                _issue(
+                    "error",
+                    "generation_config_schema_mismatch",
+                    (
+                        "Unsupported generation "
+                        "config schema"
+                    ),
+                    path=generation_config_path,
+                )
+            )
+
+        declared_config_schema = (
+            generation.get(
+                "config_schema_version"
+            )
+        )
+
+        if (
+            declared_config_schema
+            != GENERATION_CONFIG_SCHEMA_VERSION
+        ):
+            errors.append(
+                _issue(
+                    "error",
+                    "generation_config_declared_schema_mismatch",
+                    (
+                        "Manifest generation config "
+                        "schema version is invalid"
+                    ),
+                    path=manifest_path,
+                )
+            )
+
+        config_project = (
+            generation_config.get(
+                "project",
+                {},
+            )
+        )
+
+        if (
+            config_project.get(
+                "project_id"
+            )
+            != dataset_info.get(
+                "project_id"
+            )
+        ):
+            errors.append(
+                _issue(
+                    "error",
+                    "generation_config_project_mismatch",
+                    (
+                        "Generation config project ID "
+                        "does not match manifest"
+                    ),
+                    path=generation_config_path,
+                )
+            )
+
+        if (
+            config_project.get(
+                "seed"
+            )
+            != generation.get(
+                "seed"
+            )
+        ):
+            errors.append(
+                _issue(
+                    "error",
+                    "generation_config_seed_mismatch",
+                    (
+                        "Generation config seed "
+                        "does not match manifest"
+                    ),
+                    path=generation_config_path,
+                )
+            )
+
+        if (
+            config_project.get(
+                "frame_count"
+            )
+            != generation.get(
+                "frame_count"
+            )
+        ):
+            errors.append(
+                _issue(
+                    "error",
+                    "generation_config_frame_count_mismatch",
+                    (
+                        "Generation config frame count "
+                        "does not match manifest"
+                    ),
+                    path=generation_config_path,
+                )
+            )
 
     annotations_info = manifest.get(
         "annotations",

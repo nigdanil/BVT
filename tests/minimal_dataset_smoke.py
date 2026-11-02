@@ -20,6 +20,7 @@ sys.path.insert(
 import bpy
 import bvt
 
+from bvt.core.constants import DATASET_MANIFEST_SCHEMA_VERSION
 from bvt.project.service import initialize_project
 from bvt.render.service import generate_minimal_dataset
 
@@ -79,7 +80,7 @@ manifest = json.loads(
 )
 
 
-assert manifest["schema_version"] == "bvt-dataset-manifest-1"
+assert manifest["schema_version"] == DATASET_MANIFEST_SCHEMA_VERSION
 assert manifest["toolkit_version"] == "0.1.0"
 
 assert manifest["dataset"]["project_id"] == settings.project_id

@@ -44,6 +44,42 @@ class BVT_ProjectSettings(bpy.types.PropertyGroup):
         max=MAX_FRAME_COUNT,
     )
 
+    dataset_split_train: FloatProperty(
+        name="Train Split",
+        description=(
+            "Fraction of generated frames "
+            "assigned to the train split"
+        ),
+        default=0.80,
+        min=0.0,
+        max=1.0,
+        subtype="FACTOR",
+    )
+
+    dataset_split_validation: FloatProperty(
+        name="Validation Split",
+        description=(
+            "Fraction of generated frames "
+            "assigned to the validation split"
+        ),
+        default=0.10,
+        min=0.0,
+        max=1.0,
+        subtype="FACTOR",
+    )
+
+    dataset_split_test: FloatProperty(
+        name="Test Split",
+        description=(
+            "Fraction of generated frames "
+            "assigned to the test split"
+        ),
+        default=0.10,
+        min=0.0,
+        max=1.0,
+        subtype="FACTOR",
+    )
+
     placement_randomization_enabled: BoolProperty(
         name="Random Placement",
         description=(

@@ -102,7 +102,8 @@ class BVT_OT_GenerateDataset(bpy.types.Operator):
     bl_idname = "bvt.generate_dataset"
     bl_label = "Generate Dataset"
     bl_description = (
-        "Generate the first BVT dataset"
+        "Generate a validated productized BVT "
+        "dataset and ZIP archive"
     )
 
     def execute(self, context):
@@ -110,21 +111,80 @@ class BVT_OT_GenerateDataset(bpy.types.Operator):
             result = generate_dataset(
                 context.scene,
             )
-        except ValueError as exc:
+
+        except Exception as exc:
+            message = (
+                type(exc).__name__
+                + ": "
+                + str(exc)
+            )
+
             self.report(
                 {"ERROR"},
-                str(exc),
+                message,
             )
+
+            print(
+                "[BVT] Dataset generation failed:",
+                message,
+            )
+
             return {"CANCELLED"}
+
+        archive_path = (
+            result[
+                "archive_path"
+            ]
+        )
+
+        health_status = (
+            result[
+                "health_report"
+            ][
+                "status"
+            ]
+        )
 
         self.report(
             {"INFO"},
-            "BVT dataset generated successfully",
+            (
+                "BVT dataset generated: "
+                f"{archive_path.name} "
+                f"(health={health_status})"
+            ),
         )
 
         print(
             "[BVT] Dataset generated:",
-            result["dataset_directory"],
+            result[
+                "dataset_directory"
+            ],
+        )
+
+        print(
+            "[BVT] Dataset archive:",
+            archive_path,
+        )
+
+        print(
+            "[BVT] Validation:",
+            result[
+                "validation_path"
+            ],
+        )
+
+        print(
+            "[BVT] Health:",
+            result[
+                "health_path"
+            ],
+        )
+
+        print(
+            "[BVT] Hashes:",
+            result[
+                "hashes_path"
+            ],
         )
 
         return {"FINISHED"}
