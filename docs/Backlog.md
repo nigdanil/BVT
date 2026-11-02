@@ -161,7 +161,7 @@ Status: ☑ Completed
 
 Priority: P0
 
-Status: ◐ In Progress
+Status: ☑ Completed
 
 - [x] Freeze Beverage Fridge scene.
 - [x] Freeze synthetic SKU pack.
@@ -176,7 +176,7 @@ Status: ◐ In Progress
 - [x] Known limitations.
 - [x] Demo video.
 - [x] Release Checklist.
-- [ ] GitHub Release/tag.
+- [x] GitHub Release/tag.
 
 ## EP7 — YOLO Benchmark / Sim-to-Real / Research
 

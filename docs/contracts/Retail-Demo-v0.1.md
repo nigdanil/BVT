@@ -1,7 +1,7 @@
 # BVT Retail Demo v0.1 Contract
 
 Version: 0.1
-Status: Release Candidate
+Status: Released
 
 ## Purpose
 
