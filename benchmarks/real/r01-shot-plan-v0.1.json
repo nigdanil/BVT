@@ -1,0 +1,64 @@
+{
+  "schema_version": "bvt-real-shot-plan-1",
+  "dataset_id": "bvt-real-retail-v0.1",
+  "session_id": "R01",
+  "split": "train",
+  "target_images": 50,
+  "environment": "refrigerator",
+  "condition": "front-neutral-light",
+  "camera": "stable-front",
+
+  "purpose": "First real-data capture pilot. Validate physical SKU workflow, annotation ergonomics and real-data validator before collecting R02-R10.",
+
+  "requirements": {
+    "class_count": 8,
+    "all_classes_present_in_session": true,
+    "gps_exif_allowed": false,
+    "faces_allowed": false,
+    "license_plates_allowed": false,
+    "private_documents_allowed": false,
+    "exact_duplicate_frames_allowed": false
+  },
+
+  "groups": [
+    {
+      "group_id": "R01-A",
+      "image_range": "0001-0010",
+      "count": 10,
+      "instruction": "Full frontal shelf view. All eight SKU identities clearly visible. Neutral camera height."
+    },
+    {
+      "group_id": "R01-B",
+      "image_range": "0011-0020",
+      "count": 10,
+      "instruction": "Front view with controlled distance variation. Alternate slightly closer and farther positions."
+    },
+    {
+      "group_id": "R01-C",
+      "image_range": "0021-0030",
+      "count": 10,
+      "instruction": "Small lateral camera shifts while remaining broadly frontal. Do not turn this into an oblique-session condition."
+    },
+    {
+      "group_id": "R01-D",
+      "image_range": "0031-0040",
+      "count": 10,
+      "instruction": "Reset and slightly rearrange product positions. Preserve all eight semantic SKU identities."
+    },
+    {
+      "group_id": "R01-E",
+      "image_range": "0041-0050",
+      "count": 10,
+      "instruction": "Mild natural occlusion and shelf variation. Keep every SKU class represented in the group."
+    }
+  ],
+
+  "acceptance": {
+    "captured_images": 50,
+    "readable_images": 50,
+    "gps_exif_images": 0,
+    "exact_duplicates": 0,
+    "annotation_required_before_dataset_validation": true,
+    "minimum_visible_instances_per_class_in_session": 10
+  }
+}
