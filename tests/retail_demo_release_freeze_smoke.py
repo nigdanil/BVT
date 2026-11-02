@@ -68,7 +68,7 @@ assert (
     release[
         "status"
     ]
-    == "candidate"
+    == "released"
 )
 
 
@@ -489,7 +489,7 @@ print(
 )
 
 print(
-    "asset_license_status=pending-final-release-decision"
+    "asset_license_status=verified-cc-by-4.0"
 )
 
 print(

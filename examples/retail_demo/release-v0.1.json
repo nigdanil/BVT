@@ -74,8 +74,8 @@
     },
     {
       "path": "examples/retail_demo/configs/clean.json",
-      "sha256": "49cfa1be50a77c3c8c911942236be18bb6bde156a54867391dcfe0c6a18e8db4",
-      "size_bytes": 598
+      "sha256": "e01f007c056be4e5c65ca15c75c9c6847e992d233337b97230ac164af6a70a5a",
+      "size_bytes": 578
     },
     {
       "path": "examples/retail_demo/configs/balanced.json",
@@ -84,15 +84,16 @@
     },
     {
       "path": "examples/retail_demo/configs/artifacts.json",
-      "sha256": "32387cba5fe5ceb02a0a917e30d4dd76f154f659a016981f5d177d94e76e0115",
-      "size_bytes": 2362
+      "sha256": "76da211c99db6353ff29d5992b0fe814ff70a058420742ccb38ea5bae15f993a",
+      "size_bytes": 2301
     },
     {
       "path": "examples/retail_demo/configs/stress.json",
-      "sha256": "3168af86fcb7c3593cdea9a9d445ae31ee43cdfe67658373ccf8a1a057cadef2",
-      "size_bytes": 2786
+      "sha256": "a0463f13684467a87b33f9e92e4efdb53192119114d61bd9e69ab36d8b263a2b",
+      "size_bytes": 2715
     }
   ],
+  "integrity_basis": "canonical Git contents at tag v0.1.0; text files normalized according to repository attributes",
   "presets": {
     "artifacts": "examples/retail_demo/configs/artifacts.json",
     "balanced": "examples/retail_demo/configs/balanced.json",
@@ -112,5 +113,5 @@
     "path": "examples/retail_demo/sku/sku-pack-v0.1.json",
     "version": "0.1.0"
   },
-  "status": "candidate"
+  "status": "released"
 }
