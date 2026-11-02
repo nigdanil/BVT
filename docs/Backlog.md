@@ -161,21 +161,21 @@ Status: ☑ Completed
 
 Priority: P0
 
-Status: ☐ Not Started
+Status: ◐ In Progress
 
-- [ ] Freeze Beverage Fridge scene.
-- [ ] Freeze synthetic SKU pack.
-- [ ] Проверить asset licenses/attribution.
-- [ ] Preset `clean`.
-- [ ] Preset `balanced`.
-- [ ] Preset `artifacts`.
-- [ ] Preset `stress`.
-- [ ] Сгенерировать sample dataset.
-- [ ] Quick Start без Python.
-- [ ] Screenshots/sample outputs.
-- [ ] Known limitations.
-- [ ] Demo video.
-- [ ] Release Checklist.
+- [x] Freeze Beverage Fridge scene.
+- [x] Freeze synthetic SKU pack.
+- [x] Проверить asset licenses/attribution.
+- [x] Preset `clean`.
+- [x] Preset `balanced`.
+- [x] Preset `artifacts`.
+- [x] Preset `stress`.
+- [x] Сгенерировать sample dataset.
+- [x] Quick Start без Python.
+- [x] Screenshots/sample outputs.
+- [x] Known limitations.
+- [x] Demo video.
+- [x] Release Checklist.
 - [ ] GitHub Release/tag.
 
 ## EP7 — YOLO Benchmark / Sim-to-Real / Research

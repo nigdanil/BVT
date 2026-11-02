@@ -23,3 +23,5 @@ releases/*.zip
 
 # Generated BVT datasets
 **/bvt_output/
+releases/*.mp4
+releases/*.sha256

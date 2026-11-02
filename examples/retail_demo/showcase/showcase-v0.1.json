@@ -1,0 +1,52 @@
+{
+  "frame_policy": "canonical-frame-000001",
+  "outputs": [
+    {
+      "height": 512,
+      "image": "images/clean.png",
+      "image_sha256": "0f60f139eb575acb2718105a987dc11f766a47898b09a150e506a4e084b3fa22",
+      "label": "labels/clean.txt",
+      "label_sha256": "125c7a79414c6a7e48afec3bdc984287f381225f0c9c8e481aa6a85481ace0aa",
+      "object_count": 18,
+      "preset": "clean",
+      "source_frame": 1,
+      "width": 512
+    },
+    {
+      "height": 512,
+      "image": "images/balanced.png",
+      "image_sha256": "84c2f2556d4ea8637d2876439620026003eec50b3b357e2702a02f73ada05a36",
+      "label": "labels/balanced.txt",
+      "label_sha256": "45c394a10649d66b13979f01d823374fcbda6bdaad06583dd6a33e36415b6206",
+      "object_count": 18,
+      "preset": "balanced",
+      "source_frame": 1,
+      "width": 512
+    },
+    {
+      "height": 512,
+      "image": "images/artifacts.png",
+      "image_sha256": "12a575cff117b275c52a6ea69880626594ad645ba9b9d1f0e570789130f750e2",
+      "label": "labels/artifacts.txt",
+      "label_sha256": "125c7a79414c6a7e48afec3bdc984287f381225f0c9c8e481aa6a85481ace0aa",
+      "object_count": 18,
+      "preset": "artifacts",
+      "source_frame": 1,
+      "width": 512
+    },
+    {
+      "height": 512,
+      "image": "images/stress.png",
+      "image_sha256": "24e984adf91fa787a9484a07155f2f148c3ec324d3050121955b3411fbde7bb6",
+      "label": "labels/stress.txt",
+      "label_sha256": "0d31382b5c85daf7c0b3c683ca12ed371788509e7ff798d7d41cde8d3a365aac",
+      "object_count": 17,
+      "preset": "stress",
+      "source_frame": 1,
+      "width": 512
+    }
+  ],
+  "release_id": "retail-demo-v0.1",
+  "schema_version": "bvt-retail-demo-showcase-1",
+  "source_scene": "examples/retail_demo/scenes/beverage-fridge-v0.1.blend"
+}

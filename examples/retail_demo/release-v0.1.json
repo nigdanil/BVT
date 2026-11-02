@@ -1,0 +1,116 @@
+{
+  "attribution": {
+    "asset_license_spdx": "CC-BY-4.0",
+    "asset_license_status": "verified-cc-by-4.0",
+    "path": "examples/retail_demo/ATTRIBUTIONS.md",
+    "sample_dataset_license_spdx": "CC-BY-4.0",
+    "third_party_assets": 0
+  },
+  "files": [
+    {
+      "path": "examples/retail_demo/scenes/beverage-fridge-v0.1.blend",
+      "sha256": "67df81bbc8b9055fa35e28831aa983dbe6f65cf92b6904646753803f9a7edc51",
+      "size_bytes": 142425
+    },
+    {
+      "path": "examples/retail_demo/assets/geometry-templates-v0.1.blend",
+      "sha256": "0de1abe7ffa660a047d10c5989306dcb8115fbdab5eb647993c20fa076392991",
+      "size_bytes": 105138
+    },
+    {
+      "path": "examples/retail_demo/assets/geometry-templates-v0.1.json",
+      "sha256": "abff1a28f8db463dd1dab68bf229c0f5aa541be8e110c69dc11b9300c7027cf7",
+      "size_bytes": 990
+    },
+    {
+      "path": "examples/retail_demo/sku/sku-pack-v0.1.json",
+      "sha256": "3c883cc227abd951a6ddc28193c17a41e85605c940098ee5776178e5a60138a7",
+      "size_bytes": 5981
+    },
+    {
+      "path": "examples/retail_demo/manifests/beverage-fridge-v0.1.json",
+      "sha256": "7d84403cbca426c8e9f66d93d5c2b38b0c2ffc81c941a707118ce539fb2dfb3b",
+      "size_bytes": 6640
+    },
+    {
+      "path": "examples/retail_demo/textures/bev_can_red_330.png",
+      "sha256": "99ece1042220419c4fb8df2fb05e72a9f07ea0581bd2e2d9025383ee439eb42d",
+      "size_bytes": 1223
+    },
+    {
+      "path": "examples/retail_demo/textures/bev_can_blue_330.png",
+      "sha256": "4651dcd0b77ef29d5b86190bc05d974a7afedde915cd20d5aa0f80305935b103",
+      "size_bytes": 1255
+    },
+    {
+      "path": "examples/retail_demo/textures/bev_bottle_green_500.png",
+      "sha256": "08e32c3ad6c10b4feaed449ec224d76bb06f0df63680e5199679b2c6a66dc7c8",
+      "size_bytes": 1307
+    },
+    {
+      "path": "examples/retail_demo/textures/bev_bottle_amber_500.png",
+      "sha256": "617449aab5e6ab975b41eb42160bd7c7280a6bd0d00e3dcb268cead17c27313e",
+      "size_bytes": 1273
+    },
+    {
+      "path": "examples/retail_demo/textures/bev_carton_orange_1000.png",
+      "sha256": "0d1d4ba54cbbbc8883e782745b5de851a19b15c81ca59470b74f119fe139e5e9",
+      "size_bytes": 1285
+    },
+    {
+      "path": "examples/retail_demo/textures/bev_carton_white_1000.png",
+      "sha256": "7e98fa88f0911c09aa9b21406f86713236ad23bc5b71a0593f039aae0e97da24",
+      "size_bytes": 1325
+    },
+    {
+      "path": "examples/retail_demo/textures/bev_box_purple_250.png",
+      "sha256": "36c7cf1d90a825e47cfd8566b2454687cb3c743db5bcb5445a298efb6617820a",
+      "size_bytes": 1236
+    },
+    {
+      "path": "examples/retail_demo/textures/bev_box_yellow_250.png",
+      "sha256": "56c34ab1e52a75c22827db063dc77169a6de7f608fd5b184f9333dc0bfd862ac",
+      "size_bytes": 1299
+    },
+    {
+      "path": "examples/retail_demo/configs/clean.json",
+      "sha256": "49cfa1be50a77c3c8c911942236be18bb6bde156a54867391dcfe0c6a18e8db4",
+      "size_bytes": 598
+    },
+    {
+      "path": "examples/retail_demo/configs/balanced.json",
+      "sha256": "db3fd55fb5e0b74fb94dc65a2c87e093627eafcc373f604599cfd1580d3c2787",
+      "size_bytes": 2874
+    },
+    {
+      "path": "examples/retail_demo/configs/artifacts.json",
+      "sha256": "32387cba5fe5ceb02a0a917e30d4dd76f154f659a016981f5d177d94e76e0115",
+      "size_bytes": 2362
+    },
+    {
+      "path": "examples/retail_demo/configs/stress.json",
+      "sha256": "3168af86fcb7c3593cdea9a9d445ae31ee43cdfe67658373ccf8a1a057cadef2",
+      "size_bytes": 2786
+    }
+  ],
+  "presets": {
+    "artifacts": "examples/retail_demo/configs/artifacts.json",
+    "balanced": "examples/retail_demo/configs/balanced.json",
+    "clean": "examples/retail_demo/configs/clean.json",
+    "stress": "examples/retail_demo/configs/stress.json"
+  },
+  "release_id": "retail-demo-v0.1",
+  "release_version": "0.1.0",
+  "scene": {
+    "path": "examples/retail_demo/scenes/beverage-fridge-v0.1.blend",
+    "scene_id": "beverage_fridge_v01"
+  },
+  "schema_version": "bvt-retail-demo-release-1",
+  "sku_pack": {
+    "class_count": 8,
+    "pack_id": "retail_demo_sku_pack_v0_1",
+    "path": "examples/retail_demo/sku/sku-pack-v0.1.json",
+    "version": "0.1.0"
+  },
+  "status": "candidate"
+}
