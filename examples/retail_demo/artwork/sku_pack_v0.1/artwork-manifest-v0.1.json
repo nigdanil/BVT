@@ -1,0 +1,108 @@
+{
+  "items": [
+    {
+      "accent_color": "#7A1010",
+      "class_id": 0,
+      "display_name": "Synthetic Red Can 330",
+      "family": "can",
+      "physical_artwork": "examples/retail_demo/artwork/sku_pack_v0.1/bev_can_red_330.svg",
+      "physical_print_allowed": true,
+      "primary_color": "#D94242",
+      "proxy_model_required": true,
+      "sku_id": "bev_can_red_330",
+      "synthetic_texture": "examples/retail_demo/textures/bev_can_red_330.png"
+    },
+    {
+      "accent_color": "#123B79",
+      "class_id": 1,
+      "display_name": "Synthetic Blue Can 330",
+      "family": "can",
+      "physical_artwork": "examples/retail_demo/artwork/sku_pack_v0.1/bev_can_blue_330.svg",
+      "physical_print_allowed": true,
+      "primary_color": "#397BD7",
+      "proxy_model_required": true,
+      "sku_id": "bev_can_blue_330",
+      "synthetic_texture": "examples/retail_demo/textures/bev_can_blue_330.png"
+    },
+    {
+      "accent_color": "#17572B",
+      "class_id": 2,
+      "display_name": "Synthetic Green Bottle 500",
+      "family": "bottle",
+      "physical_artwork": "examples/retail_demo/artwork/sku_pack_v0.1/bev_bottle_green_500.svg",
+      "physical_print_allowed": true,
+      "primary_color": "#3C9C5A",
+      "proxy_model_required": true,
+      "sku_id": "bev_bottle_green_500",
+      "synthetic_texture": "examples/retail_demo/textures/bev_bottle_green_500.png"
+    },
+    {
+      "accent_color": "#70400E",
+      "class_id": 3,
+      "display_name": "Synthetic Amber Bottle 500",
+      "family": "bottle",
+      "physical_artwork": "examples/retail_demo/artwork/sku_pack_v0.1/bev_bottle_amber_500.svg",
+      "physical_print_allowed": true,
+      "primary_color": "#C77B2D",
+      "proxy_model_required": true,
+      "sku_id": "bev_bottle_amber_500",
+      "synthetic_texture": "examples/retail_demo/textures/bev_bottle_amber_500.png"
+    },
+    {
+      "accent_color": "#82400D",
+      "class_id": 4,
+      "display_name": "Synthetic Orange Carton 1000",
+      "family": "carton",
+      "physical_artwork": "examples/retail_demo/artwork/sku_pack_v0.1/bev_carton_orange_1000.svg",
+      "physical_print_allowed": true,
+      "primary_color": "#E7852D",
+      "proxy_model_required": true,
+      "sku_id": "bev_carton_orange_1000",
+      "synthetic_texture": "examples/retail_demo/textures/bev_carton_orange_1000.png"
+    },
+    {
+      "accent_color": "#303641",
+      "class_id": 5,
+      "display_name": "Synthetic White Carton 1000",
+      "family": "carton",
+      "physical_artwork": "examples/retail_demo/artwork/sku_pack_v0.1/bev_carton_white_1000.svg",
+      "physical_print_allowed": true,
+      "primary_color": "#F2F2F0",
+      "proxy_model_required": true,
+      "sku_id": "bev_carton_white_1000",
+      "synthetic_texture": "examples/retail_demo/textures/bev_carton_white_1000.png"
+    },
+    {
+      "accent_color": "#41216E",
+      "class_id": 6,
+      "display_name": "Synthetic Purple Box 250",
+      "family": "box",
+      "physical_artwork": "examples/retail_demo/artwork/sku_pack_v0.1/bev_box_purple_250.svg",
+      "physical_print_allowed": true,
+      "primary_color": "#8357C8",
+      "proxy_model_required": true,
+      "sku_id": "bev_box_purple_250",
+      "synthetic_texture": "examples/retail_demo/textures/bev_box_purple_250.png"
+    },
+    {
+      "accent_color": "#755C0D",
+      "class_id": 7,
+      "display_name": "Synthetic Yellow Box 250",
+      "family": "box",
+      "physical_artwork": "examples/retail_demo/artwork/sku_pack_v0.1/bev_box_yellow_250.svg",
+      "physical_print_allowed": true,
+      "primary_color": "#E2BD37",
+      "proxy_model_required": true,
+      "sku_id": "bev_box_yellow_250",
+      "synthetic_texture": "examples/retail_demo/textures/bev_box_yellow_250.png"
+    }
+  ],
+  "purpose": [
+    "proxy_3d_models",
+    "physical_r01_capture"
+  ],
+  "schema_version": "bvt-sku-artwork-pack-1",
+  "source_sku_pack": "examples/retail_demo/sku/sku-pack-v0.1.json",
+  "source_sku_pack_mutated": false,
+  "version": "0.1.0"
+}

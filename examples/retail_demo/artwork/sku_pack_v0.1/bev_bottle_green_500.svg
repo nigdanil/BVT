@@ -1,0 +1,88 @@
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="1200"
+     height="1500"
+     viewBox="0 0 1200 1500">
+
+  <rect width="1200"
+        height="1500"
+        fill="#3C9C5A"/>
+
+  <rect x="55"
+        y="55"
+        width="1090"
+        height="1390"
+        rx="50"
+        fill="none"
+        stroke="#17572B"
+        stroke-width="20"/>
+
+  <rect x="105"
+        y="105"
+        width="990"
+        height="200"
+        rx="35"
+        fill="#17572B"/>
+
+  <text x="600"
+        y="240"
+        text-anchor="middle"
+        font-family="Arial, Helvetica, sans-serif"
+        font-size="105"
+        font-weight="700"
+        fill="#FFFFFF">BVT</text>
+
+  <text x="600"
+        y="475"
+        text-anchor="middle"
+        font-family="Arial, Helvetica, sans-serif"
+        font-size="75"
+        font-weight="700"
+        fill="#FFFFFF">GREEN BOTTLE</text>
+
+  <rect x="180"
+        y="590"
+        width="840"
+        height="380"
+        rx="55"
+        fill="#17572B"/>
+
+  <text x="600"
+        y="760"
+        text-anchor="middle"
+        font-family="Arial, Helvetica, sans-serif"
+        font-size="150"
+        font-weight="800"
+        fill="#FFFFFF">CLASS 2</text>
+
+  <text x="600"
+        y="880"
+        text-anchor="middle"
+        font-family="Arial, Helvetica, sans-serif"
+        font-size="58"
+        font-weight="700"
+        fill="#FFFFFF">BOTTLE</text>
+
+  <text x="600"
+        y="1110"
+        text-anchor="middle"
+        font-family="Arial, Helvetica, sans-serif"
+        font-size="52"
+        font-weight="700"
+        fill="#FFFFFF">bev_bottle_green_500</text>
+
+  <text x="600"
+        y="1245"
+        text-anchor="middle"
+        font-family="Arial, Helvetica, sans-serif"
+        font-size="42"
+        font-weight="600"
+        fill="#FFFFFF">SKU PACK v0.1</text>
+
+  <text x="600"
+        y="1335"
+        text-anchor="middle"
+        font-family="Arial, Helvetica, sans-serif"
+        font-size="34"
+        fill="#FFFFFF">SYNTHETIC ↔ PHYSICAL</text>
+
+</svg>
