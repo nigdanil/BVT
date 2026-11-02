@@ -154,6 +154,76 @@ assert (
 )
 
 
+glass_material = bpy.data.materials.get(
+    "BVT_Retail_Fridge_Glass"
+)
+
+assert glass_material is not None
+
+assert (
+    glass_material.get(
+        "bvt_glass_render_contract"
+    )
+    == "alpha-blended-v1"
+)
+
+assert (
+    glass_material.surface_render_method
+    == "BLENDED"
+)
+
+assert (
+    glass_material.use_transparency_overlap
+    is False
+)
+
+assert (
+    glass_material.use_raytrace_refraction
+    is False
+)
+
+assert (
+    glass_material.thickness_mode
+    == "SLAB"
+)
+
+
+glass_principled = next(
+    node
+    for node
+    in glass_material.node_tree.nodes
+    if node.type == "BSDF_PRINCIPLED"
+)
+
+
+glass_alpha = (
+    glass_principled.inputs.get(
+        "Alpha"
+    )
+)
+
+assert glass_alpha is not None
+
+assert close(
+    glass_alpha.default_value,
+    0.18,
+)
+
+
+glass_transmission = (
+    glass_principled.inputs.get(
+        "Transmission Weight"
+    )
+)
+
+assert glass_transmission is not None
+
+assert close(
+    glass_transmission.default_value,
+    0.0,
+)
+
+
 # ---------------------------------------------------------
 # Shelves.
 # ---------------------------------------------------------

@@ -21,6 +21,9 @@ from ..lighting.randomizer import restore_lighting
 from ..placement.randomizer import apply_random_placement
 from ..placement.randomizer import capture_placement_baseline
 from ..placement.randomizer import restore_placement
+from ..retail.edge_cases import apply_retail_edge_cases
+from ..retail.edge_cases import capture_retail_edge_case_baseline
+from ..retail.edge_cases import restore_retail_edge_cases
 from ..validation.dataset import validate_dataset
 from ..validation.dataset import write_validation_report
 
@@ -136,6 +139,12 @@ def generate_dataset(scene):
         )
     )
 
+    retail_edge_case_baseline = (
+        capture_retail_edge_case_baseline(
+            scene,
+        )
+    )
+
     camera_baseline = (
         capture_camera_baseline(
             scene,
@@ -182,12 +191,30 @@ def generate_dataset(scene):
                 frame_index,
             )
 
+            # Retail structural state must never leak
+            # from one generated frame into the next.
+            restore_retail_edge_cases(
+                scene,
+                retail_edge_case_baseline,
+            )
+
             placement_result = (
                 apply_random_placement(
                     scene=scene,
                     project_settings=settings,
                     frame_seed=frame_seed,
                     baseline=placement_baseline,
+                )
+            )
+
+            retail_edge_case_result = (
+                apply_retail_edge_cases(
+                    scene=scene,
+                    project_settings=settings,
+                    frame_seed=frame_seed,
+                    baseline=(
+                        retail_edge_case_baseline
+                    ),
                 )
             )
 
@@ -280,6 +307,9 @@ def generate_dataset(scene):
                         yolo_result[
                             "annotations"
                         ]
+                    ),
+                    "retail_edge_cases": (
+                        retail_edge_case_result
                     ),
                     "randomization": {
                         "placement": (
@@ -375,6 +405,11 @@ def generate_dataset(scene):
         restore_camera(
             scene,
             camera_baseline,
+        )
+
+        restore_retail_edge_cases(
+            scene,
+            retail_edge_case_baseline,
         )
 
         restore_placement(

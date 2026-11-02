@@ -156,13 +156,26 @@ def create_material(
 
 
 def create_glass_material():
+    # Retail Dataset Glass Proxy v1
+    #
+    # EEVEE transmission without a dedicated
+    # refraction/raytracing setup can fall back
+    # to probe data and hide the actual shelf
+    # contents behind the door.
+    #
+    # For the synthetic retail dataset we need
+    # deterministic visibility of products first.
+    # Use alpha-blended thin glass and retain the
+    # GLASS material role for Artifact Engine.
+    glass_alpha = 0.18
+
     material = create_material(
         "BVT_Retail_Fridge_Glass",
         (
             0.92,
             0.97,
             1.0,
-            1.0,
+            glass_alpha,
         ),
         0.08,
         MATERIAL_ROLE_GLASS,
@@ -175,6 +188,15 @@ def create_glass_material():
         if node.type == "BSDF_PRINCIPLED"
     )
 
+    alpha = principled.inputs.get(
+        "Alpha"
+    )
+
+    if alpha is not None:
+        alpha.default_value = (
+            glass_alpha
+        )
+
     transmission = (
         principled.inputs.get(
             "Transmission Weight"
@@ -182,7 +204,7 @@ def create_glass_material():
     )
 
     if transmission is not None:
-        transmission.default_value = 0.92
+        transmission.default_value = 0.0
 
     ior = principled.inputs.get(
         "IOR"
@@ -190,6 +212,45 @@ def create_glass_material():
 
     if ior is not None:
         ior.default_value = 1.45
+
+    material.diffuse_color = (
+        0.92,
+        0.97,
+        1.0,
+        glass_alpha,
+    )
+
+    material.surface_render_method = (
+        "BLENDED"
+    )
+
+    material.use_transparency_overlap = (
+        False
+    )
+
+    material.use_raytrace_refraction = (
+        False
+    )
+
+    material.use_transparent_shadow = (
+        True
+    )
+
+    material.thickness_mode = (
+        "SLAB"
+    )
+
+    material[
+        "bvt_glass_render_contract"
+    ] = "alpha-blended-v1"
+
+    material[
+        "bvt_glass_alpha"
+    ] = glass_alpha
+
+    material[
+        "bvt_glass_transmission"
+    ] = 0.0
 
     return material
 

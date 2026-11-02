@@ -80,6 +80,122 @@ class BVT_ProjectSettings(bpy.types.PropertyGroup):
         unit="LENGTH",
     )
 
+    retail_edge_cases_enabled: BoolProperty(
+        name="Retail Edge Cases",
+        description=(
+            "Enable deterministic retail "
+            "scene edge cases"
+        ),
+        default=False,
+    )
+
+    retail_wrong_angle_enabled: BoolProperty(
+        name="Wrong Angle",
+        description=(
+            "Rotate one deterministic product "
+            "around the Z axis per frame"
+        ),
+        default=False,
+    )
+
+    retail_wrong_angle_min_degrees: FloatProperty(
+        name="Wrong Angle Minimum",
+        description=(
+            "Minimum absolute Wrong Angle "
+            "rotation in degrees"
+        ),
+        default=10.0,
+        min=0.0,
+        max=180.0,
+    )
+
+    retail_wrong_angle_max_degrees: FloatProperty(
+        name="Wrong Angle Maximum",
+        description=(
+            "Maximum absolute Wrong Angle "
+            "rotation in degrees"
+        ),
+        default=30.0,
+        min=0.0,
+        max=180.0,
+    )
+
+    retail_wrong_position_enabled: BoolProperty(
+        name="Wrong Position",
+        description=(
+            "Displace one deterministic product "
+            "in X/Y per frame"
+        ),
+        default=False,
+    )
+
+    retail_wrong_position_offset_x: FloatProperty(
+        name="Wrong Position X Range",
+        description=(
+            "Maximum absolute Wrong Position "
+            "X displacement"
+        ),
+        default=0.04,
+        min=0.0,
+        max=1.0,
+        unit="LENGTH",
+    )
+
+    retail_wrong_position_offset_y: FloatProperty(
+        name="Wrong Position Y Range",
+        description=(
+            "Maximum absolute Wrong Position "
+            "Y displacement"
+        ),
+        default=0.03,
+        min=0.0,
+        max=1.0,
+        unit="LENGTH",
+    )
+
+    retail_empty_slot_enabled: BoolProperty(
+        name="Empty Slot",
+        description=(
+            "Hide one deterministic retail "
+            "product and exclude its annotation "
+            "for the generated frame"
+        ),
+        default=False,
+    )
+
+    retail_occlusion_enabled: BoolProperty(
+        name="Occlusion",
+        description=(
+            "Place one deterministic synthetic "
+            "occluder in front of a visible product"
+        ),
+        default=False,
+    )
+
+    retail_occlusion_width_factor: FloatProperty(
+        name="Occlusion Width",
+        description=(
+            "Occluder width relative to "
+            "target product width"
+        ),
+        default=0.45,
+        min=0.05,
+        max=0.95,
+        subtype="FACTOR",
+    )
+
+    retail_occlusion_height_factor: FloatProperty(
+        name="Occlusion Height",
+        description=(
+            "Occluder height relative to "
+            "target product height"
+        ),
+        default=0.70,
+        min=0.05,
+        max=0.95,
+        subtype="FACTOR",
+    )
+
     camera_randomization_enabled: BoolProperty(
         name="Random Camera",
         description=(

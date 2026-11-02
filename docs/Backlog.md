@@ -122,20 +122,20 @@ Status: ☑ Completed
 
 Priority: P0
 
-Status: ☐ Not Started
+Status: ☑ Completed
 
-- [ ] Зафиксировать architecture boundary Placement vs Artifact Engine.
-- [ ] Wrong Angle.
-- [ ] Wrong Position.
-- [ ] Empty Slot.
-- [ ] Occlusion.
-- [ ] Deterministic object selection.
-- [ ] Per-frame reset.
-- [ ] Manifest before/after state.
-- [ ] Bbox/clipping/visibility policy.
-- [ ] Lifecycle tests.
-- [ ] Scene/RGB tests.
-- [ ] Edge-case stress preset.
+- [x] Зафиксировать architecture boundary Placement vs Artifact Engine.
+- [x] Wrong Angle.
+- [x] Wrong Position.
+- [x] Empty Slot.
+- [x] Occlusion.
+- [x] Deterministic object selection.
+- [x] Per-frame reset.
+- [x] Manifest before/after state.
+- [x] Bbox/clipping/visibility policy.
+- [x] Lifecycle tests.
+- [x] Scene/RGB tests.
+- [x] Edge-case stress preset.
 
 ## EP5 — Dataset Productization
 
