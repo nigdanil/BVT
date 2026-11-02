@@ -1,0 +1,6 @@
+# BVT EP7 benchmark runner
+#
+# PyTorch/CUDA builds are platform-specific and will be recorded in the
+# benchmark environment lock during the execution-environment checkpoint.
+
+ultralytics==8.4.198

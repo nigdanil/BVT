@@ -1,0 +1,100 @@
+{
+  "benchmark_phase": "pilot",
+  "protocol_version": "0.1.0",
+  "publication_claim_allowed": false,
+  "records": [
+    {
+      "class_count": 8,
+      "config": "benchmarks/configs/pilot-clean.json",
+      "config_sha256": "eaa18b688b79cfef3f5da92bd2b33f3a4abb8034d6ee8debdaf9d4db356d3b00",
+      "dataset_archive_bytes": 18596655,
+      "dataset_archive_sha256": "475c69eb8681baf039bc40cf73c0c705b3d559eb94e72f6b613cdb1825627aa4",
+      "frame_count": 100,
+      "hash_manifest_file_count": 209,
+      "hash_manifest_sha256": "34ddefdd795a15433343db4c8b8125d68de360d6dc70c29163399742eef7ed88",
+      "health_status": "PASS",
+      "image_count": 100,
+      "label_count": 100,
+      "output_directory": ".tmp/ep7-pilot/clean",
+      "profile": "clean",
+      "role": "training-pilot",
+      "seed": 20261102,
+      "split_counts": {
+        "test": 10,
+        "train": 80,
+        "validation": 10
+      },
+      "validation_status": "PASS"
+    },
+    {
+      "class_count": 8,
+      "config": "benchmarks/configs/pilot-balanced.json",
+      "config_sha256": "165df36b3cc47ee62c2b773b081b82f0347ef56de2bfc83e16dbdc3053565747",
+      "dataset_archive_bytes": 20723008,
+      "dataset_archive_sha256": "0208e05ead4a928fa2bc9366e3f3dadf5830dc6d41df9437419cda9afc634da5",
+      "frame_count": 100,
+      "hash_manifest_file_count": 209,
+      "hash_manifest_sha256": "142fe318c6bd1d7a9915a547af78353a06648c84195675b4c1994b280ef744eb",
+      "health_status": "PASS",
+      "image_count": 100,
+      "label_count": 100,
+      "output_directory": ".tmp/ep7-pilot/balanced",
+      "profile": "balanced",
+      "role": "training-pilot",
+      "seed": 20261102,
+      "split_counts": {
+        "test": 10,
+        "train": 80,
+        "validation": 10
+      },
+      "validation_status": "PASS"
+    },
+    {
+      "class_count": 8,
+      "config": "benchmarks/configs/pilot-artifacts.json",
+      "config_sha256": "350b18b457dad3c15ca33623d1a162ce4749d81869eea39611cb098c7a1ff774",
+      "dataset_archive_bytes": 16233705,
+      "dataset_archive_sha256": "c3f1729a88b7018673258adac208303744858683afd9c1af2605fb7c05c4ff2b",
+      "frame_count": 100,
+      "hash_manifest_file_count": 209,
+      "hash_manifest_sha256": "6d21b5e0795c687223678b8a4df3f8ea72d4330f68120a8ef76237d54d61340b",
+      "health_status": "PASS",
+      "image_count": 100,
+      "label_count": 100,
+      "output_directory": ".tmp/ep7-pilot/artifacts",
+      "profile": "artifacts",
+      "role": "training-pilot",
+      "seed": 20261102,
+      "split_counts": {
+        "test": 10,
+        "train": 80,
+        "validation": 10
+      },
+      "validation_status": "PASS"
+    },
+    {
+      "class_count": 8,
+      "config": "benchmarks/configs/pilot-stress.json",
+      "config_sha256": "2e6395a65da7b046ea3aac4a99232127a603efbeaf1431afe18f244e47c7c393",
+      "dataset_archive_bytes": 15583247,
+      "dataset_archive_sha256": "21ca3483c32431bf9bae89aabaa49614fdc599a416b5fdf7c37ef214cd80f795",
+      "frame_count": 100,
+      "hash_manifest_file_count": 209,
+      "hash_manifest_sha256": "54828373bcdaadc25b08d9ad43132ae0daa3031b9aee2ab1125bf25eaffe2a28",
+      "health_status": "PASS",
+      "image_count": 100,
+      "label_count": 100,
+      "output_directory": ".tmp/ep7-pilot/stress",
+      "profile": "stress",
+      "role": "evaluation-only",
+      "seed": 20261102,
+      "split_counts": {
+        "test": 10,
+        "train": 80,
+        "validation": 10
+      },
+      "validation_status": "PASS"
+    }
+  ],
+  "schema_version": "bvt-benchmark-pilot-datasets-1"
+}

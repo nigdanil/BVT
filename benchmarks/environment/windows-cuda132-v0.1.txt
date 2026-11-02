@@ -1,0 +1,8 @@
+# BVT Benchmark v0.1 Windows NVIDIA environment
+
+torch==2.15.0+cu132
+torchvision==0.29.2+cu132
+ultralytics==8.4.198
+
+# PyTorch CUDA wheels:
+# https://download.pytorch.org/whl/cu132

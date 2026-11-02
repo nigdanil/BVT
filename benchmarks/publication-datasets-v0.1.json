@@ -1,0 +1,119 @@
+{
+  "benchmark_phase": "publication-dataset-generation",
+  "class_count": 8,
+  "evaluation_only_profiles": [
+    "stress"
+  ],
+  "generation_seed": 20261102,
+  "protocol_version": "0.1.0",
+  "publication_claim_allowed": false,
+  "publication_training_frames": 3000,
+  "real_test_completed": false,
+  "records": [
+    {
+      "class_count": 8,
+      "config": "benchmarks/configs/publication-clean.json",
+      "config_sha256": "921891300f67ddebc7ab31fe4a5ed5c1e2e7bd970319b6c7874248cd338ae777",
+      "dataset_archive_bytes": 186119019,
+      "dataset_archive_sha256": "e1555b24525529e5d5e55b2047237a3611d7c345b17136cee47e6e099f75109a",
+      "dataset_statistics_sha256": "12d1ca061a7ef43fec0d93e9af2196d7ed0e79272fc8ef1f7d79124230807c09",
+      "exact_duplicate_images": 0,
+      "frame_count": 1000,
+      "hash_manifest_file_count": 2009,
+      "hash_manifest_sha256": "891106c04003ff51eea1629f2c11602f7c5adc6b9a79d055e19c173928100007",
+      "health_status": "PASS",
+      "image_count": 1000,
+      "label_count": 1000,
+      "profile": "clean",
+      "role": "training-publication",
+      "seed": 20261102,
+      "split_counts": {
+        "test": 100,
+        "train": 800,
+        "validation": 100
+      },
+      "validation_status": "PASS"
+    },
+    {
+      "class_count": 8,
+      "config": "benchmarks/configs/publication-balanced.json",
+      "config_sha256": "110d74ca73bea6c9468fddcb500448ff1a63a4a5e5981b231f43035703dfed3e",
+      "dataset_archive_bytes": 221539319,
+      "dataset_archive_sha256": "d254616f74670144e8a312ede87fe2fe25f3605190570e8392e39faa82178327",
+      "dataset_statistics_sha256": "91122ca91419ab130c950a5440fe06a14f658290c71ad8e61ca6262c00b4337c",
+      "exact_duplicate_images": 0,
+      "frame_count": 1000,
+      "hash_manifest_file_count": 2009,
+      "hash_manifest_sha256": "c9d9c4821286f20cc59eb2e16e54f1b29e874988725fbb367d415bd841efa9df",
+      "health_status": "PASS",
+      "image_count": 1000,
+      "label_count": 1000,
+      "profile": "balanced",
+      "role": "training-publication",
+      "seed": 20261102,
+      "split_counts": {
+        "test": 100,
+        "train": 800,
+        "validation": 100
+      },
+      "validation_status": "PASS"
+    },
+    {
+      "class_count": 8,
+      "config": "benchmarks/configs/publication-artifacts.json",
+      "config_sha256": "2d133f0abb37557522ac007f30c3ebe4f046bda1ccdf5622204985bc5a89d2f8",
+      "dataset_archive_bytes": 162449670,
+      "dataset_archive_sha256": "879d64e2b450cbf7a9eaccc6b2855c899140f77f61fb31a67b7a5329f03bed74",
+      "dataset_statistics_sha256": "5f9bb67034300d7f94385a27f39697b4861702891d96c996d367d70c3d4759a2",
+      "exact_duplicate_images": 0,
+      "frame_count": 1000,
+      "hash_manifest_file_count": 2009,
+      "hash_manifest_sha256": "2a223a920c8c41daf9b5fe597357607c9ae9d50dabaad1d13ead02d3a12cc025",
+      "health_status": "PASS",
+      "image_count": 1000,
+      "label_count": 1000,
+      "profile": "artifacts",
+      "role": "training-publication",
+      "seed": 20261102,
+      "split_counts": {
+        "test": 100,
+        "train": 800,
+        "validation": 100
+      },
+      "validation_status": "PASS"
+    },
+    {
+      "class_count": 8,
+      "config": "benchmarks/configs/publication-stress.json",
+      "config_sha256": "273059278db168ec4691b72aa3beaa37dc94cc8104c65e8924dae2fff6e08c2b",
+      "dataset_archive_bytes": 38952474,
+      "dataset_archive_sha256": "4b09aef3e122e2085815d6e98899867940ffd154611ddefa401f6eb80b4c9acb",
+      "dataset_statistics_sha256": "ded19c5e107fcb065c6c32522e24144a7fad0ff937b435356a4497b2baec3d00",
+      "exact_duplicate_images": 0,
+      "frame_count": 250,
+      "hash_manifest_file_count": 509,
+      "hash_manifest_sha256": "992428788cc4bdfe6badc370ef38f1806fba9a949632b48b33a6c2f5d1847cd4",
+      "health_status": "PASS",
+      "image_count": 250,
+      "label_count": 250,
+      "profile": "stress",
+      "role": "evaluation-only",
+      "seed": 20261102,
+      "split_counts": {
+        "test": 25,
+        "train": 200,
+        "validation": 25
+      },
+      "validation_status": "PASS"
+    }
+  ],
+  "schema_version": "bvt-benchmark-publication-datasets-1",
+  "stress_evaluation_frames": 250,
+  "total_frames": 3250,
+  "training_execution_completed": false,
+  "training_profiles": [
+    "clean",
+    "balanced",
+    "artifacts"
+  ]
+}

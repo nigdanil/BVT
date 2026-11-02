@@ -182,13 +182,13 @@ Status: ☑ Completed
 
 Priority: P1
 
-Status: ☐ Not Started
+Status: ◐ In Progress
 
-- [ ] Freeze benchmark protocol.
-- [ ] Freeze BVT/Blender/model versions.
-- [ ] Synthetic Clean dataset.
-- [ ] Synthetic Balanced dataset.
-- [ ] Synthetic + Artifacts dataset.
+- [x] Freeze benchmark protocol.
+- [x] Freeze BVT/Blender/model versions.
+- [x] Synthetic Clean dataset.
+- [x] Synthetic Balanced dataset.
+- [x] Synthetic + Artifacts dataset.
 - [ ] Real-only baseline.
 - [ ] Real + Synthetic training.
 - [ ] Separate real test set.

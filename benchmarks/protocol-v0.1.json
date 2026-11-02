@@ -1,0 +1,266 @@
+{
+  "schema_version": "bvt-benchmark-protocol-1",
+  "protocol_version": "0.1.0",
+  "status": "frozen-foundation",
+  "research_question": {
+    "primary": "How does BVT synthetic-data composition affect object-detection performance on a fixed real-world test set?",
+    "secondary": [
+      "Does Artifact Engine reduce the synthetic-to-real domain gap?",
+      "Does balanced domain randomization improve real-world generalization?",
+      "How does model robustness change under BVT stress conditions?"
+    ]
+  },
+  "baseline": {
+    "bvt_release": "v0.1.0",
+    "bvt_release_commit": "d40fb3c72386c4c87c55bee2e2e4b0f4f0090bd7",
+    "blender_version": "5.2.3 LTS",
+    "blender_release_line": "5.2 LTS",
+    "ultralytics_version": "8.4.198",
+    "python_target": "3.12",
+    "model_family": "YOLO11",
+    "model": "yolo11n.pt",
+    "task": "detect",
+    "pretrained": true,
+    "pretraining_source": "COCO",
+    "model_weights_sha256": "0ebbc80d4a7680d14987a577cd21342b65ecfd94632bd9a8da63ae6417644ee1",
+    "model_weights_hash_required_before_training": true,
+    "environment_lock": "benchmarks/environment-v0.1.json",
+    "pip_lock": "benchmarks/environment/pip-freeze-v0.1.txt",
+    "torch_version": "2.15.0+cu132",
+    "torchvision_version": "0.29.2+cu132",
+    "cuda_wheel": "cu132",
+    "cuda_runtime": "13.2",
+    "training_device": "cuda:0",
+    "gpu_required": true,
+    "gpu_name": "NVIDIA GeForce RTX 3050"
+  },
+  "class_contract": {
+    "source": "examples/retail_demo/sku/sku-pack-v0.1.json",
+    "class_count": 8,
+    "real_world_requirement": "The real dataset must use physical counterparts of the same eight synthetic SKU identities. Printed synthetic labels or wrappers are preferred so no commercial trademark is required."
+  },
+  "synthetic_datasets": {
+    "pilot_frames_per_training_profile": 100,
+    "publication_frames_per_training_profile": 1000,
+    "split": {
+      "train": 0.8,
+      "validation": 0.1,
+      "test": 0.1
+    },
+    "profiles": {
+      "clean": {
+        "preset": "benchmarks/configs/pilot-clean.json",
+        "training_allowed": true,
+        "purpose": "clean synthetic baseline",
+        "pilot_config": "benchmarks/configs/pilot-clean.json",
+        "publication_config": "benchmarks/configs/publication-clean.json",
+        "benchmark_definition": "Balanced camera/lighting/placement randomization with Artifact Engine disabled."
+      },
+      "balanced": {
+        "preset": "benchmarks/configs/pilot-balanced.json",
+        "training_allowed": true,
+        "purpose": "domain-randomized synthetic baseline with mild artifacts",
+        "pilot_config": "benchmarks/configs/pilot-balanced.json",
+        "publication_config": "benchmarks/configs/publication-balanced.json"
+      },
+      "artifacts": {
+        "preset": "benchmarks/configs/pilot-artifacts.json",
+        "training_allowed": true,
+        "purpose": "Artifact Engine synthetic training condition",
+        "pilot_config": "benchmarks/configs/pilot-artifacts.json",
+        "publication_config": "benchmarks/configs/publication-artifacts.json",
+        "benchmark_definition": "Same non-artifact randomization as Clean with aggressive Artifact Engine enabled."
+      },
+      "stress": {
+        "preset": "benchmarks/configs/pilot-stress.json",
+        "training_allowed": false,
+        "publication_frames": 250,
+        "purpose": "robustness evaluation only",
+        "pilot_config": "benchmarks/configs/pilot-stress.json",
+        "publication_config": "benchmarks/configs/publication-stress.json"
+      }
+    },
+    "publication_evidence": "benchmarks/publication-datasets-v0.1.json",
+    "publication_dataset_status": "generated-and-accepted",
+    "publication_total_frames": 3250
+  },
+  "real_dataset": {
+    "status": "not-yet-collected",
+    "minimum_capture_sessions": 6,
+    "grouping_unit": "capture_session",
+    "split_policy": {
+      "method": "grouped-by-capture-session",
+      "target_train_fraction": 0.7,
+      "target_validation_fraction": 0.15,
+      "target_test_fraction": 0.15
+    },
+    "leakage_rules": [
+      "No frame from the same capture session may appear in more than one split.",
+      "Near-duplicate frames must remain inside one split.",
+      "real_test must never be used for training, augmentation tuning, checkpoint selection or hyperparameter tuning.",
+      "Class taxonomy must match the eight frozen BVT synthetic SKU classes."
+    ],
+    "test_set": {
+      "name": "real_test",
+      "role": "primary-sim-to-real-evaluation",
+      "immutable_after_freeze": true
+    }
+  },
+  "training": {
+    "pilot_seed": 20261102,
+    "publication_seeds": [
+      20261102,
+      20261103,
+      20261104
+    ],
+    "epochs": 100,
+    "patience": 100,
+    "imgsz": 640,
+    "batch": 8,
+    "optimizer": "AdamW",
+    "lr0": 0.001,
+    "amp": true,
+    "deterministic": true,
+    "workers": 4,
+    "device": 0,
+    "rules": [
+      "All compared synthetic training arms use the same image count.",
+      "All compared arms use the same model architecture and pretrained checkpoint.",
+      "Hyperparameters remain frozen across the core comparison.",
+      "Every run stores the resolved Ultralytics arguments.",
+      "Publication results use three fixed seeds and report mean and standard deviation."
+    ]
+  },
+  "experiment_matrix": [
+    {
+      "id": "E01",
+      "name": "synthetic-clean",
+      "training_sources": [
+        "synthetic_clean_train"
+      ],
+      "validation_source": "synthetic_clean_validation",
+      "primary_evaluation": "real_test"
+    },
+    {
+      "id": "E02",
+      "name": "synthetic-balanced",
+      "training_sources": [
+        "synthetic_balanced_train"
+      ],
+      "validation_source": "synthetic_balanced_validation",
+      "primary_evaluation": "real_test"
+    },
+    {
+      "id": "E03",
+      "name": "synthetic-artifacts",
+      "training_sources": [
+        "synthetic_artifacts_train"
+      ],
+      "validation_source": "synthetic_artifacts_validation",
+      "primary_evaluation": "real_test"
+    },
+    {
+      "id": "E04",
+      "name": "real-only",
+      "training_sources": [
+        "real_train"
+      ],
+      "validation_source": "real_validation",
+      "primary_evaluation": "real_test"
+    },
+    {
+      "id": "E05",
+      "name": "real-plus-synthetic-balanced",
+      "training_sources": [
+        "real_train",
+        "synthetic_balanced_train"
+      ],
+      "mixing_policy": "Deterministically sample synthetic images to match the number of real_train images, producing a 1:1 real-to-synthetic image ratio.",
+      "validation_source": "real_validation",
+      "primary_evaluation": "real_test"
+    }
+  ],
+  "evaluation": {
+    "primary_dataset": "real_test",
+    "robustness_dataset": "synthetic_stress",
+    "primary_metric": "mAP50-95",
+    "required_metrics": [
+      "Precision",
+      "Recall",
+      "mAP50",
+      "mAP50-95",
+      "Per-class AP"
+    ],
+    "additional_outputs": [
+      "F1",
+      "confusion matrix",
+      "precision-recall curves",
+      "per-class metrics"
+    ]
+  },
+  "statistics": {
+    "publication_repetitions": 3,
+    "aggregation": "mean-and-standard-deviation",
+    "primary_comparison": "mAP50-95 on real_test",
+    "report_absolute_values": true,
+    "report_delta_vs_synthetic_clean": true,
+    "report_delta_vs_real_only": true,
+    "no_claim_from_single_seed": true
+  },
+  "artifact_research": {
+    "engine_ablation": {
+      "comparison": [
+        "synthetic-clean",
+        "synthetic-artifacts"
+      ],
+      "controlled_non_artifact_randomization": true
+    },
+    "severity_analysis": {
+      "status": "planned",
+      "normalized_levels": [
+        0.0,
+        0.25,
+        0.5,
+        0.75,
+        1.0
+      ],
+      "training_allowed": false,
+      "purpose": "evaluation-only degradation curves"
+    }
+  },
+  "reproducibility": {
+    "required_per_dataset": [
+      "generation config",
+      "manifest",
+      "statistics",
+      "health report",
+      "validation report",
+      "hashes.json"
+    ],
+    "required_per_training_run": [
+      "BVT git tag and commit",
+      "Blender version",
+      "Python version",
+      "Ultralytics version",
+      "PyTorch version",
+      "CUDA version",
+      "GPU model",
+      "model weights SHA-256",
+      "dataset SHA-256",
+      "training seed",
+      "resolved training arguments",
+      "results.csv",
+      "best.pt SHA-256",
+      "last.pt SHA-256"
+    ]
+  },
+  "claim_policy": {
+    "allowed": "Only claims directly supported by the frozen benchmark results.",
+    "forbidden": [
+      "Synthetic data is always better.",
+      "Artifacts always improve accuracy.",
+      "BVT guarantees accuracy improvement.",
+      "BVT outperforms every synthetic-data generator."
+    ]
+  }
+}
