@@ -1,0 +1,2 @@
+# BVT Real Dataset v0.1 tooling
+Pillow==13.0.0

@@ -1,0 +1,37 @@
+{
+  "schema_version": "bvt-real-capture-session-1",
+  "dataset_id": "bvt-real-retail-v0.1",
+  "session_id": "R00",
+  "split": "train",
+  "status": "planned",
+
+  "capture": {
+    "started_at": null,
+    "ended_at": null,
+    "image_count": 0,
+    "device": {
+      "manufacturer": null,
+      "model": null
+    },
+    "environment": null,
+    "lighting": null,
+    "camera_handling": null,
+    "glass_present": null
+  },
+
+  "scene_reset_confirmed": false,
+
+  "privacy": {
+    "faces_present": false,
+    "license_plates_present": false,
+    "private_documents_present": false,
+    "gps_exif_removed": false
+  },
+
+  "annotation": {
+    "status": "not-started",
+    "review_status": "not-started"
+  },
+
+  "notes": null
+}

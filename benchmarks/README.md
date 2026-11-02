@@ -247,6 +247,41 @@ It intentionally does not require `.tmp` dataset archives.
 A missing `.tmp` archive therefore does not invalidate previously
 recorded benchmark evidence.
 
+## Real Dataset v0.1
+
+The real-data foundation is frozen before photography begins.
+
+Target:
+
+```text
+10 independent capture sessions
+500 images total
+
+Train       350
+Validation   50
+Real Test   100
+```
+
+The split unit is the capture session.
+
+Canonical files:
+
+```text
+docs/contracts/Real-Dataset-v0.1.md
+benchmarks/real/capture-plan-v0.1.json
+benchmarks/real/ANNOTATION_POLICY-v0.1.md
+benchmarks/scripts/real_dataset_validator.py
+```
+
+Actual images and labels live under the ignored path:
+
+```text
+benchmarks/real/data-v0.1/
+```
+
+The `Separate real test set` milestone remains open until the real
+images exist and the validator freezes the `real_test` evidence hash.
+
 ## Current EP7 phase
 
 This checkpoint freezes the protocol only.

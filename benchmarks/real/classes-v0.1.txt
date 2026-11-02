@@ -1,0 +1,8 @@
+bev_can_red_330
+bev_can_blue_330
+bev_bottle_green_500
+bev_bottle_amber_500
+bev_carton_orange_1000
+bev_carton_white_1000
+bev_box_purple_250
+bev_box_yellow_250

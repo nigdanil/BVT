@@ -1,0 +1,162 @@
+{
+  "schema_version": "bvt-real-dataset-capture-plan-1",
+  "dataset_id": "bvt-real-retail-v0.1",
+  "dataset_version": "0.1.0",
+  "status": "planned",
+
+  "purpose": "Held-out real-world object-detection dataset for BVT Benchmark v0.1 sim-to-real evaluation.",
+
+  "class_contract": {
+    "class_count": 8,
+    "classes_file": "benchmarks/real/classes-v0.1.txt",
+    "source_sku_pack": "examples/retail_demo/sku/sku-pack-v0.1.json",
+    "physical_identity_policy": "Use physical packages carrying BVT synthetic SKU artwork. Commercial brand identity is not required."
+  },
+
+  "capture_target": {
+    "session_count": 10,
+    "images_per_session": 50,
+    "total_images": 500,
+    "minimum_accepted_images": 400
+  },
+
+  "split_policy": {
+    "unit": "capture_session",
+    "train_sessions": 7,
+    "validation_sessions": 1,
+    "test_sessions": 2,
+    "planned_train_images": 350,
+    "planned_validation_images": 50,
+    "planned_test_images": 100,
+    "real_test_name": "real_test",
+    "test_immutable_after_freeze": true
+  },
+
+  "capture_session_definition": {
+    "independent_session_requires": [
+      "scene or product arrangement reset",
+      "camera position or camera handling reset",
+      "lighting condition explicitly recorded",
+      "new session manifest",
+      "unique session_id"
+    ]
+  },
+
+  "privacy_policy": {
+    "faces_allowed": false,
+    "license_plates_allowed": false,
+    "private_documents_allowed": false,
+    "gps_exif_allowed": false,
+    "commercial_brand_requirement": false
+  },
+
+  "annotation_policy": {
+    "format": "YOLO detection",
+    "normalized_coordinates": true,
+    "class_ids": "0..7",
+    "bbox_semantics": "Match the frozen BVT YOLO exporter convention.",
+    "calibration_reference_images": 20,
+    "test_split_manual_review_fraction": 1.0,
+    "train_validation_manual_review_fraction": 0.2
+  },
+
+  "leakage_policy": {
+    "exact_duplicate_images_allowed": false,
+    "cross_split_near_duplicates_allowed": false,
+    "near_duplicate_algorithm": "dHash-64",
+    "near_duplicate_hamming_threshold": 4,
+    "same_session_multiple_splits_allowed": false,
+    "real_test_used_for_training": false,
+    "real_test_used_for_hyperparameter_tuning": false,
+    "real_test_used_for_checkpoint_selection": false
+  },
+
+  "minimum_class_instances_by_split": {
+    "train": 100,
+    "validation": 10,
+    "test": 20
+  },
+
+  "sessions": [
+    {
+      "session_id": "R01",
+      "split": "train",
+      "target_images": 50,
+      "environment": "refrigerator",
+      "condition": "front-neutral-light",
+      "camera": "stable-front"
+    },
+    {
+      "session_id": "R02",
+      "split": "train",
+      "target_images": 50,
+      "environment": "refrigerator",
+      "condition": "left-oblique-cool-light",
+      "camera": "stable-oblique"
+    },
+    {
+      "session_id": "R03",
+      "split": "train",
+      "target_images": 50,
+      "environment": "refrigerator",
+      "condition": "right-oblique-warm-light",
+      "camera": "stable-oblique"
+    },
+    {
+      "session_id": "R04",
+      "split": "train",
+      "target_images": 50,
+      "environment": "open-shelf",
+      "condition": "front-daylight",
+      "camera": "stable-front"
+    },
+    {
+      "session_id": "R05",
+      "split": "train",
+      "target_images": 50,
+      "environment": "open-shelf",
+      "condition": "oblique-low-light",
+      "camera": "stable-oblique"
+    },
+    {
+      "session_id": "R06",
+      "split": "train",
+      "target_images": 50,
+      "environment": "refrigerator-glass",
+      "condition": "reflection-heavy",
+      "camera": "stable-varied-distance"
+    },
+    {
+      "session_id": "R07",
+      "split": "train",
+      "target_images": 50,
+      "environment": "mixed-retail-mockup",
+      "condition": "handheld-distance-variation",
+      "camera": "handheld"
+    },
+    {
+      "session_id": "R08",
+      "split": "validation",
+      "target_images": 50,
+      "environment": "refrigerator",
+      "condition": "mixed-light-validation",
+      "camera": "handheld"
+    },
+    {
+      "session_id": "R09",
+      "split": "test",
+      "target_images": 50,
+      "environment": "refrigerator",
+      "condition": "unseen-standard-session",
+      "camera": "handheld"
+    },
+    {
+      "session_id": "R10",
+      "split": "test",
+      "target_images": 50,
+      "environment": "refrigerator-glass",
+      "condition": "unseen-domain-shift-reflection-low-light",
+      "camera": "handheld"
+    }
+  ]
+}

@@ -104,6 +104,20 @@
       "name": "real_test",
       "role": "primary-sim-to-real-evaluation",
       "immutable_after_freeze": true
+    },
+    "foundation_status": "frozen-data-not-yet-collected",
+    "contract": "docs/contracts/Real-Dataset-v0.1.md",
+    "capture_plan": "benchmarks/real/capture-plan-v0.1.json",
+    "annotation_policy": "benchmarks/real/ANNOTATION_POLICY-v0.1.md",
+    "session_template": "benchmarks/real/session-template-v0.1.json",
+    "validator": "benchmarks/scripts/real_dataset_validator.py",
+    "local_dataset_root": "benchmarks/real/data-v0.1",
+    "target_total_images": 500,
+    "planned_session_count": 10,
+    "planned_split_images": {
+      "train": 350,
+      "validation": 50,
+      "test": 100
     }
   },
   "training": {
