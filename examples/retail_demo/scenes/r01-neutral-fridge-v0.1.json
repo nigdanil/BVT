@@ -1,0 +1,169 @@
+{
+  "cabinet": {
+    "depth": 0.36,
+    "height": 1.08,
+    "width": 0.92
+  },
+  "camera": {
+    "lens_mm": 52.0,
+    "location": [
+      0.0,
+      -2.049999952316284,
+      0.5799999833106995
+    ],
+    "name": "R01_Neutral_Camera"
+  },
+  "front_direction": "-Y",
+  "glass_enabled": false,
+  "lights": [
+    "R01_Key_Light",
+    "R01_Fill_Light",
+    "R01_Top_Light"
+  ],
+  "placements": [
+    {
+      "class_id": 4,
+      "front_direction": "-Y",
+      "label_object_name": "SKU_Label_bev_carton_orange_1000",
+      "location": [
+        -0.30000001192092896,
+        -0.03500000014901161,
+        0.11999999731779099
+      ],
+      "object_name": "SKU_bev_carton_orange_1000",
+      "shelf_id": "shelf_01",
+      "sku_id": "bev_carton_orange_1000"
+    },
+    {
+      "class_id": 5,
+      "front_direction": "-Y",
+      "label_object_name": "SKU_Label_bev_carton_white_1000",
+      "location": [
+        -0.10000000149011612,
+        -0.03500000014901161,
+        0.11999999731779099
+      ],
+      "object_name": "SKU_bev_carton_white_1000",
+      "shelf_id": "shelf_01",
+      "sku_id": "bev_carton_white_1000"
+    },
+    {
+      "class_id": 6,
+      "front_direction": "-Y",
+      "label_object_name": "SKU_Label_bev_box_purple_250",
+      "location": [
+        0.11999999731779099,
+        -0.03500000014901161,
+        0.11999999731779099
+      ],
+      "object_name": "SKU_bev_box_purple_250",
+      "shelf_id": "shelf_01",
+      "sku_id": "bev_box_purple_250"
+    },
+    {
+      "class_id": 7,
+      "front_direction": "-Y",
+      "label_object_name": "SKU_Label_bev_box_yellow_250",
+      "location": [
+        0.30000001192092896,
+        -0.03500000014901161,
+        0.11999999731779099
+      ],
+      "object_name": "SKU_bev_box_yellow_250",
+      "shelf_id": "shelf_01",
+      "sku_id": "bev_box_yellow_250"
+    },
+    {
+      "class_id": 2,
+      "front_direction": "-Y",
+      "label_object_name": "SKU_Label_bev_bottle_green_500",
+      "location": [
+        -0.18000000715255737,
+        -0.03500000014901161,
+        0.46000000834465027
+      ],
+      "object_name": "SKU_bev_bottle_green_500",
+      "shelf_id": "shelf_02",
+      "sku_id": "bev_bottle_green_500"
+    },
+    {
+      "class_id": 3,
+      "front_direction": "-Y",
+      "label_object_name": "SKU_Label_bev_bottle_amber_500",
+      "location": [
+        0.18000000715255737,
+        -0.03500000014901161,
+        0.46000000834465027
+      ],
+      "object_name": "SKU_bev_bottle_amber_500",
+      "shelf_id": "shelf_02",
+      "sku_id": "bev_bottle_amber_500"
+    },
+    {
+      "class_id": 0,
+      "front_direction": "-Y",
+      "label_object_name": "SKU_Label_bev_can_red_330",
+      "location": [
+        -0.1599999964237213,
+        -0.03500000014901161,
+        0.800000011920929
+      ],
+      "object_name": "SKU_bev_can_red_330",
+      "shelf_id": "shelf_03",
+      "sku_id": "bev_can_red_330"
+    },
+    {
+      "class_id": 1,
+      "front_direction": "-Y",
+      "label_object_name": "SKU_Label_bev_can_blue_330",
+      "location": [
+        0.1599999964237213,
+        -0.03500000014901161,
+        0.800000011920929
+      ],
+      "object_name": "SKU_bev_can_blue_330",
+      "shelf_id": "shelf_03",
+      "sku_id": "bev_can_blue_330"
+    }
+  ],
+  "preview": ".tmp/r01-neutral-fridge-v0.1-preview.png",
+  "render": {
+    "engine": "BLENDER_EEVEE",
+    "exposure": -0.7,
+    "lighting": {
+      "fill_energy": 240.0,
+      "key_energy": 360.0,
+      "top_energy": 170.0
+    },
+    "resolution_x": 1200,
+    "resolution_y": 1600
+  },
+  "role": "r01-neutral-sim-to-real-reference",
+  "scene_id": "r01-neutral-fridge-v0.1",
+  "schema_version": "bvt-r01-neutral-scene-1",
+  "shelf_top_heights_m": {
+    "shelf_01": 0.12,
+    "shelf_02": 0.46,
+    "shelf_03": 0.8
+  },
+  "shelves": [
+    {
+      "name": "R01_Shelf_01",
+      "shelf_id": "shelf_01",
+      "top_z": 0.12
+    },
+    {
+      "name": "R01_Shelf_02",
+      "shelf_id": "shelf_02",
+      "top_z": 0.46
+    },
+    {
+      "name": "R01_Shelf_03",
+      "shelf_id": "shelf_03",
+      "top_z": 0.8
+    }
+  ],
+  "source_proxy_manifest": "examples/retail_demo/assets/sku-proxy-pack-v0.1.json",
+  "source_proxy_pack": "examples/retail_demo/assets/sku-proxy-pack-v0.1.blend",
+  "version": "0.1.0"
+}
