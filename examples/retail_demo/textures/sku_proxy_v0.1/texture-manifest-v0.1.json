@@ -1,0 +1,96 @@
+{
+  "height_px": 1536,
+  "records": [
+    {
+      "class_id": 0,
+      "family": "can",
+      "height_px": 1536,
+      "sku_id": "bev_can_red_330",
+      "source_artwork": "examples/retail_demo/artwork/sku_pack_v0.1/bev_can_red_330.svg",
+      "source_artwork_sha256": "d3cbd34eca36441bc7047df2c5719140be773169e0f28c218cec87fccdff19cc",
+      "texture": "examples/retail_demo/textures/sku_proxy_v0.1/bev_can_red_330.png",
+      "texture_sha256": "c464332acf59d7a734096752f62187bfb2ceba8d147ec0521b284c78e99d30e1",
+      "width_px": 1024
+    },
+    {
+      "class_id": 1,
+      "family": "can",
+      "height_px": 1536,
+      "sku_id": "bev_can_blue_330",
+      "source_artwork": "examples/retail_demo/artwork/sku_pack_v0.1/bev_can_blue_330.svg",
+      "source_artwork_sha256": "e85bc19f955026ece956e5c55f52b0506c28f1cfcf7119d1662b9c5b050871da",
+      "texture": "examples/retail_demo/textures/sku_proxy_v0.1/bev_can_blue_330.png",
+      "texture_sha256": "530168777d3ceabdc0dfbb2abe12ede8ce2e7abbbd0cf19ce35355f68889dc41",
+      "width_px": 1024
+    },
+    {
+      "class_id": 2,
+      "family": "bottle",
+      "height_px": 1536,
+      "sku_id": "bev_bottle_green_500",
+      "source_artwork": "examples/retail_demo/artwork/sku_pack_v0.1/bev_bottle_green_500.svg",
+      "source_artwork_sha256": "f6b495195b2c391ea738620e1368107b663e0bc0d20b5ef52af9d29b9c043ae2",
+      "texture": "examples/retail_demo/textures/sku_proxy_v0.1/bev_bottle_green_500.png",
+      "texture_sha256": "3efa2b7e3586803c5da0ac80334e4baf17ae63ed2c114c129ddfbd8040d7960e",
+      "width_px": 1024
+    },
+    {
+      "class_id": 3,
+      "family": "bottle",
+      "height_px": 1536,
+      "sku_id": "bev_bottle_amber_500",
+      "source_artwork": "examples/retail_demo/artwork/sku_pack_v0.1/bev_bottle_amber_500.svg",
+      "source_artwork_sha256": "e73b2f7b8c41e7fe035191937c5411c54a2ba20387f853d931a12c38109b26b2",
+      "texture": "examples/retail_demo/textures/sku_proxy_v0.1/bev_bottle_amber_500.png",
+      "texture_sha256": "611151582310b72031c06a1619dba7e0bc6d8daaaa0c73896ddd6e2995772485",
+      "width_px": 1024
+    },
+    {
+      "class_id": 4,
+      "family": "carton",
+      "height_px": 1536,
+      "sku_id": "bev_carton_orange_1000",
+      "source_artwork": "examples/retail_demo/artwork/sku_pack_v0.1/bev_carton_orange_1000.svg",
+      "source_artwork_sha256": "2a485afa1aec524731781e4802225417e47d364b39e7cad911da4ac580ec9fee",
+      "texture": "examples/retail_demo/textures/sku_proxy_v0.1/bev_carton_orange_1000.png",
+      "texture_sha256": "912b0db40695b7a24fe5324c1f49129b76a3328fe06a9a7bc961df3157bcbbfd",
+      "width_px": 1024
+    },
+    {
+      "class_id": 5,
+      "family": "carton",
+      "height_px": 1536,
+      "sku_id": "bev_carton_white_1000",
+      "source_artwork": "examples/retail_demo/artwork/sku_pack_v0.1/bev_carton_white_1000.svg",
+      "source_artwork_sha256": "46048d8515084aa2cd3c3dfc9412428e8123816355f3daab9b978609dc9e3358",
+      "texture": "examples/retail_demo/textures/sku_proxy_v0.1/bev_carton_white_1000.png",
+      "texture_sha256": "47a67bad9c281daa2d9b53aafdc9e492941e7bbd58c4a5274cfecab2cf62a62b",
+      "width_px": 1024
+    },
+    {
+      "class_id": 6,
+      "family": "box",
+      "height_px": 1536,
+      "sku_id": "bev_box_purple_250",
+      "source_artwork": "examples/retail_demo/artwork/sku_pack_v0.1/bev_box_purple_250.svg",
+      "source_artwork_sha256": "29bd684f188454a3dce96faabd6e48d03169cf0d74ba9349e4372e46de50f99e",
+      "texture": "examples/retail_demo/textures/sku_proxy_v0.1/bev_box_purple_250.png",
+      "texture_sha256": "f744882c4bf22eeb6583d3fc6af817bcd73244d42361a00657433194fa425f02",
+      "width_px": 1024
+    },
+    {
+      "class_id": 7,
+      "family": "box",
+      "height_px": 1536,
+      "sku_id": "bev_box_yellow_250",
+      "source_artwork": "examples/retail_demo/artwork/sku_pack_v0.1/bev_box_yellow_250.svg",
+      "source_artwork_sha256": "e4eb45a0218279ec2d0a53cb7a77a6b978d3a713721dae3de956af77708c958a",
+      "texture": "examples/retail_demo/textures/sku_proxy_v0.1/bev_box_yellow_250.png",
+      "texture_sha256": "cfc10f8917e5adcd60114b049c43ab068f226e55d8a89828c372ce0ce5ff5af9",
+      "width_px": 1024
+    }
+  ],
+  "schema_version": "bvt-sku-proxy-textures-1",
+  "version": "0.1.0",
+  "width_px": 1024
+}

@@ -1,6 +1,6 @@
 # BVT Physical/Digital SKU Pack v0.1
 
-Status: Foundation
+Status: Proxy Asset Pack Implemented
 
 ## Purpose
 
@@ -89,6 +89,46 @@ SKU_bev_box_yellow_250
 
 Target physical dimensions should approximately correspond to their
 semantic packaging class.
+
+## Implemented proxy asset pack
+
+Blender asset:
+
+```text
+examples/retail_demo/assets/sku-proxy-pack-v0.1.blend
+```
+
+Machine-readable proxy manifest:
+
+```text
+examples/retail_demo/assets/sku-proxy-pack-v0.1.json
+```
+
+High-resolution proxy textures:
+
+```text
+examples/retail_demo/textures/sku_proxy_v0.1/
+```
+
+Texture resolution:
+
+```text
+1024 × 1536
+```
+
+The asset pack contains exactly eight SKU mesh objects and eight
+front-label mesh objects.
+
+Geometry follows the established Retail Demo convention:
+
+```text
+units: meters
+origin: bottom-center
+front_direction: -Y
+```
+
+The proxy pack is additive and does not modify the released Retail Demo
+geometry-template or SKU files.
 
 ## Sim-to-real rule
 

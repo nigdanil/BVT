@@ -1,0 +1,238 @@
+{
+  "blend": "examples/retail_demo/assets/sku-proxy-pack-v0.1.blend",
+  "collection": "BVT_SKU_Proxy_Pack_v0_1",
+  "front_direction": "-Y",
+  "origin": "bottom-center",
+  "records": [
+    {
+      "carton_gable_fraction": null,
+      "class_id": 0,
+      "dimensions": {
+        "depth_m": 0.066,
+        "height_m": 0.115,
+        "width_m": 0.066
+      },
+      "front_direction": "-Y",
+      "label_arc_degrees": 93.965078401455,
+      "label_dimensions_m": {
+        "height": 0.08118,
+        "width": 0.05412
+      },
+      "label_object_name": "SKU_Label_bev_can_red_330",
+      "label_surface": "curved_arc",
+      "location": [
+        -0.63,
+        0.0,
+        0.0
+      ],
+      "object_name": "SKU_bev_can_red_330",
+      "origin": "bottom-center",
+      "package_type": "can",
+      "physical_artwork": "examples/retail_demo/artwork/sku_pack_v0.1/bev_can_red_330.svg",
+      "proxy_texture": "examples/retail_demo/textures/sku_proxy_v0.1/bev_can_red_330.png",
+      "sku_id": "bev_can_red_330"
+    },
+    {
+      "carton_gable_fraction": null,
+      "class_id": 1,
+      "dimensions": {
+        "depth_m": 0.066,
+        "height_m": 0.115,
+        "width_m": 0.066
+      },
+      "front_direction": "-Y",
+      "label_arc_degrees": 93.965078401455,
+      "label_dimensions_m": {
+        "height": 0.08118,
+        "width": 0.05412
+      },
+      "label_object_name": "SKU_Label_bev_can_blue_330",
+      "label_surface": "curved_arc",
+      "location": [
+        -0.45,
+        0.0,
+        0.0
+      ],
+      "object_name": "SKU_bev_can_blue_330",
+      "origin": "bottom-center",
+      "package_type": "can",
+      "physical_artwork": "examples/retail_demo/artwork/sku_pack_v0.1/bev_can_blue_330.svg",
+      "proxy_texture": "examples/retail_demo/textures/sku_proxy_v0.1/bev_can_blue_330.png",
+      "sku_id": "bev_can_blue_330"
+    },
+    {
+      "carton_gable_fraction": null,
+      "class_id": 2,
+      "dimensions": {
+        "depth_m": 0.068,
+        "height_m": 0.225,
+        "width_m": 0.068
+      },
+      "front_direction": "-Y",
+      "label_arc_degrees": 93.965078401455,
+      "label_dimensions_m": {
+        "height": 0.08364,
+        "width": 0.055760000000000004
+      },
+      "label_object_name": "SKU_Label_bev_bottle_green_500",
+      "label_surface": "curved_arc",
+      "location": [
+        -0.27,
+        0.0,
+        0.0
+      ],
+      "object_name": "SKU_bev_bottle_green_500",
+      "origin": "bottom-center",
+      "package_type": "bottle",
+      "physical_artwork": "examples/retail_demo/artwork/sku_pack_v0.1/bev_bottle_green_500.svg",
+      "proxy_texture": "examples/retail_demo/textures/sku_proxy_v0.1/bev_bottle_green_500.png",
+      "sku_id": "bev_bottle_green_500"
+    },
+    {
+      "carton_gable_fraction": null,
+      "class_id": 3,
+      "dimensions": {
+        "depth_m": 0.068,
+        "height_m": 0.225,
+        "width_m": 0.068
+      },
+      "front_direction": "-Y",
+      "label_arc_degrees": 93.965078401455,
+      "label_dimensions_m": {
+        "height": 0.08364,
+        "width": 0.055760000000000004
+      },
+      "label_object_name": "SKU_Label_bev_bottle_amber_500",
+      "label_surface": "curved_arc",
+      "location": [
+        -0.08999999999999997,
+        0.0,
+        0.0
+      ],
+      "object_name": "SKU_bev_bottle_amber_500",
+      "origin": "bottom-center",
+      "package_type": "bottle",
+      "physical_artwork": "examples/retail_demo/artwork/sku_pack_v0.1/bev_bottle_amber_500.svg",
+      "proxy_texture": "examples/retail_demo/textures/sku_proxy_v0.1/bev_bottle_amber_500.png",
+      "sku_id": "bev_bottle_amber_500"
+    },
+    {
+      "carton_gable_fraction": 0.1,
+      "class_id": 4,
+      "dimensions": {
+        "depth_m": 0.075,
+        "height_m": 0.235,
+        "width_m": 0.075
+      },
+      "front_direction": "-Y",
+      "label_arc_degrees": 0.0,
+      "label_dimensions_m": {
+        "height": 0.09224999999999998,
+        "width": 0.06149999999999999
+      },
+      "label_object_name": "SKU_Label_bev_carton_orange_1000",
+      "label_surface": "front_plane",
+      "location": [
+        0.08999999999999997,
+        0.0,
+        0.0
+      ],
+      "object_name": "SKU_bev_carton_orange_1000",
+      "origin": "bottom-center",
+      "package_type": "carton",
+      "physical_artwork": "examples/retail_demo/artwork/sku_pack_v0.1/bev_carton_orange_1000.svg",
+      "proxy_texture": "examples/retail_demo/textures/sku_proxy_v0.1/bev_carton_orange_1000.png",
+      "sku_id": "bev_carton_orange_1000"
+    },
+    {
+      "carton_gable_fraction": 0.1,
+      "class_id": 5,
+      "dimensions": {
+        "depth_m": 0.075,
+        "height_m": 0.235,
+        "width_m": 0.075
+      },
+      "front_direction": "-Y",
+      "label_arc_degrees": 0.0,
+      "label_dimensions_m": {
+        "height": 0.09224999999999998,
+        "width": 0.06149999999999999
+      },
+      "label_object_name": "SKU_Label_bev_carton_white_1000",
+      "label_surface": "front_plane",
+      "location": [
+        0.2699999999999999,
+        0.0,
+        0.0
+      ],
+      "object_name": "SKU_bev_carton_white_1000",
+      "origin": "bottom-center",
+      "package_type": "carton",
+      "physical_artwork": "examples/retail_demo/artwork/sku_pack_v0.1/bev_carton_white_1000.svg",
+      "proxy_texture": "examples/retail_demo/textures/sku_proxy_v0.1/bev_carton_white_1000.png",
+      "sku_id": "bev_carton_white_1000"
+    },
+    {
+      "carton_gable_fraction": null,
+      "class_id": 6,
+      "dimensions": {
+        "depth_m": 0.055,
+        "height_m": 0.145,
+        "width_m": 0.09
+      },
+      "front_direction": "-Y",
+      "label_arc_degrees": 0.0,
+      "label_dimensions_m": {
+        "height": 0.11069999999999999,
+        "width": 0.07379999999999999
+      },
+      "label_object_name": "SKU_Label_bev_box_purple_250",
+      "label_surface": "front_plane",
+      "location": [
+        0.45000000000000007,
+        0.0,
+        0.0
+      ],
+      "object_name": "SKU_bev_box_purple_250",
+      "origin": "bottom-center",
+      "package_type": "box",
+      "physical_artwork": "examples/retail_demo/artwork/sku_pack_v0.1/bev_box_purple_250.svg",
+      "proxy_texture": "examples/retail_demo/textures/sku_proxy_v0.1/bev_box_purple_250.png",
+      "sku_id": "bev_box_purple_250"
+    },
+    {
+      "carton_gable_fraction": null,
+      "class_id": 7,
+      "dimensions": {
+        "depth_m": 0.055,
+        "height_m": 0.145,
+        "width_m": 0.09
+      },
+      "front_direction": "-Y",
+      "label_arc_degrees": 0.0,
+      "label_dimensions_m": {
+        "height": 0.11069999999999999,
+        "width": 0.07379999999999999
+      },
+      "label_object_name": "SKU_Label_bev_box_yellow_250",
+      "label_surface": "front_plane",
+      "location": [
+        0.63,
+        0.0,
+        0.0
+      ],
+      "object_name": "SKU_bev_box_yellow_250",
+      "origin": "bottom-center",
+      "package_type": "box",
+      "physical_artwork": "examples/retail_demo/artwork/sku_pack_v0.1/bev_box_yellow_250.svg",
+      "proxy_texture": "examples/retail_demo/textures/sku_proxy_v0.1/bev_box_yellow_250.png",
+      "sku_id": "bev_box_yellow_250"
+    }
+  ],
+  "schema_version": "bvt-sku-proxy-pack-1",
+  "source_artwork_manifest": "examples/retail_demo/artwork/sku_pack_v0.1/artwork-manifest-v0.1.json",
+  "source_sku_pack": "examples/retail_demo/sku/sku-pack-v0.1.json",
+  "texture_manifest": "examples/retail_demo/textures/sku_proxy_v0.1/texture-manifest-v0.1.json",
+  "units": "meters",
+  "version": "0.1.0"
+}
