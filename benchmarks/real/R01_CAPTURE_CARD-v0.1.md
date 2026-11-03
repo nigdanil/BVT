@@ -26,6 +26,48 @@ front-neutral-light
 stable-front
 ```
 
+## Physical SKU preparation
+
+Use the accepted BVT R01 Physical Print Pack:
+
+```text
+examples/retail_demo/print/r01-v0.1/
+```
+
+Print the appropriate A4 family sheets at exactly:
+
+```text
+100%
+```
+
+Do not use `Fit to page`.
+
+Before cutting any label, measure the printed calibration square.
+
+Expected size:
+
+```text
+50 × 50 mm
+```
+
+Attach the corresponding BVT label to each physical container.
+
+Recommended physical container targets:
+
+```text
+can     66 × 66 × 115 mm
+bottle  68 × 68 × 225 mm
+carton  75 × 75 × 235 mm
+box     90 × 55 × 145 mm
+```
+
+Recommended container tolerance:
+
+```text
+width/depth ±5 mm
+height      ±10 mm
+```
+
 ## Before shooting
 
 Use the same eight semantic SKU identities defined in:

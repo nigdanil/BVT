@@ -1,0 +1,246 @@
+{
+  "calibration_square_mm": 50.0,
+  "container_tolerance_mm": {
+    "height": 10.0,
+    "width_depth": 5.0
+  },
+  "dataset_session": "R01",
+  "fit_to_page": false,
+  "print_dpi": 300,
+  "print_scale_percent": 100,
+  "records": [
+    {
+      "a4_sheet": "examples/retail_demo/print/r01-v0.1/sheets/A4-can-v0.1.svg",
+      "class_id": 0,
+      "family": "can",
+      "label_surface": "curved_arc",
+      "print_dpi": 300,
+      "print_height_mm": 81.18,
+      "print_height_px": 959,
+      "print_png": "examples/retail_demo/print/r01-v0.1/labels/bev_can_red_330-300dpi.png",
+      "print_png_sha256": "c439e557350404351cd47046b31d6c26656f29279b6b0e9024aae5b6ab6c0f4c",
+      "print_svg": "examples/retail_demo/print/r01-v0.1/labels/bev_can_red_330-1to1.svg",
+      "print_svg_sha256": "341b854a9d080f038308c23de041ab226399fd221a3d6f194f4255b85f89919b",
+      "print_width_mm": 54.120000000000005,
+      "print_width_px": 639,
+      "scale_percent": 100,
+      "sku_id": "bev_can_red_330",
+      "source_proxy_texture": "examples/retail_demo/textures/sku_proxy_v0.1/bev_can_red_330.png",
+      "source_proxy_texture_sha256": "c464332acf59d7a734096752f62187bfb2ceba8d147ec0521b284c78e99d30e1",
+      "target_package_dimensions_mm": {
+        "depth": 66.0,
+        "height": 115.0,
+        "width": 66.0
+      }
+    },
+    {
+      "a4_sheet": "examples/retail_demo/print/r01-v0.1/sheets/A4-can-v0.1.svg",
+      "class_id": 1,
+      "family": "can",
+      "label_surface": "curved_arc",
+      "print_dpi": 300,
+      "print_height_mm": 81.18,
+      "print_height_px": 959,
+      "print_png": "examples/retail_demo/print/r01-v0.1/labels/bev_can_blue_330-300dpi.png",
+      "print_png_sha256": "23e1ee3a1fb044dd7792b5e7f85b8168dd854d90f98ff35e5529d59371f98b2f",
+      "print_svg": "examples/retail_demo/print/r01-v0.1/labels/bev_can_blue_330-1to1.svg",
+      "print_svg_sha256": "d4069adf76a9342cfe9374e44520398fafc204a59f75874d4aa3e3f8c46ab693",
+      "print_width_mm": 54.120000000000005,
+      "print_width_px": 639,
+      "scale_percent": 100,
+      "sku_id": "bev_can_blue_330",
+      "source_proxy_texture": "examples/retail_demo/textures/sku_proxy_v0.1/bev_can_blue_330.png",
+      "source_proxy_texture_sha256": "530168777d3ceabdc0dfbb2abe12ede8ce2e7abbbd0cf19ce35355f68889dc41",
+      "target_package_dimensions_mm": {
+        "depth": 66.0,
+        "height": 115.0,
+        "width": 66.0
+      }
+    },
+    {
+      "a4_sheet": "examples/retail_demo/print/r01-v0.1/sheets/A4-bottle-v0.1.svg",
+      "class_id": 2,
+      "family": "bottle",
+      "label_surface": "curved_arc",
+      "print_dpi": 300,
+      "print_height_mm": 83.64,
+      "print_height_px": 988,
+      "print_png": "examples/retail_demo/print/r01-v0.1/labels/bev_bottle_green_500-300dpi.png",
+      "print_png_sha256": "e143b91aaf88f21f552aac8c7e85b68d7efbc2b8f4a2e8792133d4ee8c9d2e15",
+      "print_svg": "examples/retail_demo/print/r01-v0.1/labels/bev_bottle_green_500-1to1.svg",
+      "print_svg_sha256": "c45dd821e29ab37a9bf81195355d75ed74abd3b72fc3da00214f50b4a8be5c89",
+      "print_width_mm": 55.760000000000005,
+      "print_width_px": 659,
+      "scale_percent": 100,
+      "sku_id": "bev_bottle_green_500",
+      "source_proxy_texture": "examples/retail_demo/textures/sku_proxy_v0.1/bev_bottle_green_500.png",
+      "source_proxy_texture_sha256": "3efa2b7e3586803c5da0ac80334e4baf17ae63ed2c114c129ddfbd8040d7960e",
+      "target_package_dimensions_mm": {
+        "depth": 68.0,
+        "height": 225.0,
+        "width": 68.0
+      }
+    },
+    {
+      "a4_sheet": "examples/retail_demo/print/r01-v0.1/sheets/A4-bottle-v0.1.svg",
+      "class_id": 3,
+      "family": "bottle",
+      "label_surface": "curved_arc",
+      "print_dpi": 300,
+      "print_height_mm": 83.64,
+      "print_height_px": 988,
+      "print_png": "examples/retail_demo/print/r01-v0.1/labels/bev_bottle_amber_500-300dpi.png",
+      "print_png_sha256": "682324d35acc90539eefd73cb69d8f2d4eab0e3802df3268669a4bff7b739e9a",
+      "print_svg": "examples/retail_demo/print/r01-v0.1/labels/bev_bottle_amber_500-1to1.svg",
+      "print_svg_sha256": "32d406595cf86d41305ddeb97a84e75280f6c95021353a35107dcf0144000f1e",
+      "print_width_mm": 55.760000000000005,
+      "print_width_px": 659,
+      "scale_percent": 100,
+      "sku_id": "bev_bottle_amber_500",
+      "source_proxy_texture": "examples/retail_demo/textures/sku_proxy_v0.1/bev_bottle_amber_500.png",
+      "source_proxy_texture_sha256": "611151582310b72031c06a1619dba7e0bc6d8daaaa0c73896ddd6e2995772485",
+      "target_package_dimensions_mm": {
+        "depth": 68.0,
+        "height": 225.0,
+        "width": 68.0
+      }
+    },
+    {
+      "a4_sheet": "examples/retail_demo/print/r01-v0.1/sheets/A4-carton-v0.1.svg",
+      "class_id": 4,
+      "family": "carton",
+      "label_surface": "front_plane",
+      "print_dpi": 300,
+      "print_height_mm": 92.24999999999999,
+      "print_height_px": 1090,
+      "print_png": "examples/retail_demo/print/r01-v0.1/labels/bev_carton_orange_1000-300dpi.png",
+      "print_png_sha256": "db3291ab5a561461a62f24c4c5460a65745755590eb27b5c728105704eb4d8e0",
+      "print_svg": "examples/retail_demo/print/r01-v0.1/labels/bev_carton_orange_1000-1to1.svg",
+      "print_svg_sha256": "a657e57c39d16833ce7ecaca94eadf150cecdc1d308f26dea12260561851cc06",
+      "print_width_mm": 61.49999999999999,
+      "print_width_px": 726,
+      "scale_percent": 100,
+      "sku_id": "bev_carton_orange_1000",
+      "source_proxy_texture": "examples/retail_demo/textures/sku_proxy_v0.1/bev_carton_orange_1000.png",
+      "source_proxy_texture_sha256": "912b0db40695b7a24fe5324c1f49129b76a3328fe06a9a7bc961df3157bcbbfd",
+      "target_package_dimensions_mm": {
+        "depth": 75.0,
+        "height": 235.0,
+        "width": 75.0
+      }
+    },
+    {
+      "a4_sheet": "examples/retail_demo/print/r01-v0.1/sheets/A4-carton-v0.1.svg",
+      "class_id": 5,
+      "family": "carton",
+      "label_surface": "front_plane",
+      "print_dpi": 300,
+      "print_height_mm": 92.24999999999999,
+      "print_height_px": 1090,
+      "print_png": "examples/retail_demo/print/r01-v0.1/labels/bev_carton_white_1000-300dpi.png",
+      "print_png_sha256": "f0c8f87f6e3c55da805d1bcfc6fe7b1edc8b6bd42085dfeac42e8207713cd976",
+      "print_svg": "examples/retail_demo/print/r01-v0.1/labels/bev_carton_white_1000-1to1.svg",
+      "print_svg_sha256": "f0b55dfb95b067bc83e8d4e68cee80dabbe7c93a2d09173d9ad9c839035c91ba",
+      "print_width_mm": 61.49999999999999,
+      "print_width_px": 726,
+      "scale_percent": 100,
+      "sku_id": "bev_carton_white_1000",
+      "source_proxy_texture": "examples/retail_demo/textures/sku_proxy_v0.1/bev_carton_white_1000.png",
+      "source_proxy_texture_sha256": "47a67bad9c281daa2d9b53aafdc9e492941e7bbd58c4a5274cfecab2cf62a62b",
+      "target_package_dimensions_mm": {
+        "depth": 75.0,
+        "height": 235.0,
+        "width": 75.0
+      }
+    },
+    {
+      "a4_sheet": "examples/retail_demo/print/r01-v0.1/sheets/A4-box-v0.1.svg",
+      "class_id": 6,
+      "family": "box",
+      "label_surface": "front_plane",
+      "print_dpi": 300,
+      "print_height_mm": 110.69999999999999,
+      "print_height_px": 1307,
+      "print_png": "examples/retail_demo/print/r01-v0.1/labels/bev_box_purple_250-300dpi.png",
+      "print_png_sha256": "ade3dd97c4aa0e5c609a359f96392bbf4feaa6f0361a377b998787b6cf46f134",
+      "print_svg": "examples/retail_demo/print/r01-v0.1/labels/bev_box_purple_250-1to1.svg",
+      "print_svg_sha256": "335f24938c3fc083ae509944e448856646dc9c44ad1590f251a2666bdeb37628",
+      "print_width_mm": 73.8,
+      "print_width_px": 872,
+      "scale_percent": 100,
+      "sku_id": "bev_box_purple_250",
+      "source_proxy_texture": "examples/retail_demo/textures/sku_proxy_v0.1/bev_box_purple_250.png",
+      "source_proxy_texture_sha256": "f744882c4bf22eeb6583d3fc6af817bcd73244d42361a00657433194fa425f02",
+      "target_package_dimensions_mm": {
+        "depth": 55.0,
+        "height": 145.0,
+        "width": 90.0
+      }
+    },
+    {
+      "a4_sheet": "examples/retail_demo/print/r01-v0.1/sheets/A4-box-v0.1.svg",
+      "class_id": 7,
+      "family": "box",
+      "label_surface": "front_plane",
+      "print_dpi": 300,
+      "print_height_mm": 110.69999999999999,
+      "print_height_px": 1307,
+      "print_png": "examples/retail_demo/print/r01-v0.1/labels/bev_box_yellow_250-300dpi.png",
+      "print_png_sha256": "0eb61ec48e0cfff7cda94468e1437bc69d6da06e0bf176360c261d5e38d32d41",
+      "print_svg": "examples/retail_demo/print/r01-v0.1/labels/bev_box_yellow_250-1to1.svg",
+      "print_svg_sha256": "15f6bf45138f68cdc4aa4070a4dfa3bd3a3b209057ddedd82110019be9ff4780",
+      "print_width_mm": 73.8,
+      "print_width_px": 872,
+      "scale_percent": 100,
+      "sku_id": "bev_box_yellow_250",
+      "source_proxy_texture": "examples/retail_demo/textures/sku_proxy_v0.1/bev_box_yellow_250.png",
+      "source_proxy_texture_sha256": "cfc10f8917e5adcd60114b049c43ab068f226e55d8a89828c372ce0ce5ff5af9",
+      "target_package_dimensions_mm": {
+        "depth": 55.0,
+        "height": 145.0,
+        "width": 90.0
+      }
+    }
+  ],
+  "schema_version": "bvt-r01-print-pack-1",
+  "sheets": [
+    {
+      "calibration_square_mm": 50.0,
+      "family": "can",
+      "file": "examples/retail_demo/print/r01-v0.1/sheets/A4-can-v0.1.svg",
+      "page_height_mm": 297.0,
+      "page_width_mm": 210.0,
+      "scale_percent": 100,
+      "sha256": "30eaf641586e9f6d763fc32019a1f168c447f1ad0bb255a6f5ab232af89de5ae"
+    },
+    {
+      "calibration_square_mm": 50.0,
+      "family": "bottle",
+      "file": "examples/retail_demo/print/r01-v0.1/sheets/A4-bottle-v0.1.svg",
+      "page_height_mm": 297.0,
+      "page_width_mm": 210.0,
+      "scale_percent": 100,
+      "sha256": "0e99359b29c6713b495a0906102d0c2e1139ce201024ec104b078f560f294a4a"
+    },
+    {
+      "calibration_square_mm": 50.0,
+      "family": "carton",
+      "file": "examples/retail_demo/print/r01-v0.1/sheets/A4-carton-v0.1.svg",
+      "page_height_mm": 297.0,
+      "page_width_mm": 210.0,
+      "scale_percent": 100,
+      "sha256": "3786879cf25c7a4bdeb8072ae68720ceb0a16b047d0a595ae3345eb96f3aecc3"
+    },
+    {
+      "calibration_square_mm": 50.0,
+      "family": "box",
+      "file": "examples/retail_demo/print/r01-v0.1/sheets/A4-box-v0.1.svg",
+      "page_height_mm": 297.0,
+      "page_width_mm": 210.0,
+      "scale_percent": 100,
+      "sha256": "e1c81dd47f9b0f00ab6f9651e1caf725defdecbeb8046b48695b1dd6cef15f0a"
+    }
+  ],
+  "source_proxy_manifest": "examples/retail_demo/assets/sku-proxy-pack-v0.1.json",
+  "version": "0.1.0"
+}
